@@ -9,6 +9,17 @@ Add the following submodule to your symfony2 project:
     git submodule add git://github.com/beberlei/Whitewashing.git src/Bundle/Whitewashing
     git submodule update --init
 
+Because i am not very fond of the Bundle prefix requirement I have written the whole bundle in the `Whitewashing`
+main namespace. That means you have to make certain additional configurations to your application kernel.
+
+Add the following to the `AppKernel#registerBundleDirs()` method:
+
+    'Whitewashing'       => __DIR__.'/../src/Bundle/Whitewashing',
+
+Register the bundle in your `AppKernel#registerBundles` method:
+
+    new Whitewashing\BlogBundle\BlogBundle(),
+
 Add the following to your app configuration.
 
     whitewashing:

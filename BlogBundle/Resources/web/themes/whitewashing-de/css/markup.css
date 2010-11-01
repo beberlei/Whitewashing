@@ -1,0 +1,247 @@
+pre .default {
+    background-color:inherit;
+    color:#FFFFFF;
+    font-weight:bold;
+}
+pre .keyword {
+    background-color:inherit;
+    color:#FFCC66;
+    font-weight:bold;
+}
+pre .string {
+    background-color:inherit;
+    color:#99FF00;
+    font-weight:bold;
+}
+pre .comment {
+    background-color:inherit;
+    color:#BD48B3;
+    font-style:italic;
+    font-weight:bold;
+}
+.php .imp {
+    color:red;
+    font-weight:bold;
+}
+.php .kw1 {
+    color:#FF8400;
+}
+.php .kw2 {
+    color:#FFCC66;
+}
+.php .kw3 {
+    color:#07DFFC;
+}
+.php .co1 {
+    color:#BD48B3;
+    font-style:italic;
+}
+.php .co2 {
+    color:#BD48B3;
+    font-style:italic;
+}
+.php .coMULTI {
+    color:#BD48B3;
+    font-style:italic;
+}
+.php .es0 {
+    color:#DDDDDD;
+}
+.php .br0 {
+    color:#FFFFFF;
+}
+.php .st0 {
+    color:#99FF00;
+}
+.php .nu0 {
+    color:#66CC66;
+}
+.php .me1 {
+    color:#FFCC66;
+}
+.php .me2 {
+    color:#FFCC66;
+}
+.php .re0 {
+    color:#FFFFFF;
+}
+.php a {
+    text-decoration:none;
+}
+.xml .imp {
+    color:red;
+    font-weight:bold;
+}
+.xml .coMULTI {
+    color:#BD48B3;
+    font-style:italic;
+}
+.xml .es0 {
+    color:#0000AA;
+    font-weight:bold;
+}
+.xml .br0 {
+    color:#66CC66;
+}
+.xml .st0 {
+    color:#99FF00;
+}
+.xml .nu0 {
+    color:#CC66CC;
+}
+.xml .sc0 {
+    color:#00BBDD;
+}
+.xml .sc1 {
+    color:#DDBB00;
+}
+.xml .sc2 {
+    color:#339933;
+}
+.xml .sc3 {
+    color:#FFFFFF;
+}
+.xml .re0 {
+    color:#FFFF99;
+}
+.xml .re1 {
+    color:#FFCC66;
+}
+.xml .re2 {
+    color:#FFCC66;
+}
+.css .imp {
+    color:red;
+    font-weight:bold;
+}
+.css .kw1 {
+    color:#FFFFFF;
+}
+.css .kw2 {
+    color:#993333;
+}
+.css .co1 {
+    color:#A1A100;
+}
+.css .coMULTI {
+    color:#808080;
+    font-style:italic;
+}
+.css .es0 {
+    color:#000099;
+    font-weight:bold;
+}
+.css .br0 {
+    color:#66CC66;
+}
+.css .st0 {
+    color:#FF0000;
+}
+.css .nu0 {
+    color:#CC66CC;
+}
+.css .re0 {
+    color:#CC00CC;
+}
+.css .re1 {
+    color:#6666FF;
+}
+.css .re2 {
+    color:#3333FF;
+}
+.javascript .imp {
+    color:red;
+    font-weight:bold;
+}
+.javascript .kw1 {
+    color:#FF8400;
+}
+.javascript .kw2 {
+    color:#FFCC66;
+}
+.javascript .kw3 {
+    color:#07DFFC;
+}
+.javascript .co1 {
+    color:#BD48B3;
+    font-style:italic;
+}
+.javascript .coMULTI {
+    color:#BD48B3;
+    font-style:italic;
+}
+.javascript .es0 {
+    color:#000099;
+}
+.javascript .br0 {
+    color:#FFFFFF;
+}
+.javascript .st0 {
+    color:#99FF00;
+}
+.javascript .nu0 {
+    color:#66CC66;
+}
+.javascript .me1 {
+    color:#FFCC66;
+}
+.javascript .re0 {
+    color:#FFFFFF;
+}
+pre {
+    background-color:#222222;
+    border: 2px solid #222;
+    color:#FFFFFF;
+    font-family:"Bitstream Vera Sans Mono",monospace;
+    font-size:13px;
+    line-height:17px;
+    margin-bottom:15px;
+    margin-left:30px;
+    margin-right:30px;
+    overflow:auto;
+    padding:10px;
+}
+pre:hover {
+    border: 2px solid #000;
+}
+pre.command-line {
+    background-color:#000000;
+    color:#FFFFFF;
+}
+pre.url {
+    background-color:#FFFFFF;
+    color:#000066;
+}
+pre.url code {
+    font-family:"Bitstream Vera Sans Mono",monospace;
+}
+.yaml_top_dashes {
+    color:#CC8865;
+}
+.yaml_keys {
+    color:#FFFFDD;
+}
+.yaml_colon {
+    color:#5598EE;
+}
+.yaml_string {
+    color:#9EE665;
+}
+.yaml_integer {
+    color:#57AAFF;
+}
+.yaml_float {
+    color:#57AAFF;
+}
+.yaml_decimal {
+    color:#57AAFF;
+}
+.yaml_boolean {
+    color:#57AAFF;
+}
+.yaml_array {
+    color:#FFFFFF;
+}
+.yaml_comment {
+    color:#DDDDDD;
+}

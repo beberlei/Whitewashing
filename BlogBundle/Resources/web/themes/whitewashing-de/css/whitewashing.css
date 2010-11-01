@@ -1,0 +1,127 @@
+body {
+    margin-top: 10px;
+}
+p, li {
+    font-size: 11pt;
+}
+
+ul.imagedList {
+    list-style-type: none;
+    padding-left: 10px;
+}
+ul.imagedList img {
+    float: left;
+    padding-right: 8px;
+}
+ul.imagedList li a, ul.imagedList li a:visited, ul.imagedList li a:active, ul.imagedList li a:hover {
+    color: #000;
+    text-decoration: none;
+}
+div.pagefooter ul.imagedList li a {
+    color: #fff;
+}
+
+div.pagefooter {
+    color: #fff;
+    border-top: 3px solid #000;
+    background-color: #3F3F3F;
+    margin-top: 20px;
+    padding-top: 20px;
+}
+div.pagefooter a {
+    color: #fff;
+}
+div.pagefooter li {
+    font-size: 9pt;
+}
+
+div.footer {
+    font-style: italic;
+    text-align: right;
+}
+
+h1, h2, h3 {
+    border-bottom: 1px dashed #000;
+}
+h1 a, h2 a, h3 a {
+    text-decoration: none;
+    color: #000;
+}
+h4 {
+    font-weight: bold;
+}
+div.pagefooter h4 {
+    color: #fff;
+}
+div.pagefooter div.copyright {
+    text-align: center;
+    margin-bottom: 10px;
+}
+div.references {
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+#menu h3 {
+    margin-bottom: 4px;
+    padding-bottom: 4px;
+}
+
+img.logo {
+    border: 1px solid #000;
+    margin-bottom: 10px;
+}
+
+#menu p {
+    text-align: justify;
+}
+
+#menu p.buttons {
+    margin-top: 20px;
+    text-align: center;
+}
+
+ul.socialBookmarks {
+    list-style-type: none;
+}
+ul.socialBookmarks li {
+    float:left;
+    margin-right: 4px;
+}
+
+ul.tagcloud {
+    list-style-type: none;
+    padding-left: 8px;
+    padding: 2px; line-height: 2.5em; text-align: center;
+}
+ul.tagcloud li {
+    float: left;
+    margin-right: 4px;
+}
+ul.tagcloud li.tag1 { font-size: 1.2em; font-weight: 100; }
+ul.tagcloud li.tag2 { font-size: 1.6em; font-weight: 200; }
+ul.tagcloud li.tag3 { font-size: 1.8em; font-weight: 300; }
+ul.tagcloud li.tag4 { font-size: 2.2em; font-weight: 400; }
+ul.tagcloud li.tag5 { font-size: 2.5em; font-weight: 500; }
+
+div.comment {
+    margin-bottom: 10px;
+}
+
+div.comment div.author {
+    height: 120px;
+}
+div.comment div.author img {
+    border: 1px solid #000;
+}
+div.comment div.text {
+    min-height: 120px;
+    border: 3px solid #c4c4c4;
+    background-color: #f2f2f2;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+}
+div.comment div.text p {
+    padding: 8px;
+}

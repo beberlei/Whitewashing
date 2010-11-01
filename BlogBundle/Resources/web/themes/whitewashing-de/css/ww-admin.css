@@ -1,0 +1,21 @@
+ul.menu {
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+    margin-bottom: 20px;
+}
+ul.menu li {
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+
+    font-weight: bold;
+
+    border: 1px solid #ccc;
+    background-color: #f4f4f4;
+    margin-bottom: 2px;
+    width: 140px;
+}
+ul.menu li {
+    padding: 2px;
+}
