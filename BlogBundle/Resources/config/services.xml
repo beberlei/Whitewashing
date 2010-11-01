@@ -1,0 +1,61 @@
+<?xml version="1.0" ?>
+<container xmlns="http://www.symfony-project.org/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="whitewashing.blog.postservice.class">Whitewashing\Blog\PostService</parameter>
+        <parameter key="whitewashing.blog.blogservice.class">Whitewashing\Blog\BlogService</parameter>
+        <parameter key="whitewashing.blog.feedservice.class">Whitewashing\Blog\FeedService</parameter>
+        <parameter key="whitewashing.core.userservice.class">Whitewashing\Core\UserService</parameter>
+        <parameter key="whitewashing.core.mailservice.class">Whitewashing\Core\NullMailService</parameter>
+        
+        <parameter key="whitewashing.templating.posts.class">Whitewashing\BlogBundle\View\Posts</parameter>
+        <parameter key="whitewashing.templating.comments.class">Whitewashing\BlogBundle\View\Comments</parameter>
+        <parameter key="whitewashing.templating.adminnav.class">Whitewashing\BlogBundle\View\AdminNav</parameter>
+        
+        <parameter key="whitewashing.host_url">http://localhost</parameter>
+        <parameter key="whitewashing.blog.default_id">1</parameter>
+    </parameters>
+
+    <services>
+        <service id="whitewashing.blog.postservice" class="%whitewashing.blog.postservice.class%">
+            <argument type="service" id="doctrine.orm.default_entity_manager" />
+        </service>
+        <service id="whitewashing.blog.blogservice" class="%whitewashing.blog.blogservice.class%">
+            <argument type="service" id="doctrine.orm.default_entity_manager" />
+        </service>
+        <service id="whitewashing.blog.feedservice" class="%whitewashing.blog.feedservice.class%">
+            <argument type="service" id="doctrine.orm.default_entity_manager" />
+            <argument type="service" id="whitewashing.blog.urlgenerator" />
+        </service>
+        <service id="whitewashing.core.userservice" class="%whitewashing.core.userservice.class%">
+            <argument type="service" id="doctrine.orm.default_entity_manager" />
+            <argument type="service" id="whitewashing.core.mailservice" />
+        </service>
+        <service id="whitewashing.core.mailservice" class="%whitewashing.core.mailservice.class%"></service>
+
+        <service id="whitewashing.blog.urlgenerator" class="Whitewashing\Blog\UrlGenerator">
+            <argument type="service" id="router" />
+            <argument>%whitewashing.host_url%</argument>
+        </service>
+
+        <service id="templating.helper.adminnav" class="%whitewashing.templating.adminnav.class%">
+            <tag name="templating.helper" alias="adminNav" />
+            <argument type="service" id="templating.engine" />
+        </service>
+
+        <service id="templating.helper.posts" class="%whitewashing.templating.posts.class%">
+            <tag name="templating.helper" alias="posts" />
+            <argument type="service" id="whitewashing.blog.postservice" />
+            <argument type="service" id="templating.engine" />
+        </service>
+
+        <service id="templating.helper.comments" class="%whitewashing.templating.comments.class%">
+            <tag name="templating.helper" alias="comments" />
+            <argument type="service" id="whitewashing.blog.postservice" />
+            <argument type="service" id="templating.engine" />
+        </service>
+    </services>
+
+</container>

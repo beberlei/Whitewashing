@@ -1,0 +1,79 @@
+homepage:
+  pattern: /
+  defaults: { _controller: BlogBundle:Blog:index }
+
+blog:
+  pattern: /blog
+  defaults: { _controller: BlogBundle:Blog:index }
+
+blog_admin_login:
+  pattern: /blog/admin/login
+  defaults: { _controller: BlogBundle:AdminPost:login }
+
+blog_admin_dashboard:
+  pattern: /blog/admin
+  defaults: { _controller: BlogBundle:AdminPost:index }
+
+blog_show_tag:
+  pattern: /blog/tag/:tagName
+  defaults: { _controller: BlogBundle:Blog:tag }
+
+blog_feed:
+  pattern: /blog/feed
+  defaults: { _controller: BlogBundle:Feed:index }
+
+blog_feed_tags:
+  pattern: /blog/tag/:tagName/feed
+  defaults: { _controller: BlogBundle:Feed:tag }
+
+blog_feed_category:
+  pattern: /blog/category/:categoryShort/feed
+  defaults: { _controller: BlogBundle:Feed:category }
+
+blog_write_comment:
+  pattern: /blog/comment/:postId
+  defaults: { _controller: BlogBundle:Blog:comment }
+
+blog_post_new:
+  pattern: /blog/posts/new
+  defaults: { _controller: BlogBundle:AdminPost:new }
+
+blog_post_edit:
+  pattern: /blog/posts/:id/edit
+  defaults: { _controller: BlogBundle:AdminPost:edit }
+
+blog_post_delete:
+  pattern: /blog/posts/:id/delete
+  defaults: { _controller: BlogBundle:AdminPost:delete }
+
+blog_post_admin:
+  pattern: /blog/posts/manage
+  defaults: { _controller: BlogBundle:AdminPost:manage }
+
+blog_search_build:
+  pattern: /blog/search/build-index
+  defaults: { _controller: BlogBundle:Search:buildIndex }
+
+blog_post_search:
+  pattern: /blog/search
+  defaults: { _controller: BlogBundle:Search:query }
+
+blog_show_post:
+  pattern: /blog/:id
+  defaults: { _controller: BlogBundle:Blog:view }
+
+legacy_rss_all:
+  pattern: /about/rss/all
+  defaults: { _controller: BlogBundle:Feed:index }
+
+legacy_rss_articles:
+  pattern: /about/rss/articles
+  defaults: { _controller: BlogBundle:Feed:index }
+
+legacy_rss_tag:
+  pattern: /tag/rss/:tagName
+  defaults: { _controller: BlogBundle:Feed:tag }
+
+legacy_rss_category:
+  pattern: /category/rss/:categoryShort
+  defaults: { _controller: BlogBundle:Feed:category }

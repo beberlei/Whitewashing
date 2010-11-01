@@ -1,0 +1,22 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                  http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Whitewashing\Blog\Comment" table="blog_comments">
+        <id name="id" type="integer">
+            <generator strategy="AUTO" />
+        </id>
+
+        <many-to-one target-entity="Post" field="post">
+            <join-column name="post_id" on-delete="cascade" referenced-column-name="id" />
+        </many-to-one>
+
+        <field name="username" type="string" />
+        <field name="userEmail" column="user_email" type="string" />
+        <field name="text" type="text" />
+        <field name="created" type="datetime" />
+        <field name="visible" type="boolean" />
+    </entity>
+
+</doctrine-mapping>

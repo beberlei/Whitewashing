@@ -1,0 +1,32 @@
+# Whitewashing Blog
+
+Whitewashing is my blog and a playground for symfony2 application development.
+
+## Configuration
+
+Add the following submodule to your symfony2 project:
+
+    git submodule add git://github.com/beberlei/Whitewashing.git src/Bundle/Whitewashing
+    git submodule update --init
+
+Add the following to your app configuration.
+
+    whitewashing:
+      host_url: http://www.whitewashing.de
+
+    whitewashing.blog:
+      default_id:   1
+
+And the following information to your `routing.yml`:
+
+    blog:
+        resource: Whitewashing/BlogBundle/Resources/config/routing.yml
+
+You can then create all the required database tables by using the symfony console doctrine commands
+and access the Schema-Tool.
+
+Whitewashing Bundle requires the following bundles:
+
+* DoctrineORMBundle
+* ZetaBundle
+* ZendBundle

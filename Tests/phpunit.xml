@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="TestInit.php">
+    <testsuite name="Whitewashing Blog">
+        <directory>.</directory>
+    </testsuite>
+    <php>
+        <var name="WHITEWASHING_SYMFONY_AUTOLOADFILE" value="./../../../autoload.php" />
+    </php>
+</phpunit>

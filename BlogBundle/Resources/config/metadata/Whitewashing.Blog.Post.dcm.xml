@@ -1,0 +1,49 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                  http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Whitewashing\Blog\Post" table="blog_posts" repository-class="Whitewashing\Blog\PostRepository">
+        <id name="id" type="integer">
+            <generator strategy="AUTO" />
+        </id>
+
+        <field name="headline" column="post_headline" type="string" />
+        <field name="text" column="post_text" type="text" />
+        <field name="formattedText" column="post_formatted" type="text" />
+        <field name="created" column="post_created" type="datetime" />
+        <field name="published" column="is_published" type="integer" />
+        <field name="commentCount" column="comment_count" type="integer" />
+
+        <many-to-one target-entity="Whitewashing\Core\User" field="author">
+            <join-column name="author_id" referenced-column-name="id"/>
+        </many-to-one>
+
+        <many-to-many target-entity="Whitewashing\Blog\Category" field="categories">
+            <join-table name="blog_posts_categories">
+                <join-columns>
+                    <join-column name="post_id" referenced-column-name="id" on-delete="cascade" />
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="category_id" referenced-column-name="id" />
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+
+        <many-to-many target-entity="Whitewashing\Blog\Tag" field="tags">
+            <join-table name="blog_posts_tags">
+                <join-columns>
+                    <join-column name="post_id" referenced-column-name="id" on-delete="cascade" />
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="tag_id" referenced-column-name="id" />
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+
+        <many-to-one target-entity="Whitewashing\Blog\Blog" field="blog">
+            <join-column name="blog_id" referenced-column-name="id" />
+        </many-to-one>
+    </entity>
+
+</doctrine-mapping>
