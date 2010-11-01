@@ -17,7 +17,7 @@ set_include_path( realpath(__DIR__ . "/../../") . PATH_SEPARATOR . get_include_p
 if (file_exists($GLOBALS['WHITEWASHING_SYMFONY_AUTOLOADFILE'])) {
     require_once $GLOBALS['WHITEWASHING_SYMFONY_AUTOLOADFILE'];
 } else {
-    die("Could not load symfony autoloader.");
+    die("Could not load symfony autoloader.\n\n");
 }
 
 require_once "Doctrine/Common/ClassLoader.php";

@@ -1,0 +1,16 @@
+<?php
+/* @var $post Whitewashing\Blog\Post */
+/* @var $view Symfony\Bundle\FrameworkBundle\Templating\Engine */
+?>
+<div class="post-container">
+    <h2><a href="{% route 'blog_show_post' with ['id': post.id] %}">{{ post.headline }}</a></h2>
+
+    <div class="post">
+        {{ post.formattedText|raw }}
+    </div>
+
+    <div class="footer">
+        {{ post.author.name }} on {{ post.created|date('F, d. Y') }},
+        <a href="{% route 'blog_show_post' with ['id': post.id] %}#comments">Comments ({{ post.commentCount }})</a>
+    </div>
+</div>

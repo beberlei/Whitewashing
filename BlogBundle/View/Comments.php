@@ -33,7 +33,7 @@ class Comments extends Helper
     public function renderRecent()
     {
         $comments = $this->postService->getRecentComments();
-        return $this->engine->render('BlogBundle:Partial:recentComments', array('comments' => $comments));
+        return $this->engine->render('BlogBundle:Partial:recentComments.php', array('comments' => $comments));
     }
 
     public function getName()

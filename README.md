@@ -41,3 +41,12 @@ Whitewashing Bundle requires the following bundles:
 * DoctrineORMBundle
 * ZetaBundle
 * ZendBundle
+
+## TODOs
+
+* Rewrite Templates to use Twig
+* Rewrite Controllers to use Dependency Injection container
+* Use Security Layer for Authentication and Backend
+* Pimp the backend
+* Add Blog/Article entity
+* Add functional tests for controllers

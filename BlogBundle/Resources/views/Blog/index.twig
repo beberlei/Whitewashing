@@ -1,0 +1,9 @@
+{% extends "BlogBundle::layout.twig" %}
+
+{% block content %}
+
+{% for p in posts %}
+    {% include 'BlogBundle:Blog:post.twig' with ['post': p] %}
+{% endfor %}
+
+{% endblock %}

@@ -22,7 +22,9 @@ abstract class AbstractBlogController extends Controller
      */
     public function getRequest()
     {
-        return $this->request;
+        return $this->container->get('request');
     }
+
+    
 }
 

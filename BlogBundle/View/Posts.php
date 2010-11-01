@@ -37,7 +37,7 @@ class Posts extends Helper
     {
         $posts = $this->postService->getCurrentPosts(5);
 
-        return $this->engine->render('BlogBundle:Partial:recentPosts', array('posts' => $posts));
+        return $this->engine->render('BlogBundle:Partial:recentPosts.php', array('posts' => $posts));
     }
 
     public function renderCloud()
@@ -78,9 +78,7 @@ class Posts extends Helper
         return $html;
     }
 
-    protected function sortTags($a, $b) {
-        return ($a[0]->getSlug() >= $b[0]->getSlug()) ? 1 : -1;
-    }
+
 
     public function getName()
     {

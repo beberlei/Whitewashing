@@ -4,6 +4,6 @@
         <directory>.</directory>
     </testsuite>
     <php>
-        <var name="WHITEWASHING_SYMFONY_AUTOLOADFILE" value="./../../../autoload.php" />
+        <var name="WHITEWASHING_SYMFONY_AUTOLOADFILE" value="src/autoload.php" />
     </php>
 </phpunit>

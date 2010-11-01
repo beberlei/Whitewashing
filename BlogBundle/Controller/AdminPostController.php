@@ -13,6 +13,8 @@
 
 namespace Whitewashing\BlogBundle\Controller;
 
+use Symfony\Component\Security\SecurityContext;
+
 class AdminPostController extends AbstractBlogController
 {
     public function isLoggedIn()
@@ -29,22 +31,18 @@ class AdminPostController extends AbstractBlogController
 
     public function loginAction()
     {
-        $error = false;
-        if ($this->getRequest()->getMethod() == 'POST') {
-            /* @var $userService Whitewashing\Core\UserService */
-            $userService = $this->container->get('whitewashing.core.userservice');
-            $blogUser = $userService->findUser($this->getRequest()->get('username'));
-            if ($blogUser && $blogUser->areValidCredentials($this->getRequest()->get('password'))) {
-                $user = $this->getUser();
-                $user->setAttribute('blogUser', $blogUser);
-
-                return $this->redirect($this->generateUrl('blog_admin_dashboard'));
-            } else {
-                $error = true;
-            }
+        // get the error if any (works with forward and redirect -- see below)
+        $request = $this->getRequest();
+        if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
+            $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
+        } else {
+            $error = $request->getSession()->get(SecurityContext::AUTHENTICATION_ERROR);
         }
 
-        return $this->render('BlogBundle:AdminPost:login', array('error' => $error));
+        return $this->render('BlogBundle:AdminPost:login.twig', array(
+            'error' => $error,
+            'last_username' => $request->getSession()->get(SecurityContext::LAST_USERNAME),
+        ));
     }
 
     public function indexAction()
@@ -53,7 +51,7 @@ class AdminPostController extends AbstractBlogController
             return $this->createLoginRequiredResponse();
         }
         
-        return $this->render('BlogBundle:AdminPost:dashboard');
+        return $this->render('BlogBundle:AdminPost:dashboard.php');
     }
 
     public function manageAction()
@@ -82,7 +80,7 @@ class AdminPostController extends AbstractBlogController
         $blog = $this->container->get('whitewashing.blog.blogservice')->getCurrentBlog();
         $post = new \Whitewashing\Blog\Post($author, $blog);
 
-        return $this->handleForm('BlogBundle:AdminPost:new', $post, $em);
+        return $this->handleForm('BlogBundle:AdminPost:new.php', $post, $em);
     }
 
     public function editAction()
@@ -94,7 +92,7 @@ class AdminPostController extends AbstractBlogController
         $em = $this->container->get('doctrine.orm.default_entity_manager');
         $post = $this->container->get('whitewashing.blog.postservice')->findPost($this->getRequest()->get('id'));
 
-        return $this->handleForm('BlogBundle:AdminPost:edit', $post, $em);
+        return $this->handleForm('BlogBundle:AdminPost:edit.php', $post, $em);
     }
 
     /**

@@ -47,8 +47,17 @@ class Comment
         return $this->userEmail;
     }
 
+    public function getGravatarUserEmailHash()
+    {
+        return md5(strtolower(trim($this->userEmail)));
+    }
+
     public function getText() {
         return $this->text;
+    }
+
+    public function getFormattedText() {
+        return nl2br(strip_tags($this->text));
     }
 
     public function created() {

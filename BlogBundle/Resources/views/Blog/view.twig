@@ -1,0 +1,94 @@
+{% extends 'BlogBundle::layout.twig' %}
+
+{% block content %}
+{% include 'BlogBundle:Blog:post.twig' with ['post': post] %}
+
+<div class="references">
+    <div class="span-10">
+        {% set posturl %}{%route 'blog_show_post' with ['id': post.id] %}{% endset %}
+
+        <h4>Share This Post</h4>
+
+        <ul class="socialBookmarks">
+            <li><a href="http://twitter.com/home?status={{post.headline|url_encode}}+{{posturl|url_encode}}" target="_blank"><img src="{% asset 'bundles/blog/themes/whitewashing-de/images/icons/twitter-16x16.png' %}" width="16" height="16" border="0" hspace="0" alt="Share on Twitter" title="Share on Twitter" /></a></li>
+            <li><a href="http://de.facebook.com/sharer.php?u={{posturl|url_encode}}&amp;t={{post.headline|url_encode}}" target="_blank"><img src="{% asset 'bundles/blog/themes/whitewashing-de/images/icons/facebook-16x16.png' %}" alt="Facebook" title="Share on Facebook" align="left" border="0" height="16" hspace="0" width="16"></a></li>
+            <li><a href="http://del.icio.us/post?url={{posturl|url_encode}}&amp;title={{post.headline|url_encode}}" target="_blank"><img src="{% asset 'bundles/blog/themes/whitewashing-de/images/icons/delicious-16x16.png' %}" alt="Share on deli.cio.us" title="Share on deli.cio.us" align="left" border="0" height="16" hspace="0" width="16"></a></li>
+            <li><a href="http://digg.com/submit?phase=2&url={{posturl|url_encode}}&amp;title={{post.headline|url_encode}}" target="_blank"><img src="{% asset 'bundles/blog/themes/whitewashing-de/images/icons/digg-16x16.png' %}" width="16" height="16" border="0" hspace="0" alt="Share on Digg" title="Share on Digg" align="left" /></a></li>
+            <li><a href="http://reddit.com/submit?url={{posturl|url_encode}}&amp;title={{post.headline|url_encode}}" target="_blank"><img src="{% asset 'bundles/blog/themes/whitewashing-de/images/icons/reddit-16x16.png' %}" width="16" height="16" border="0" hspace="0" alt="Share on reddit" title="Share on reddit" align="left" /></a></li>
+            <li><a href="http://www.stumbleupon.com/submit?url={{posturl|url_encode}}&amp;title={{post.headline|url_encode}}" target="_blank"><img src="{% asset 'bundles/blog/themes/whitewashing-de/images/icons/stumbleupon-16x16.png' %}" width="16" height="16" border="0" hspace="0" alt="Share on StumbleUpon" title="Share on StumbleUpon" align="left" /></a></li>
+        </ul>
+    </div>
+
+    <div class="span-5">
+        <h4>Tags</h4>
+
+        {% if post.tags|length is none %}
+        <p>This post is untagged.</p>
+        {% else %}
+        <ul>
+        {% for tag in post.tags %}
+            <li><a href="{% route 'blog_show_tag' with ['tagName': tag.slug] %}">{{tag.name}}</a></li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+</div>
+
+<h4>Comments</h4>    
+
+{% for comment in comments %}
+<a name="comment-{{comment.id}}"></a>
+<div class="comment">
+    <div class="author span-3">
+        <img src="http://www.gravatar.com/avatar/{{comment.GravatarUserEmailHash}}.jpg" alt="" /><br />
+        <strong>{{comment.username}}</strong><br />
+        {{comment.created|date('M, d. Y')}}
+    </div>
+
+    <div class="text span-12 last">
+        <p>{{comment.formattedText}}</p>
+    </div><br clear="all">
+</div>
+{% else %}
+<p>No comments have been written yet.</p>
+{% endfor %}
+
+<h4>Write a Comment</h4>
+
+<?php /* @var $form Form */ ?>
+<form method="post" action="{% route 'blog_write_comment' with ['postId': post.id] %}" {{ form|render_enctype }}>
+    {{ form|render_errors }}
+    {{ form|render_hidden }}
+
+<div class="span-5">
+    <label for="username">Username</label>
+</div>
+<div class="span-10 last">
+    {{form.comment.username|render_widget}}<br />
+</div>
+
+<div class="span-5">
+    <label for="userEmail">E-Mail</label>
+</div>
+<div class="span-10 last">
+    {{form.comment.userEmail|render_widget}}<br />
+</div>
+
+<div class="span-5">
+    <label for="text">Comment</label>
+</div>
+<div class="span-10 last">
+    {{form.comment.text|render_widget}}
+</div>
+
+<div class="span-5">
+    <label for="riddleResult">Riddle me this: {{writeComment.riddle}}</label>
+</div>
+<div class="span-10 last">
+    {{form.riddleResult|render_widget}}
+</div>
+
+  <input type="submit" value="Send!" />
+</form>
+
+{% endblock %}

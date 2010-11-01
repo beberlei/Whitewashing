@@ -13,7 +13,9 @@
 
 namespace Whitewashing\Core;
 
-class User
+use Symfony\Component\Security\User\AccountInterface;
+
+class User implements AccountInterface
 {
     const USER = 'user';
     const AUTHOR = 'author';
@@ -42,20 +44,36 @@ class User
     private $role;
 
     /**
+     * @var string
+     */
+    private $salt;
+
+    /**
      * @param  string $username
      * @param  string $email
      * @return User
      */
-    static public function create($username, $email, $password, $role = self::USER)
+    static public function create($username, $email, $password, $roles = self::USER)
     {
         $u = new User();
         $u->setName($username);
         
         $u->setEmail($email);
         $u->setPassword($password);
-        $u->setRole($role);
+        $u->addRole($roles);
+        $u->setSalt(md5(microtime(true) . \uniqid(null, true)));
 
         return $u;
+    }
+
+    public function addRole($role)
+    {
+        $this->role = $role;
+    }
+
+    private function setSalt($salt)
+    {
+        $this->salt = $salt;
     }
 
     public function getId() {
@@ -83,31 +101,39 @@ class User
         $this->email = $email;
     }
 
-    /**
-     * @param  string $password
-     * @return bool
-     */
-    public function areValidCredentials($password)
+    public function __toString()
     {
-        return md5($password) == $this->password;
+        return $this->name;
+    }
+    
+    public function getRoles()
+    {
+        return explode(",", $this->role);
     }
 
     public function setPassword($password)
     {
-        $this->password = md5($password);
+        $this->password = $password;
     }
 
-    public function setRole($role)
+    public function getPassword()
     {
-        if (!in_array($role, array(self::USER, self::AUTHOR, self::ADMIN))) {
-            throw CoreException::invalidRole($role);
-        }
-
-        $this->role = $role;
+        return $this->password;
     }
 
-    public function getRoleId()
+    public function getSalt()
     {
-        return $this->role;
+        return $this->salt;
+    }
+    
+    public function getUsername()
+    {
+        return $this->name;
+    }
+
+    public function eraseCredentials()
+    {
+        $this->password = null;
+        $this->salt = null;
     }
 }

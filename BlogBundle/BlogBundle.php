@@ -13,10 +13,10 @@
 
 namespace Whitewashing\BlogBundle;
 
-use Symfony\Framework\Bundle\Bundle;
-use  Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Whitewashing\BlogBundle\DependencyInjection\WhitewashingExtension;
-use  Symfony\Component\DependencyInjection\Loader\Loader;
+use Symfony\Component\DependencyInjection\Loader\Loader;
 
 class BlogBundle extends Bundle
 {

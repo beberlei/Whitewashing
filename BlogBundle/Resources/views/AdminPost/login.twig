@@ -1,0 +1,17 @@
+{% extends 'BlogBundle::adminLayout.twig' %}
+
+{% block content %}
+<div class="span-24 last">
+    <h1>Login</h1>
+
+    {% if error %}
+    <div class="error">Error while logging in.</div>
+    {% endif %}
+
+    <form method="post" action="{% route 'blog_admin_login' %}">
+        <input type="text" name="username" size="20" />
+        <input type="password" name="password" size="20" />
+        <input type="submit" value="Login" />
+    </form>
+</div>
+{% endblock %}

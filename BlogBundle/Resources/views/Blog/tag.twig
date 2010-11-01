@@ -1,0 +1,16 @@
+{% extends 'BlogBundle::layout.twig' %}
+
+{% block content %}
+<h1>Posts by Tag "{{tag.name}}"</h1>
+
+<p><a href="{% route 'blog_feed_tags' with ['tagName': tag.slug] %}">
+    <img src="{% asset 'bundles/blog/themes/whitewashing-de/images/icons/feed-16x16.png' %}" alt="RSS" />
+    Subscribe to posts of this tag</a>
+</p>
+
+{% for post in posts %}
+
+{% include 'BlogBundle:Blog:post.twig' with ['post': post] %}
+{% endfor %}
+
+{% endblock %}

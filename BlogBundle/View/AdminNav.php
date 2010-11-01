@@ -29,7 +29,7 @@ class AdminNav extends Helper
 
     public function menu()
     {
-        return $this->viewEngine->render('BlogBundle:Partial:adminNavMenu', array(
+        return $this->viewEngine->render('BlogBundle:Partial:adminNavMenu.php', array(
 
         ));
     }
