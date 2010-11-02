@@ -217,11 +217,11 @@ class Post implements \ezcSearchDefinitionProvider
     /**
      * Return an array of tag names.
      * 
-     * @return array
+     * @return string
      */
     public function getTagNames()
     {
-        return array_map(function($tag) { return $tag->getName(); }, $this->getTags());
+        return implode(", ", array_map(function($tag) { return $tag->getName(); }, $this->getTags()));
     }
 
     /**

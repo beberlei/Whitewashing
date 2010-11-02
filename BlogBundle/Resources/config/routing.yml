@@ -6,9 +6,12 @@ blog:
   pattern: /blog
   defaults: { _controller: BlogBundle:Blog:index }
 
-blog_admin_login:
-  pattern: /blog/admin/login
+blog_login:
+  pattern: /blog/login
   defaults: { _controller: BlogBundle:AdminPost:login }
+
+blog_security_check:
+  pattern: /blog/login_check
 
 blog_admin_dashboard:
   pattern: /blog/admin
@@ -35,24 +38,24 @@ blog_write_comment:
   defaults: { _controller: BlogBundle:Blog:comment }
 
 blog_post_new:
-  pattern: /blog/posts/new
+  pattern: /blog/admin/posts/new
   defaults: { _controller: BlogBundle:AdminPost:new }
 
 blog_post_edit:
-  pattern: /blog/posts/:id/edit
+  pattern: /blog/admin/posts/:id/edit
   defaults: { _controller: BlogBundle:AdminPost:edit }
 
 blog_post_delete:
-  pattern: /blog/posts/:id/delete
+  pattern: /blog/admin/posts/:id/delete
   defaults: { _controller: BlogBundle:AdminPost:delete }
 
 blog_post_admin:
-  pattern: /blog/posts/manage
+  pattern: /blog/admin/posts/manage
   defaults: { _controller: BlogBundle:AdminPost:manage }
 
 blog_search_build:
-  pattern: /blog/search/build-index
-  defaults: { _controller: BlogBundle:Search:buildIndex }
+  pattern: /blog/admin/search/build-index
+  defaults: { _controller: BlogBundle:AdminPost:buildIndex }
 
 blog_post_search:
   pattern: /blog/search

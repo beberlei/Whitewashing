@@ -1,0 +1,13 @@
+{% extends 'BlogBundle::adminLayout.twig' %}
+
+{% block content %}
+<div class="span-6">
+    {% include 'BlogBundle:AdminPost:adminNavMenu.twig' %}
+</div>
+
+<div class="span-18 last">
+    <h1>Post deleted!</h1>
+
+    <p>The post with headline "<strong>{{post.headline}}></strong>" was deleted.</p>
+</div>
+{% endblock %}

@@ -17,18 +17,6 @@ use Symfony\Component\Security\SecurityContext;
 
 class AdminPostController extends AbstractBlogController
 {
-    public function isLoggedIn()
-    {
-        /* @var $user Symfony\Framework\FoundationBundle\User */
-        $user = $this->getUser();
-        return ( $user->getAttribute('blogUser') != false);
-    }
-
-    public function createLoginRequiredResponse()
-    {
-        return $this->redirect($this->generateUrl('blog_admin_login'));
-    }
-
     public function loginAction()
     {
         // get the error if any (works with forward and redirect -- see below)
@@ -47,52 +35,36 @@ class AdminPostController extends AbstractBlogController
 
     public function indexAction()
     {
-        if (!$this->isLoggedIn()) {
-            return $this->createLoginRequiredResponse();
-        }
-        
-        return $this->render('BlogBundle:AdminPost:dashboard.php');
+        return $this->render('BlogBundle:AdminPost:dashboard.twig', array(
+            'user' => $this->container->get('security.context')->getUser()
+        ));
     }
 
     public function manageAction()
     {
-        if (!$this->isLoggedIn()) {
-            return $this->createLoginRequiredResponse();
-        }
-
-        return $this->render('BlogBundle:AdminPost:manage', array(
+        return $this->render('BlogBundle:AdminPost:manage.twig', array(
             'posts' => $this->container->get('whitewashing.blog.postservice')->getCurrentPosts()
         ));
     }
 
     public function newAction()
     {
-        if (!$this->isLoggedIn()) {
-            return $this->createLoginRequiredResponse();
-        }
-
         $em = $this->container->get('doctrine.orm.default_entity_manager');
-
-        // need a connected author to get this working
-        $author = $this->getUser()->getAttribute('blogUser');
-        $author = $em->merge($author);
+        $author = $this->container->get('security.context')->getUser();
+        $author = $em->merge($author); // a user is always detached, we need to merge it back in for this action.
         
         $blog = $this->container->get('whitewashing.blog.blogservice')->getCurrentBlog();
         $post = new \Whitewashing\Blog\Post($author, $blog);
 
-        return $this->handleForm('BlogBundle:AdminPost:new.php', $post, $em);
+        return $this->handleForm('BlogBundle:AdminPost:new.twig', $post, $em);
     }
 
     public function editAction()
     {
-        if (!$this->isLoggedIn()) {
-            return $this->createLoginRequiredResponse();
-        }
-
         $em = $this->container->get('doctrine.orm.default_entity_manager');
         $post = $this->container->get('whitewashing.blog.postservice')->findPost($this->getRequest()->get('id'));
 
-        return $this->handleForm('BlogBundle:AdminPost:edit.php', $post, $em);
+        return $this->handleForm('BlogBundle:AdminPost:edit.twig', $post, $em);
     }
 
     /**
@@ -111,7 +83,7 @@ class AdminPostController extends AbstractBlogController
 
             if ($form->isValid()) {
                 $writePost->process($em);
-                if ($this->getRequest()->getParam('submit_thenshow')) {
+                if ($this->getRequest()->get('submit_thenshow')) {
                     return $this->redirect($this->generateUrl('blog_show_post', array('id' => $post->getId())));
                 } else {
                     return $this->redirect($this->generateUrl('blog_post_edit', array('id' => $post->getId())));
@@ -127,10 +99,6 @@ class AdminPostController extends AbstractBlogController
 
     public function deleteAction()
     {
-        if (!$this->isLoggedIn()) {
-            return $this->createLoginRequiredResponse();
-        }
-
         $post = $this->container->get('whitewashing.blog.postservice')->findPost($this->getRequest()->get('id'));
 
         if ($this->getRequest()->getMethod() == 'POST') {
@@ -138,18 +106,14 @@ class AdminPostController extends AbstractBlogController
             $em->remove($post);
             $em->flush();
 
-            return $this->render('BlogBundle:AdminPost:delete', array('post' => $post));
+            return $this->render('BlogBundle:AdminPost:delete.twig', array('post' => $post));
         } else {
-            return $this->render('BlogBundle:AdminPost:confirmDelete', array('post' => $post));
+            return $this->render('BlogBundle:AdminPost:confirmDelete.twig', array('post' => $post));
         }
     }
 
     public function buildIndexAction()
     {
-        if (!$this->isLoggedIn()) {
-            return $this->createLoginRequiredResponse();
-        }
-
         $session = $this->container->get('zeta.search.session');
         $posts = $this->container->get('whitewashing.blog.postservice')->findAll();
 

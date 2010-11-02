@@ -30,7 +30,7 @@ class WritePost
     public function __construct(Post $post)
     {
         $this->post = $post;
-        $this->tags = implode(" ", $post->getTagNames());
+        $this->tags = $post->getTagNames();
     }
 
     public function setTags($tags)
@@ -76,7 +76,7 @@ class WritePost
     public function process(EntityManager $em)
     {
         $oldTags = $this->post->getTags();
-        $newTagNames = explode(" ", $this->tags);
+        $newTagNames = array_map('trim', explode(",", $this->tags));
 
         foreach ($oldTags AS $oldTag) {
             if (!in_array($oldTag->getName(), $newTagNames)) {
