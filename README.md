@@ -22,11 +22,28 @@ Register the bundle in your `AppKernel#registerBundles` method:
 
 Add the following to your app configuration.
 
-    whitewashing:
-      host_url: http://www.whitewashing.de
-
     whitewashing.blog:
       default_id:   1
+      host_url: http://www.whitewashing.de
+
+You also have to configure the security details to be able to write posts and such:
+
+    security.config:
+        providers:
+            blog:
+                password_encoder: sha1
+                entity: { class: Whitewashing\Core\User, property: name }
+        firewalls:
+            public:
+                pattern: /.*
+                form-login: true
+                anonymous: true
+            blog-backend:
+                pattern:  /blog/admin.*
+                form-login:
+                  check_path: /blog/login_check
+                  login_path: /blog/login
+                  provider:   blog
 
 And the following information to your `routing.yml`:
 
@@ -44,9 +61,7 @@ Whitewashing Bundle requires the following bundles:
 
 ## TODOs
 
-* Rewrite Templates to use Twig
 * Rewrite Controllers to use Dependency Injection container
-* Use Security Layer for Authentication and Backend
 * Pimp the backend
 * Add Blog/Article entity
 * Add functional tests for controllers
