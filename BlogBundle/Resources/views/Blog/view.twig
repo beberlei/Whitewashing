@@ -1,5 +1,9 @@
 {% extends 'BlogBundle::layout.twig' %}
 
+{% block title %}
+{{post.headline}}
+{% endblock %}
+
 {% block content %}
 {% include 'BlogBundle:Blog:post.twig' with ['post': post] %}
 
