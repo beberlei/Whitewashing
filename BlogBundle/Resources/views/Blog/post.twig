@@ -11,6 +11,6 @@
 
     <div class="footer">
         {{ post.author.name }} on {{ post.created|date('F, d. Y') }},
-        <a href="{% route 'blog_show_post' with ['id': post.id] %}#comments">Comments ({{ post.commentCount }})</a>
+        <a href="{% route 'blog_show_post' with ['id': post.id] %}#comments">Comments</a>
     </div>
 </div>

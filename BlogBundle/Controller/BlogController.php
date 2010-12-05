@@ -42,9 +42,6 @@ class BlogController extends AbstractBlogController
     {
         $postRepository = $this->getPostRepository();
         $post = $postRepository->findPost($id);
-        
-        $writeComment = new \Whitewashing\Blog\Form\WriteComment($post, $this->container->get('session'));
-        $form = $writeComment->createForm($this->container->getValidatorService());
 
         /* @var $response \Symfony\Component\HttpKernel\Response */
         $response = $this->createResponse();
@@ -52,9 +49,6 @@ class BlogController extends AbstractBlogController
 
         return $this->render('BlogBundle:Blog:view.twig', array(
             'post' => $post,
-            'comments' => $postRepository->getComments($id),
-            'form' => $form,
-            'writeComment' => $writeComment,
         ), $response);
     }
 
@@ -97,34 +91,6 @@ class BlogController extends AbstractBlogController
 
     protected function sortTags($a, $b) {
         return ($a[0]->getSlug() >= $b[0]->getSlug()) ? 1 : -1;
-    }
-
-    public function commentsAction()
-    {
-        $postRepository = $this->getPostRepository();
-        $comments = $postRepository->getRecentComments();
-
-        return $this->render('BlogBundle:Blog:comments.twig', array('comments' => $comments));
-    }
-
-    public function commentAction($postId)
-    {
-        if ($this->getRequest()->getMethod() == 'POST') {
-            $postRepository = $this->getPostRepository();
-
-            $post = $postRepository->findPost($postId);
-
-            $writeComment = new \Whitewashing\Blog\Form\WriteComment($post, $this->getUser());
-            $form = $writeComment->createForm($this->container->getValidatorService());
-            $form->bind($this->getRequest()->get('writecomment'));
-
-            if ($form->isValid()) {
-                $em = $this->container->get('doctrine.orm.default_entity_manager');
-                $writeComment->process($em);
-
-                return $this->redirect($this->generateUrl('blog_show_post', array('id' => $post->getId())), 302);
-            }
-        }
     }
 
     public function tagAction($tagName)

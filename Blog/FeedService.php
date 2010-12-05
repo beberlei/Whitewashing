@@ -76,11 +76,6 @@ class FeedService
         return $feed;
     }
 
-    public function createCommentFeed($postId)
-    {
-        
-    }
-
     /**
      * Generate the base feed
      *

@@ -43,7 +43,7 @@ class BlogBundle extends Bundle
         $md->addDriver($xmlDriver, 'Whitewashing');
 
         $em = $this->container->get('doctrine.orm.default_entity_manager');
-        $em->getRepository('Whitewashing\Blog\Blog')->setCurrentBlogId($this->container->getParameter('whitewashing.blog.default_id'));
+        $em->getRepository('Whitewashing\Blog\Blog')->setCurrentBlogId($this->container->getParameter('whitewashing.blog.default_blog_id'));
 
         // Register Zend Autoloader
         require_once "Zend/Loader/Autoloader.php";

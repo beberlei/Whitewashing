@@ -9,13 +9,11 @@
         <parameter key="whitewashing.blog.feedservice.class">Whitewashing\Blog\FeedService</parameter>
         <parameter key="whitewashing.core.userservice.class">Whitewashing\Core\UserService</parameter>
         <parameter key="whitewashing.core.mailservice.class">Whitewashing\Core\NullMailService</parameter>
+        <parameter key="whitewashing.view.twigdisqus.class">Whitewashing\View\Twig\DisqusExtension</parameter>
         
-        <parameter key="whitewashing.templating.posts.class">Whitewashing\BlogBundle\View\Posts</parameter>
-        <parameter key="whitewashing.templating.comments.class">Whitewashing\BlogBundle\View\Comments</parameter>
-        <parameter key="whitewashing.templating.adminnav.class">Whitewashing\BlogBundle\View\AdminNav</parameter>
-        
-        <parameter key="whitewashing.host_url">http://localhost</parameter>
-        <parameter key="whitewashing.blog.default_id">1</parameter>
+        <parameter key="whitewashing.blog.default_blog_id">1</parameter>
+        <parameter key="whitewashing.blog.host_url">http://localhost</parameter>
+        <parameter key="whitewashing.blog.disqus_shortname"></parameter>
     </parameters>
 
     <services>
@@ -37,24 +35,14 @@
 
         <service id="whitewashing.blog.urlgenerator" class="Whitewashing\Blog\UrlGenerator">
             <argument type="service" id="router" />
-            <argument>%whitewashing.host_url%</argument>
+            <argument>%whitewashing.blog.host_url%</argument>
         </service>
 
-        <service id="templating.helper.adminnav" class="%whitewashing.templating.adminnav.class%">
-            <tag name="templating.helper" alias="adminNav" />
-            <argument type="service" id="templating.engine" />
-        </service>
-
-        <service id="templating.helper.posts" class="%whitewashing.templating.posts.class%">
-            <tag name="templating.helper" alias="posts" />
-            <argument type="service" id="whitewashing.blog.postservice" />
-            <argument type="service" id="templating.engine" />
-        </service>
-
-        <service id="templating.helper.comments" class="%whitewashing.templating.comments.class%">
-            <tag name="templating.helper" alias="comments" />
-            <argument type="service" id="whitewashing.blog.postservice" />
-            <argument type="service" id="templating.engine" />
+        <service id="whitewashing.view.twigdisqus" class="%whitewashing.view.twigdisqus.class%">
+            <tag name="twig.extension" />
+            <argument type="service" id="templating" />
+            <argument type="service" id="router" />
+            <argument>%whitewashing.blog.disqus_shortname%</argument>
         </service>
     </services>
 

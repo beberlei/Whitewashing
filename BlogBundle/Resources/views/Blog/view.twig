@@ -36,59 +36,6 @@
 
 <h4>Comments</h4>    
 
-{% for comment in comments %}
-<a name="comment-{{comment.id}}"></a>
-<div class="comment">
-    <div class="author span-3">
-        <img src="http://www.gravatar.com/avatar/{{comment.GravatarUserEmailHash}}.jpg" alt="" /><br />
-        <strong>{{comment.username}}</strong><br />
-        {{comment.created|date('M, d. Y')}}
-    </div>
-
-    <div class="text span-12 last">
-        <p>{{comment.formattedText}}</p>
-    </div><br clear="all">
-</div>
-{% else %}
-<p>No comments have been written yet.</p>
-{% endfor %}
-
-<h4>Write a Comment</h4>
-
-<?php /* @var $form Form */ ?>
-<form method="post" action="{% route 'blog_write_comment' with ['postId': post.id] %}" {{ form|render_enctype }}>
-    {{ form|render_errors }}
-    {{ form|render_hidden }}
-
-<div class="span-5">
-    <label for="username">Username</label>
-</div>
-<div class="span-10 last">
-    {{form.comment.username|render_widget}}<br />
-</div>
-
-<div class="span-5">
-    <label for="userEmail">E-Mail</label>
-</div>
-<div class="span-10 last">
-    {{form.comment.userEmail|render_widget}}<br />
-</div>
-
-<div class="span-5">
-    <label for="text">Comment</label>
-</div>
-<div class="span-10 last">
-    {{form.comment.text|render_widget}}
-</div>
-
-<div class="span-5">
-    <label for="riddleResult">Riddle me this: {{writeComment.riddle}}</label>
-</div>
-<div class="span-10 last">
-    {{form.riddleResult|render_widget}}
-</div>
-
-  <input type="submit" value="Send!" />
-</form>
+{{post|disqus_comments}}
 
 {% endblock %}

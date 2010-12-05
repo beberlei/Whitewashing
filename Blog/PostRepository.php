@@ -159,26 +159,4 @@ class PostRepository extends \Doctrine\ORM\EntityRepository
              ->setMaxResults(5)
              ->getResult();
     }
-
-    public function getComments($postId)
-    {
-        $dql = 'SELECT c FROM Whitewashing\Blog\Comment c JOIN c.post p WHERE p.id = ?1 ORDER BY c.created ASC';
-
-        return $this->getEntityManager()->createQuery($dql)
-             ->setParameter(1, $postId)
-             ->getResult();
-    }
-
-    public function getRecentComments()
-    {
-        $blogId = $this->getEntityManager()->getRepository('Whitewashing\Blog\Blog')->getCurrentBlogId();
-
-        $dql = 'SELECT c, p FROM Whitewashing\Blog\Comment c JOIN c.post p JOIN p.blog b '.
-               'WHERE b.id = ?1 ORDER BY c.created DESC';
-
-        return $this->getEntityManager()->createQuery($dql)
-             ->setParameter(1, $blogId)
-             ->setMaxResults(5)
-             ->getResult();
-    }
 }

@@ -33,10 +33,6 @@ blog_feed_category:
   pattern: /blog/category/:categoryShort/feed
   defaults: { _controller: BlogBundle:Feed:category }
 
-blog_write_comment:
-  pattern: /blog/comment/:postId
-  defaults: { _controller: BlogBundle:Blog:comment }
-
 blog_post_new:
   pattern: /blog/admin/posts/new
   defaults: { _controller: BlogBundle:AdminPost:new }

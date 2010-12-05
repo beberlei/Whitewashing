@@ -15,9 +15,10 @@ namespace Whitewashing\Blog;
 
 use Whitewashing\Core\User;
 use Whitewashing\DateTime\DateFactory;
+use Whitewashing\BlogBundle\Disqusable;
 use Doctrine\Common\Collections\ArrayCollection;
 
-class Post implements \ezcSearchDefinitionProvider
+class Post implements \ezcSearchDefinitionProvider, Disqusable
 {
     const STATUS_DRAFT = 0;
     const STATUS_PUBLISHED = 1;
@@ -62,11 +63,6 @@ class Post implements \ezcSearchDefinitionProvider
      * @var Doctrine\Common\Collections\Collection
      */
     private $tags;
-
-    /**
-     * @var int
-     */
-    private $commentCount = 0;
 
     /**
      * @var int
@@ -309,21 +305,6 @@ class Post implements \ezcSearchDefinitionProvider
         $feed->addEntry($entry);
     }
 
-    public function createComment()
-    {
-        return new Comment($this);
-    }
-
-    public function increaseCommentCount()
-    {
-        $this->commentCount++;
-    }
-
-    public function getCommentCount()
-    {
-        return $this->commentCount;
-    }
-
     static public function getDefinition()
     {
         $def = new \ezcSearchDocumentDefinition(__CLASS__);
@@ -361,5 +342,15 @@ class Post implements \ezcSearchDefinitionProvider
         foreach ($state AS $k => $v) {
             $this->$k = $v;
         }
+    }
+
+    public function getDisqusId()
+    {
+        return $this->getId();
+    }
+
+    public function getDisqusUrl(\Symfony\Component\Routing\Router $router)
+    {
+        return $router->generate('blog_show_post', array('id' => $this->getId()), true);
     }
 }

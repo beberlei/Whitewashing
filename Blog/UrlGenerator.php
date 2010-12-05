@@ -30,6 +30,7 @@ class UrlGenerator
      */
     public function __construct($router, $hostUrl)
     {
+        echo get_class($router);
         $this->router = $router;
         $this->hostUrl = $hostUrl;
     }
@@ -41,14 +42,6 @@ class UrlGenerator
     public function generatePostUrl(Post $post)
     {
         return $this->hostUrl . $this->router->generate('blog_show_post', array('id' => $post->getId()));
-    }
-
-    /**
-     * @param Post $post
-     */
-    public function generatePostCommentFeedUrl(Post $post)
-    {
-        return $this->hostUrl;
     }
 
     public function generateFeedUrl()

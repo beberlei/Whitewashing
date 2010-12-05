@@ -13,7 +13,6 @@
         <field name="formattedText" column="post_formatted" type="text" />
         <field name="created" column="post_created" type="datetime" />
         <field name="published" column="is_published" type="integer" />
-        <field name="commentCount" column="comment_count" type="integer" />
 
         <many-to-one target-entity="Whitewashing\Core\User" field="author">
             <join-column name="author_id" referenced-column-name="id"/>

@@ -36,11 +36,6 @@ class FeedController extends AbstractBlogController
         return $this->renderFeed($feed);
     }
 
-    public function commentsAction()
-    {
-        
-    }
-
     private function renderFeed($feed)
     {
         $output = $feed->export('atom');

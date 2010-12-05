@@ -24,8 +24,11 @@ class WhitewashingExtension extends Extension
         $loader = new XmlFileLoader($configuration, __DIR__.'/../Resources/config');
         $loader->load('services.xml');
 
-        if (isset($config['default_id'])) {
-            $configuration->setParameter('whitewashing.blog.default_id', $config['default_id']);
+        $params = array('default_blog_id', 'host_url', 'disqus_shortname');
+        foreach ($params AS $param) {
+            if (isset($config[$param])) {
+                $configuration->setParameter('whitewashing.blog.'. $param, $config[$param]);
+            }
         }
 
         return $configuration;
