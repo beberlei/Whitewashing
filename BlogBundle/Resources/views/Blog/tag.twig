@@ -1,5 +1,7 @@
 {% extends 'BlogBundle::layout.twig' %}
 
+{% block title %}Posts by Tag :: {{tag.name}}{% endblock %}
+
 {% block content %}
 <h1>Posts by Tag "{{tag.name}}"</h1>
 
