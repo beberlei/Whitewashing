@@ -30,7 +30,6 @@ class UrlGenerator
      */
     public function __construct($router, $hostUrl)
     {
-        echo get_class($router);
         $this->router = $router;
         $this->hostUrl = $hostUrl;
     }
