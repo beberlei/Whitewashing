@@ -10,6 +10,7 @@
 
         <field name="headline" column="post_headline" type="string" />
         <field name="text" column="post_text" type="text" />
+        <field name="inputFormat" column="input_format" type="string" />
         <field name="formattedText" column="post_formatted" type="text" />
         <field name="created" column="post_created" type="datetime" />
         <field name="published" column="is_published" type="integer" />

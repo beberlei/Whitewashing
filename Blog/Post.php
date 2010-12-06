@@ -41,6 +41,11 @@ class Post implements \ezcSearchDefinitionProvider, Disqusable
     /**
      * @var string
      */
+    private $inputFormat = 'rst';
+
+    /**
+     * @var string
+     */
     private $formattedText = '';
 
     /**
@@ -101,6 +106,16 @@ class Post implements \ezcSearchDefinitionProvider, Disqusable
         $this->generateFormattedText();
     }
 
+    public function setInputFormat($format)
+    {
+        $this->inputFormat = $format;
+    }
+
+    public function getInputFormat()
+    {
+        return $this->inputFormat;
+    }
+
     public function getHeadline()
     {
         return $this->headline;
@@ -123,61 +138,77 @@ class Post implements \ezcSearchDefinitionProvider, Disqusable
 
     private function generateFormattedText()
     {
-        $body = '<div>'.$this->getText().'</div>';
+        switch ($this->inputFormat) {
+            case 'rst':
+                $document = new \ezcDocumentRst();
+                $document->registerDirective( 'code-block', 'Whitewashing\Util\DocumentVisitor\CodeBlockRstDirective' );
+                $document->options->xhtmlVisitor = "Whitewashing\Util\DocumentVisitor\BlogPostRstXhtmlVisitor";
+                $document->options->xhtmlVisitorOptions = new \ezcDocumentHtmlConverterOptions(array("styleSheet" => ""));
+                $document->loadString($this->text);
 
-        $tidy_config = array(
-            'clean' => true,
-            'output-xhtml' => true,
-            'show-body-only' => true,
-            'wrap' => 0,
-        );
+                $xhtml = $document->getAsXhtml();
+                $body = $xhtml->save();
 
-        $tidy = tidy_parse_string($body, $tidy_config);
-        $tidy->cleanRepair();
-        $body = (string)$tidy;
+                break;
+            case 'html':
+            default:
+                $body = '<div>'.$this->getText().'</div>';
+                $tidy_config = array(
+                    'clean' => true,
+                    'output-xhtml' => true,
+                    'show-body-only' => true,
+                    'wrap' => 0,
+                );
 
-        $dom = new \DOMDocument('ISO-8859-1');
-        $dom->loadHtml($body);
+                $tidy = tidy_parse_string($body, $tidy_config);
+                $tidy->cleanRepair();
+                $body = (string)$tidy;
+                
+                $dom = new \DOMDocument('ISO-8859-1');
+                $dom->loadHtml($body);
 
-        $xpath = new \DOMXpath($dom);
-        $nodes = $xpath->query('//blockquote/pre');
+                $xpath = new \DOMXpath($dom);
+                $nodes = $xpath->query('//blockquote/pre');
 
-        $codeParts = array();
-        foreach ($nodes AS $node) {
-            $geshi = new \GeSHi(trim($node->textContent), "php");
-            $geshi->enable_classes();
-            $geshi->set_header_type(GESHI_HEADER_PRE);
-            $codePart = $geshi->parse_code();
+                $codeParts = array();
+                foreach ($nodes AS $node) {
+                    $geshi = new \GeSHi(trim($node->textContent), "php");
+                    $geshi->enable_classes();
+                    $geshi->set_header_type(GESHI_HEADER_PRE);
+                    $codePart = $geshi->parse_code();
 
-            foreach ($node->childNodes AS $child) {
-                $node->removeChild($child);
-            }
+                    foreach ($node->childNodes AS $child) {
+                        $node->removeChild($child);
+                    }
 
-            $placeholder = "##CODEPART".count($codeParts)."##";
-            $codeParts[$placeholder] = array($node->parentNode->parentNode, $node->parentNode, $codePart);
+                    $placeholder = "##CODEPART".count($codeParts)."##";
+                    $codeParts[$placeholder] = array($node->parentNode->parentNode, $node->parentNode, $codePart);
+                }
+
+                foreach ($codeParts AS $placeholder => $e) {
+                    list($parent, $old, $codePart) = $e;
+
+                    $code = $dom->createElement('div');
+
+                    $textNode = $dom->createTextNode($placeholder);
+                    $code->appendChild($textNode);
+                    $parent->replaceChild($code, $old);
+                }
+
+                $body = $dom->saveHtml();
+
+                foreach ($codeParts AS $placeholder => $e) {
+                    list($parent, $old, $codePart) = $e;
+                    $body = str_replace($placeholder, $codePart, $body);
+                }
+
+                $body = str_replace('<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">', '', $body);
+                $body = str_replace('<html><body><div>', '', $body);
+                $body = str_replace('</div></body></html>', '', $body);
+                $body = trim($body);
+                break;
         }
 
-        foreach ($codeParts AS $placeholder => $e) {
-            list($parent, $old, $codePart) = $e;
-
-            $code = $dom->createElement('div');
-
-            $textNode = $dom->createTextNode($placeholder);
-            $code->appendChild($textNode);
-            $parent->replaceChild($code, $old);
-        }
-
-        $body = $dom->saveHtml();
-
-        foreach ($codeParts AS $placeholder => $e) {
-            list($parent, $old, $codePart) = $e;
-            $body = str_replace($placeholder, $codePart, $body);
-        }
-
-        $body = str_replace('<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">', '', $body);
-        $body = str_replace('<html><body><div>', '', $body);
-        $body = str_replace('</div></body></html>', '', $body);
-        $body = trim($body);
 
         $this->formattedText = $body;
     }

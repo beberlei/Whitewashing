@@ -7,6 +7,23 @@
         <link rel="stylesheet" href="{% asset 'bundles/blog/themes/whitewashing-de/blueprint/screen.css' %}" type="text/css" media="screen, projection" />
         <link rel="stylesheet" href="{% asset 'bundles/blog/themes/whitewashing-de/blueprint/print.css' %}" type="text/css" media="print" />
         <!--[if lt IE 8]><link rel="stylesheet" href="{% asset 'bundles/blog/themes/whitewashing-de/blueprint/ie.css' %}" type="text/css" media="screen, projection" /><![endif]-->
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js" type="text/javascript" language="javascript"></script>
+        <script src="{% asset 'bundles/blog/themes/admin/markitup/markitup/jquery.markitup.js' %}" type="text/javascript" language="javascript"></script>
+        <script src="{% asset 'bundles/blog/themes/admin/markitup/markitup/sets/rest/set.js' %}" type="text/javascript" language="javascript"></script>
+        <script src="{% asset 'bundles/blog/themes/admin/tabby/jquery.tabby.js' %}" type="text/javascript" language="javascript"></script>
+        
+        <link rel="stylesheet" type="text/css" href="{% asset 'bundles/blog/themes/admin/markitup/markitup/skins/simple/style.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% asset 'bundles/blog/themes/admin/markitup/markitup/sets/rest/style.css' %}" />
+
+        <script type="text/javascript" >
+            <!--
+            $(document).ready(function() {
+                $("#writepost_post_text").markItUp(restSettings).tabby({tabString:"    "});
+            });
+            -->
+        </script>
+
     </head>
     
     <body>

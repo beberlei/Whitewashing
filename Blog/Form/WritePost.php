@@ -58,6 +58,14 @@ class WritePost
         $form = new Form('writepost', $this, $validator);
 
         $group = new FieldGroup('post');
+        if (!$this->post->getId()) {
+            $group->add(new ChoiceField('inputFormat', array(
+                'choices' => array(
+                    'rst' => 'ReStructured Text',
+                    'html' => 'HTML',
+                ),
+            )));
+        }
         $group->add(new TextField('headline'));
         $group->add(new TextareaField('text', array()));
         $group->add(new ChoiceField('published', array(
