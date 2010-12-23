@@ -1,53 +1,53 @@
 <?php
+/*
+ * Whitewashing
+ *
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled
+ * with this package in the file LICENSE.txt.
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to kontakt@beberlei.de so I can send you a copy immediately.
+ */
 
 namespace Whitewashing\DateTime;
 
+/**
+ * Creates an immutable version of a DateTime object. It never changes the original, only returns new instances.
+ *
+ * @author Benjamin Eberlei <kontakt@beberlei.de>
+ */
 class DateTime extends \DateTime
 {
     /**
-     * To prevent infinite recursions
-     *
-     * @var bool
+     * @param  string $interval
+     * @return DateTime
      */
-    private static $_immutable = true;
-
     public function add($interval)
     {
-        if (self::$_immutable) {
-            self::$_immutable = false;
-            $newDate = clone $this;
-            $newDate->add($interval);
-            self::$_immutable = true;
-            return $newDate;
-        } else {
-            return parent::add($interval);
-        }
+        $newDate = clone $this;
+        return \date_add($newDate, $interval);
     }
 
+    /**
+     * @param  string $modify
+     * @return DateTime
+     */
     public function modify($modify)
     {
-        if (self::$_immutable) {
-            self::$_immutable = false;
-            $newDate = clone $this;
-            $newDate->modify($modify);
-            self::$_immutable = true;
-            return $newDate;
-        } else {
-            return parent::modify($modify);
-        }
+        $newDate = clone $this;
+        return \date_modify($newDate, $modify);
     }
 
+    /**
+     * @param  string $interval
+     * @return DateTime
+     */
     public function sub($interval)
     {
-        if (self::$_immutable) {
-            self::$_immutable = false;
-            $newDate = clone $this;
-            $newDate->sub($interval);
-            self::$_immutable = true;
-            return $newDate;
-        } else {
-            return parent::sub($interval);
-        }
+        $newDate = clone $this;
+        return \date_sub($newDate, $interval);
     }
 
     public function setDate($year, $month, $day) {
