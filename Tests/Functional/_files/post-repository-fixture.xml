@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-    <users id="1" user_name="beberlei" user_email="beberlei@example.com" user_password="foo" user_role="admin" />
+    <blog_authors name="Benjamin Eberlei" username="beberlei" email="kontakt@beberlei.de" />
     <blog_categories id="1" short="unassigned" name="Unassigned" />
     <blog_tags />
     <blogs id="1" blog_name="Whitewashing.de" default_category_id="1" />

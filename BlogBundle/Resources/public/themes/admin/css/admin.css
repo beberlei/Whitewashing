@@ -1,0 +1,54 @@
+#writepost_tags, #writepost_post_headline, #writepost_post_text {
+    width: 600px;
+}
+form.wwform table {
+    border-spacing: 0px;
+}
+
+form.wwform fieldset {
+  margin-bottom: 10px;
+}
+form.wwform legend {
+  padding: 0 2px;
+  font-weight: bold;
+}
+form.wwform label {
+  display: inline-block;
+  line-height: 1.8;
+  vertical-align: top;
+}
+form.wwform fieldset ol {
+  margin: 0;
+  padding: 0;
+}
+form.wwform fieldset li {
+  list-style: none;
+  padding: 5px;
+  margin: 0;
+}
+form.wwform fieldset fieldset {
+  border: none;
+  margin: 3px 0 0;
+}
+form.wwform fieldset fieldset legend {
+  padding: 0 0 5px;
+  font-weight: normal;
+}
+form.wwform fieldset fieldset label {
+  display: block;
+  width: auto;
+}
+form.wwform em {
+  font-weight: bold;
+  font-style: normal;
+  color: #f00;
+}
+form.wwform label {
+  width: 120px; /* Width of labels */
+}
+form.wwform fieldset fieldset label {
+  margin-left: 123px; /* Width plus 3 (html space) */
+}
+a.sprite-link {
+    text-decoration: none;
+}

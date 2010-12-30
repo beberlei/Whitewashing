@@ -31,7 +31,6 @@ abstract class FunctionalTestCase extends OrmTestCase
         $cmf = $em->getMetadataFactory();
         $classes = $cmf->getAllMetadata();
 
-        $schemaTool->dropSchema($classes);
         $schemaTool->createSchema($classes);
 
         return $em;
@@ -39,6 +38,6 @@ abstract class FunctionalTestCase extends OrmTestCase
 
     public function fakeUser()
     {
-        return \Whitewashing\Core\User::create('beberlei', 'kontakt@beberlei.de', 'asdefg');
+        return \Whitewashing\Blog\User::create('beberlei', 'kontakt@beberlei.de', 'asdefg');
     }
 }

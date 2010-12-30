@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<document>
+    <field type="id">id</field>
+    <field inResult="false" type="text" highLight="true" boost="2">headline</field>
+    <field inResult="false" type="html">formattedText</field>
+</document>
+

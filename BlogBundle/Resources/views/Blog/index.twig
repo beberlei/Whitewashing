@@ -3,7 +3,7 @@
 {% block content %}
 
 {% for p in posts %}
-    {% include 'BlogBundle:Blog:post.twig' with ['post': p] %}
+    {% include 'BlogBundle:Blog:post.twig' with {'post': p} %}
 {% endfor %}
 
 {% endblock %}

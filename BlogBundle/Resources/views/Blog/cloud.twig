@@ -1,7 +1,7 @@
 <ul class="tagcloud">
     {% for tag in tags %}
         <li class="{{tag.class}}">
-            <a href="{% route 'blog_show_tag' with ['tagName': tag.0.slug] %}">{{tag.0.name}}</a>
+            <a href="{{ path('blog_show_tag', {'tagName': tag.0.slug}) }}">{{tag.0.name}}</a>
         </li>
     {% endfor %}
 </ul><br clear="all" />

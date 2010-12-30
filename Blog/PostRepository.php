@@ -14,7 +14,6 @@
 namespace Whitewashing\Blog;
 
 use Doctrine\ORM\EntityManager;
-use Whitewashing\Core\User;
 use Whitewashing\Util\String;
 
 class PostRepository extends \Doctrine\ORM\EntityRepository
@@ -75,7 +74,7 @@ class PostRepository extends \Doctrine\ORM\EntityRepository
      * @param Blog $blog
      * @return Post
      */
-    public function create(User $author, $headline, $text, Blog $blog = null)
+    public function create(Author $author, $headline, $text, Blog $blog = null)
     {
         $blog = $this->getEntityManager()->getRepository('Whitewashing\Blog\Blog')->getCurrentBlog();
 

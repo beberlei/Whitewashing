@@ -1,7 +1,7 @@
 <ul id="recentPosts" class="imagedList">
 {% for post in posts %}
     <li>
-        <a href="{% route 'blog_show_post' with ['id': post.id] %}">
+        <a href="{{ path('blog_show_post', {'id': post.id}) }}">
            <img src="{% asset 'bundles/blog/themes/whitewashing-de/images/icons/website-32x32.png' %}" alt="" />
            {{post.created|date('F, d. Y')}}, Comments<br /><strong>{{post.headline}}</strong>
         </a>

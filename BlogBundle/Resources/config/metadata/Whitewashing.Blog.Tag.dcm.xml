@@ -3,7 +3,7 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                   http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="Whitewashing\Blog\Tag" table="blog_tags">
+    <entity name="Whitewashing\Blog\Tag" table="blog_tags" repository-class="Whitewashing\Blog\TagRepository">
         <id name="id" column="id" type="integer">
             <generator type="AUTO" />
         </id>

@@ -108,5 +108,21 @@ class BlogController extends AbstractBlogController
             'posts' => $postService->getTaggedPosts($tag->getId()),
         ), $response);
     }
+
+    public function listTagsAction()
+    {
+        /* @var $request \Symfony\Component\HttpKernel\Request */
+        $request = $this->getRequest();
+        $tagPattern = $request->query->get('term');
+
+        /* @var $tagService Whitewashing\Blog\TagRepository */
+        $tagService = $this->container->get('whitewashing.blog.tagservice');
+        $tags = $tagService->matchingTags($tagPattern);
+
+        /* @var $response \Symfony\Component\HttpKernel\Response */
+        $response = $this->createResponse();
+        $response->setContent(json_encode($tags));
+        return $response;
+    }
 }
 

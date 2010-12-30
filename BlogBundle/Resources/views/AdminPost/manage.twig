@@ -1,39 +1,25 @@
 {% extends 'BlogBundle::adminLayout.twig' %}
 
 {% block content %}
-<div class="span-6">
-    {% include 'BlogBundle:AdminPost:adminNavMenu.twig' %}
-</div>
-
-<div class="span-18 last">
     <h1>Posts</h1>
 
     <table>
         <tr>
-            <th>Headline</th>
-            <th>Author</th>
-            <th>Categories</th>
-            <th>Tags</th>
-            <th>Date</th>
-            <th>#</th>
+            <th width="70%">Headline</th>
+            <th width="10%">Author</th>
+            <th width="10%">Date</th>
+            <th width="10%">#</th>
         </tr>
 {% for post in posts %}
         <tr>
             <td>{{post.headline}}</td>
             <td>{{post.author.name}}</td>
-            <td>
-                {%for category in post.categories %}
-                    {{category.name}}
-                {% endfor %}
-            </td>
-            <td>{{post.tagNames}}</td>
-            <td>{{post.created|date('d.m.Y, H:i')}}</td>
+            <td>{{post.created|date('d.m.Y')}}</td>
             <th>
-                <a href="{% route 'blog_post_edit' with ['id': post.id] %}">Edit</a>
-                <a href="{% route 'blog_post_delete' with ['id': post.id] %}">Delete</a>
+                <a class="sprite-link" href="{{ path('blog_post_edit', {'id': post.id}) }}"><span class="ss_sprite ss_page_edit"></span></a>
+                <a class="sprite-link" href="{{ path('blog_post_delete', {'id': post.id}) }}"><span class="ss_sprite ss_page_delete"></span></a>
             </th>
         </tr>
 {% endfor %}
     </table>
-</div>
 {% endblock %}

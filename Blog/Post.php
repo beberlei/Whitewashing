@@ -13,12 +13,11 @@
 
 namespace Whitewashing\Blog;
 
-use Whitewashing\Core\User;
 use Whitewashing\DateTime\DateFactory;
 use Whitewashing\BlogBundle\Disqusable;
 use Doctrine\Common\Collections\ArrayCollection;
 
-class Post implements \ezcSearchDefinitionProvider, Disqusable
+class Post implements Disqusable
 {
     const STATUS_DRAFT = 0;
     const STATUS_PUBLISHED = 1;
@@ -74,7 +73,7 @@ class Post implements \ezcSearchDefinitionProvider, Disqusable
      */
     private $published = self::STATUS_DRAFT;
 
-    public function __construct(User $author, Blog $blog)
+    public function __construct(Author $author, Blog $blog)
     {
         $this->author = $author;
         $this->blog = $blog;
@@ -86,7 +85,7 @@ class Post implements \ezcSearchDefinitionProvider, Disqusable
     }
 
     /**
-     * @var Whitewashing\Core\User
+     * @var Whitewashing\Blog\Author
      */
     private $author;
 
@@ -334,17 +333,6 @@ class Post implements \ezcSearchDefinitionProvider, Disqusable
         $entry->setContent($this->getText());
 
         $feed->addEntry($entry);
-    }
-
-    static public function getDefinition()
-    {
-        $def = new \ezcSearchDocumentDefinition(__CLASS__);
-        $def->idProperty = 'id';
-        $def->fields['id']       = new \ezcSearchDefinitionDocumentField('id', \ezcSearchDocumentDefinition::INT);
-        $def->fields['headline'] = new \ezcSearchDefinitionDocumentField('headline', \ezcSearchDocumentDefinition::TEXT, 2, true, false, true);
-        $def->fields['text']     = new \ezcSearchDefinitionDocumentField('text', \ezcSearchDocumentDefinition::HTML, 1, false, false, true);
-
-        return $def;
     }
 
     /**

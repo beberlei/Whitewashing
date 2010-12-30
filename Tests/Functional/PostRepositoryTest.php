@@ -14,7 +14,7 @@
 namespace Whitewashing\Tests\Blog;
 
 use Whitewashing\Tests\TestCase,
-    Whitewashing\Core\User,
+    Whitewashing\Blog\User,
     Whitewashing\Blog\PostService,
     Whitewashing\Blog\Blog,
     Whitewashing\Blog\Category;
@@ -39,11 +39,11 @@ class PostRepositoryTest extends \Whitewashing\Tests\FunctionalTestCase
     }
 
     /**
-     * @return Whitewashing\Core\User
+     * @return Whitewashing\Blog\User
      */
     public function getAdminUser()
     {
-        return $this->getEntityManager()->find('Whitewashing\Core\User', 1);
+        return $this->getEntityManager()->find('Whitewashing\Blog\Author', 1);
     }
 
     public function testCreatePostInDefaultBlogAndCategory()

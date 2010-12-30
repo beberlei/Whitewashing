@@ -1,20 +1,14 @@
 {% extends 'BlogBundle::adminLayout.twig' %}
 
 {% block content %}
-<div class="span-6">
-    {% include 'BlogBundle:AdminPost:adminNavMenu.twig' %}
-</div>
-
-<div class="span-18 last">
-    <form method="post" action="{% route 'blog_post_edit' with ['id': post.id] %}">
+    <form method="post" id="writepost" class="wwform"  action="{{ path('blog_post_edit', {'id': post.id}) }}">
 
         <fieldset>
-            <legend>Write Post</legend>
+            <legend>Edit Post</legend>
             {{ writeForm|render }}
         </fieldset>
     
         <input type="submit" name="submit_thenedit" value="Save" />
         <input type="submit" name="submit_thenshow" value="Save and Show" />
     </form>
-</div>
 {% endblock %}

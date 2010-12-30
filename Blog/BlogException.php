@@ -24,4 +24,9 @@ class BlogException extends \Exception
     {
         return new self('The tag '.$tag.' is not known to this blog');
     }
+
+    static public function invalidUserEmailAddress($email)
+    {
+        return new self("The given E-Mail address '".$email."' is not valid.");
+    }
 }

@@ -15,7 +15,7 @@
         <field name="created" column="post_created" type="datetime" />
         <field name="published" column="is_published" type="integer" />
 
-        <many-to-one target-entity="Whitewashing\Core\User" field="author">
+        <many-to-one target-entity="Whitewashing\Blog\Author" field="author">
             <join-column name="author_id" referenced-column-name="id"/>
         </many-to-one>
 

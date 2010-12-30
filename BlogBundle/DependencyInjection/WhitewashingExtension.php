@@ -30,7 +30,7 @@ class WhitewashingExtension extends Extension
                 $configuration->setParameter('whitewashing.blog.'. $param, $config[$param]);
             }
         }
-
+        
         return $configuration;
     }
 

@@ -4,12 +4,10 @@
     xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="whitewashing.blog.postservice.class">Whitewashing\Blog\PostService</parameter>
-        <parameter key="whitewashing.blog.blogservice.class">Whitewashing\Blog\BlogService</parameter>
         <parameter key="whitewashing.blog.feedservice.class">Whitewashing\Blog\FeedService</parameter>
-        <parameter key="whitewashing.core.userservice.class">Whitewashing\Core\UserService</parameter>
-        <parameter key="whitewashing.core.mailservice.class">Whitewashing\Core\NullMailService</parameter>
+        <parameter key="whitewashing.core.userservice.class">Whitewashing\Blog\UserService</parameter>
         <parameter key="whitewashing.view.twigdisqus.class">Whitewashing\View\Twig\DisqusExtension</parameter>
+        <parameter key="whitewashing.request.currentbloglistener.class">Whitewashing\BlogBundle\Request\CurrentBlogListener</parameter>
         
         <parameter key="whitewashing.blog.default_blog_id">1</parameter>
         <parameter key="whitewashing.blog.host_url">http://localhost</parameter>
@@ -17,21 +15,22 @@
     </parameters>
 
     <services>
-        <service id="whitewashing.blog.postservice" class="%whitewashing.blog.postservice.class%">
-            <argument type="service" id="doctrine.orm.default_entity_manager" />
+        <service id="whitewashing.blog.postservice" factory-service="doctrine.orm.default_entity_manager" factory-method="getRepository">
+            <argument>Whitewashing\Blog\Post</argument>
         </service>
-        <service id="whitewashing.blog.blogservice" class="%whitewashing.blog.blogservice.class%">
-            <argument type="service" id="doctrine.orm.default_entity_manager" />
+        <service id="whitewashing.blog.blogservice" factory-service="doctrine.orm.default_entity_manager" factory-method="getRepository">
+            <argument>Whitewashing\Blog\Blog</argument>
+        </service>
+        <service id="whitewashing.blog.tagservice" factory-service="doctrine.orm.default_entity_manager" factory-method="getRepository">
+            <argument>Whitewashing\Blog\Tag</argument>
         </service>
         <service id="whitewashing.blog.feedservice" class="%whitewashing.blog.feedservice.class%">
             <argument type="service" id="doctrine.orm.default_entity_manager" />
             <argument type="service" id="whitewashing.blog.urlgenerator" />
         </service>
-        <service id="whitewashing.core.userservice" class="%whitewashing.core.userservice.class%">
-            <argument type="service" id="doctrine.orm.default_entity_manager" />
-            <argument type="service" id="whitewashing.core.mailservice" />
+        <service id="whitewashing.blog.userservice" factory-service="doctrine.orm.default_entity_manager" factory-method="getRepository">
+            <argument>Whitewashing\Blog\User</argument>
         </service>
-        <service id="whitewashing.core.mailservice" class="%whitewashing.core.mailservice.class%"></service>
 
         <service id="whitewashing.blog.urlgenerator" class="Whitewashing\Blog\UrlGenerator">
             <argument type="service" id="router" />
@@ -40,9 +39,16 @@
 
         <service id="whitewashing.view.twigdisqus" class="%whitewashing.view.twigdisqus.class%">
             <tag name="twig.extension" />
-            <argument type="service" id="templating" />
             <argument type="service" id="router" />
             <argument>%whitewashing.blog.disqus_shortname%</argument>
+            <call method="setTemplatingEngine">
+                <argument type="service" id="templating" />
+            </call>
+        </service>
+
+        <service id="whitewashing.request.currentbloglistener" class="%whitewashing.request.currentbloglistener.class%">
+            <tag name="kernel.listener" priority="255" />
+            <argument type="service" id="service_container" />
         </service>
     </services>
 

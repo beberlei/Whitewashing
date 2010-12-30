@@ -8,7 +8,7 @@
 <ol>
 {% for resDoc in result.documents %}
     <li>
-        <strong><a href="{% route 'blog_show_post' with ['id': resDoc.document.id] %}">{{ resDoc.document.headline }}</a></strong>
+        <strong><a href="{{ path('blog_show_post', {'id': resDoc.document.id}) }}">{{ resDoc.document.headline }}</a></strong>
         ({{ resDoc.score * 100 }})
     </li>
 {% endfor %}

@@ -61,6 +61,10 @@ blog_show_post:
   pattern: /blog/:id
   defaults: { _controller: BlogBundle:Blog:view }
 
+blog_tags:
+  pattern: /blog/list/tags
+  defaults: { _controller: BlogBundle:Blog:listTags }
+
 legacy_rss_all:
   pattern: /about/rss/all
   defaults: { _controller: BlogBundle:Feed:index }

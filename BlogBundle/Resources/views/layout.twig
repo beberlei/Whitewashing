@@ -22,7 +22,7 @@
             </div>
 
             <div id="menu" class="span-8 last">
-                <a href="{% route 'blog' %}"><img class="logo" src="{% asset 'bundles/blog/themes/whitewashing-de/images/logo.jpg' %}" alt="Whitewashing.de" /></a>
+                <a href="{{ path('blog') }}"><img class="logo" src="{% asset 'bundles/blog/themes/whitewashing-de/images/logo.jpg' %}" alt="Whitewashing.de" /></a>
 
                 <h3>About Whitewashing.de</h3>
 
@@ -36,7 +36,7 @@
 
                 <h3>Search</h3>
 
-                <form method="get" action="{% route 'blog_post_search' %}">
+                <form method="get" action="{{ path('blog_post_search') }}">
                     <input type="text" size="30" name="q" value="" />
                     <input type="submit" value="Go" />
                 </form>
@@ -44,7 +44,7 @@
                 <p class="buttons">
                     <a href="http://www.twitter.com/beberlei"><img src="http://twitter-badges.s3.amazonaws.com/follow_me-a.png" alt="Follow beberlei on Twitter"/></a>
 
-                    <a href="{% route 'blog_feed' %}"<img src="{% asset 'bundles/blog/themes/whitewashing-de/images/icons/feed-32x32.png' %}" alt="" /></a>
+                    <a href="{{ path('blog_feed') }}"<img src="{% asset 'bundles/blog/themes/whitewashing-de/images/icons/feed-32x32.png' %}" alt="" /></a>
                 </p>
 
             </div>
@@ -56,7 +56,7 @@
                 <div class="span-8">
                     <h4>Recent Posts</h4>
 
-                    {% render "BlogBundle:Blog:recent" with ['count': 5] %}
+                    {% render "BlogBundle:Blog:recent" with {'count': 5} %}
                 </div>
 
                 <div class="span-8">
@@ -73,7 +73,7 @@
                             <a href="mailto:kontakt@beberlei.de"><img src="{% asset 'bundles/blog/themes/whitewashing-de/images/icons/email-16x16.png' %}" alt="" />Write me an E-Mail</a>
                         </li>
                         <li>
-                            <a href="{% route 'blog_feed' %}"><img src="{% asset 'bundles/blog/themes/whitewashing-de/images/icons/feed-16x16.png' %}" alt="" />Subscribe to RSS Feed</a>
+                            <a href="{{ path('blog_feed') }}"><img src="{% asset 'bundles/blog/themes/whitewashing-de/images/icons/feed-16x16.png' %}" alt="" />Subscribe to RSS Feed</a>
                         </li>
                         <li>
                             <a href="http://www.twitter.com/beberlei"><img src="{% asset 'bundles/blog/themes/whitewashing-de/images/icons/twitter-16x16.png' %}" alt="" />Follow me on Twitter</a>

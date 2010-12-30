@@ -1,0 +1,16 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                  http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Whitewashing\Blog\Author" table="blog_authors" repository-class="Whitewashing\Blog\AuthorRepository">
+        <id name="id" type="integer">
+            <generator strategy="AUTO" />
+        </id>
+
+        <field name="name" type="string" column="name" />
+        <field name="username" type="string" column="username" unique="true" />
+        <field name="email" type="string" column="email" unique="true" />
+    </entity>
+
+</doctrine-mapping>

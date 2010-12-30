@@ -14,7 +14,7 @@
 namespace Whitewashing\Tests\Blog;
 
 use Whitewashing\Tests\TestCase,
-    Whitewashing\Core\User,
+    Whitewashing\Blog\Author,
     Whitewashing\Blog\Post,
     Whitewashing\Blog\Blog,
     Whitewashing\Blog\Category,

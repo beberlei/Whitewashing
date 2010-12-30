@@ -3,7 +3,7 @@
 /* @var $view Symfony\Bundle\FrameworkBundle\Templating\Engine */
 ?>
 <div class="post-container">
-    <h2><a href="{% route 'blog_show_post' with ['id': post.id] %}">{{ post.headline }}</a></h2>
+    <h2><a href="{{ path('blog_show_post', {'id': post.id}) }}">{{ post.headline }}</a></h2>
 
     <div class="post">
         {{ post.formattedText|raw }}
@@ -11,6 +11,6 @@
 
     <div class="footer">
         {{ post.author.name }} on {{ post.created|date('F, d. Y') }},
-        <a href="{% route 'blog_show_post' with ['id': post.id] %}#comments">Comments</a>
+        <a href="{{ path('blog_show_post', {'id': post.id}) }}#comments">Comments</a>
     </div>
 </div>

@@ -5,11 +5,11 @@
 {% endblock %}
 
 {% block content %}
-{% include 'BlogBundle:Blog:post.twig' with ['post': post] %}
+{% include 'BlogBundle:Blog:post.twig' with {'post': post} %}
 
 <div class="references">
     <div class="span-10">
-        {% set posturl %}{%route 'blog_show_post' with ['id': post.id] %}{% endset %}
+        {% set posturl %}{{ path('blog_show_post', {'id': post.id}) }}{% endset %}
 
         <h4>Share This Post</h4>
 
@@ -31,7 +31,7 @@
         {% else %}
         <ul>
         {% for tag in post.tags %}
-            <li><a href="{% route 'blog_show_tag' with ['tagName': tag.slug] %}">{{tag.name}}</a></li>
+            <li><a href="{{ path('blog_show_tag', {'tagName': tag.slug}) }}">{{tag.name}}</a></li>
         {% endfor %}
         </ul>
         {% endif %}

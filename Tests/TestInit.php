@@ -14,12 +14,6 @@
 // relativize the include path to the correct level
 set_include_path( realpath(__DIR__ . "/../../") . PATH_SEPARATOR . get_include_path() );
 
-if (file_exists($GLOBALS['WHITEWASHING_SYMFONY_AUTOLOADFILE'])) {
-    require_once $GLOBALS['WHITEWASHING_SYMFONY_AUTOLOADFILE'];
-} else {
-    die("Could not load symfony autoloader.\n\n");
-}
-
 require_once "Doctrine/Common/ClassLoader.php";
 
 $loader = new \Doctrine\Common\ClassLoader("Doctrine");
@@ -28,5 +22,12 @@ $loader->register();
 $loader = new \Doctrine\Common\ClassLoader('DoctrineExtensions');
 $loader->register();
 
-$loader = new \Doctrine\Common\ClassLoader('Whitewashing');
-$loader->register();
+spl_autoload_register(function($class) {
+    if (strpos($class, "Whitewashing\\") === 0) {
+        $file = str_replace(array("Whitewashing", "\\"), array("", "/"), $class). ".php";
+        require __DIR__ . "/../" . $file;
+    }
+});
+
+require_once "ezc/Base/base.php";
+spl_autoload_register( array( 'ezcBase', 'autoload' ) );

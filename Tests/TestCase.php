@@ -13,7 +13,7 @@
 
 namespace Whitewashing\Tests;
 
-use Whitewashing\Core\User;
+use Whitewashing\Blog\Author;
 
 class TestCase extends \PHPUnit_Framework_TestCase
 {
@@ -41,6 +41,6 @@ class TestCase extends \PHPUnit_Framework_TestCase
 
     public function fakeUser()
     {
-        return User::create('beberlei', 'kontakt@beberlei.de', 'asdefg');
+        return Author::create('Benjamin Eberlei', 'beberlei', 'kontakt@beberlei.de');
     }
 }

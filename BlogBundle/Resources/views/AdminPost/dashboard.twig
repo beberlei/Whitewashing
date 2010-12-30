@@ -1,13 +1,7 @@
 {% extends 'BlogBundle::adminLayout.twig' %}
 
 {% block content %}
-<div class="span-6">
-    {% include 'BlogBundle:AdminPost:adminNavMenu.twig' %}
-</div>
-
-<div class="span-18 last">
     <h1>Dashboard</h1>
 
     <p>Hello <strong>{{user.username}}</strong>!</p>
-</div>
 {% endblock %}

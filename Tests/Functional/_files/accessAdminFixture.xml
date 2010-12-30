@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-    <users user_name="beberlei" user_password="9b2dac21fcb66204f00434c5c1ad5b23" user_role="admin" />
+    <blog_authors name="Benjamin Eberlei" username="beberlei" email="kontakt@beberlei.de" />
     <blog_categories />
     <blogs />
     <blog_posts />

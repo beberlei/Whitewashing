@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="span-24 last">
-    <form method="post" action="{% route 'blog_security_check' %}">
+    <form method="post" action="{{ path('blog_security_check') }}">
         <fieldset>
             <legend>Login</legend>
 
