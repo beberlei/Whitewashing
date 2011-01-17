@@ -1,10 +1,10 @@
-{% extends "BlogBundle::layout.twig" %}
+{% extends "BlogBundle::layout.twig.html" %}
 
 {% block content %}
 
 {% if posts %}
 {% for p in posts %}
-    {% include 'BlogBundle:Blog:post.twig' with {'post': p} %}
+    {% include 'BlogBundle:Blog:post.twig.html' with {'post': p} %}
 {% endfor %}
 
 {% else %}

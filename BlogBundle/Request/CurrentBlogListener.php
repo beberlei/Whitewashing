@@ -35,9 +35,9 @@ class CurrentBlogListener
      * @param EventDispatcher $dispatcher An EventDispatcher instance
      * @param integer         $priority   The priority
      */
-    public function register(EventDispatcher $dispatcher)
+    public function register(EventDispatcher $dispatcher, $priority = 0)
     {
-        $dispatcher->connect('core.request', array($this, 'handle'), 250);
+        $dispatcher->connect('core.request', array($this, 'handle'), $priority);
     }
 
     /**
@@ -60,6 +60,7 @@ class CurrentBlogListener
         }
 
         $request = $event->get('request');
+
         if (strpos($request->attributes->get('_controller'), 'Whitewashing\BlogBundle\Controller') === 0) {
             $blogId = $this->container->getParameter('whitewashing.blog.default_blog_id');
             $blogRepository = $this->container->get('whitewashing.blog.blogservice');

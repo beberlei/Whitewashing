@@ -6,13 +6,6 @@ blog:
   pattern: /blog
   defaults: { _controller: BlogBundle:Blog:index }
 
-blog_login:
-  pattern: /blog/login
-  defaults: { _controller: BlogBundle:AdminPost:login }
-
-blog_security_check:
-  pattern: /blog/login_check
-
 blog_admin_dashboard:
   pattern: /blog/admin
   defaults: { _controller: BlogBundle:AdminPost:index }

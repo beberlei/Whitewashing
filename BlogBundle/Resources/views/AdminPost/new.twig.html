@@ -1,4 +1,4 @@
-{% extends 'BlogBundle::adminLayout.twig' %}
+{% extends 'BlogBundle::adminLayout.twig.html' %}
 
 {% block content %}
     <form id="writepost" class="wwform" method="post" action="{{ path('blog_post_new') }}">
@@ -7,7 +7,7 @@
         <fieldset>
             <legend>Write New Post</legend>
 
-            {{ writeForm|render }}
+            {{ form_field(writeForm) }}
             
         </fieldset>
         

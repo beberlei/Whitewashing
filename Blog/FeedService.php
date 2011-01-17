@@ -86,14 +86,14 @@ class FeedService
     {
         $blog = $this->em->getRepository('Whitewashing\Blog\Blog')->getCurrentBlog();
 
-        $feed = new \Zend_Feed_Writer_Feed;
+        $feed = new \Zend\Feed\Writer\Writer;
         $feed->setTitle($blog->getName() . " - " . $suffix);
         $feed->setLink($this->urlGenerator->generateMainUrl());
         $feed->setFeedLink($this->urlGenerator->generateFeedUrl(), 'atom');
         $feed->addAuthor(array(
-            'name'  => 'Paddy',
-            'email' => 'paddy@example.com',
-            'uri'   => 'http://www.example.com',
+            'name'  => 'Benjamin Eberlei',
+            'email' => 'kontakt@beberlei.de',
+            'uri'   => 'http://www.whitewashing.de',
         ));
 
         return $feed;

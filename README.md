@@ -2,11 +2,16 @@
 
 Whitewashing is my blog and a playground for symfony2 application development.
 
+## Required Bundles
+
+* FOS UserBundle
+* Zeta Bundle
+
 ## Configuration
 
 Add the following submodule to your symfony2 project:
 
-    git submodule add git://github.com/beberlei/Whitewashing.git src/Bundle/Whitewashing
+    git submodule add git://github.com/beberlei/Whitewashing.git src/Whitewashing
     git submodule update --init
 
 Because i am not very fond of the Bundle prefix requirement I have written the whole bundle in the `Whitewashing`
@@ -14,36 +19,52 @@ main namespace. That means you have to make certain additional configurations to
 
 Add the following to the `AppKernel#registerBundleDirs()` method:
 
-    'Whitewashing'       => __DIR__.'/../src/Bundle/Whitewashing',
+    'Whitewashing'       => __DIR__.'/../src/Whitewashing',
 
 Register the bundle in your `AppKernel#registerBundles` method:
 
     new Whitewashing\BlogBundle\BlogBundle(),
 
-Add the following to your app configuration.
+Load the whitewashing extension in your app configuration (app/config/config.yml).
 
     whitewashing.blog:
-      default_id:   1
+      default_blog_id:   1
       host_url: http://www.whitewashing.de
 
-You also have to configure the security details to be able to write posts and such:
+Add the mapping directory:
+
+    doctrine.orm:
+      mappings:
+        BlogBundle:
+          dir: Resources/config/metadata
+          type: xml
+          prefix: Whitewashing\Blog\
+
+If you already have a firewall and provider defined you only need to restrict the access
+to the admin area:
+
+    security.config:
+        # ...
+        access_control:
+            - { path: /blog/admin.*, role: ROLE_USER }
+
+If you haven't done so you also have to configure the security details to secure
+the admin area:
 
     security.config:
         providers:
-            blog:
-                password_encoder: sha1
-                entity: { class: Whitewashing\Core\User, property: name }
+            fos_user:
+                id: fos_user.user_manager
         firewalls:
-            blog-backend:
-                pattern:  /blog/admin.*
+            public:
+                pattern: /.*
                 form-login:
                   check_path: /login-check
                   login_path: /login
-                  provider:   blog
-            public:
-                pattern: /.*
-                form-login: true
+                  provider:   fos_user
                 anonymous: true
+        access_control:
+            - { path: /blog/admin.*, role: ROLE_USER }
 
 And the following information to your `routing.yml`:
 
@@ -52,12 +73,6 @@ And the following information to your `routing.yml`:
 
 You can then create all the required database tables by using the symfony console doctrine commands
 and access the Schema-Tool.
-
-Whitewashing Bundle requires the following bundles:
-
-* DoctrineORMBundle
-* ZetaBundle
-* ZendBundle
 
 ## TODOs
 

@@ -17,32 +17,16 @@ use Symfony\Component\Security\SecurityContext;
 
 class AdminPostController extends AbstractBlogController
 {
-    public function loginAction()
-    {
-        // get the error if any (works with forward and redirect -- see below)
-        $request = $this->getRequest();
-        if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
-            $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
-        } else {
-            $error = $request->getSession()->get(SecurityContext::AUTHENTICATION_ERROR);
-        }
-
-        return $this->render('BlogBundle:AdminPost:login.twig', array(
-            'error' => $error,
-            'last_username' => $request->getSession()->get(SecurityContext::LAST_USERNAME),
-        ));
-    }
-
     public function indexAction()
     {
-        return $this->render('BlogBundle:AdminPost:dashboard.twig', array(
+        return $this->render('BlogBundle:AdminPost:dashboard.twig.html', array(
             'user' => $this->container->get('security.context')->getUser()
         ));
     }
 
     public function manageAction()
     {
-        return $this->render('BlogBundle:AdminPost:manage.twig', array(
+        return $this->render('BlogBundle:AdminPost:manage.twig.html', array(
             'posts' => $this->container->get('whitewashing.blog.postservice')->getCurrentPosts()
         ));
     }
@@ -52,12 +36,12 @@ class AdminPostController extends AbstractBlogController
         $em = $this->container->get('doctrine.orm.default_entity_manager');
         $currentUser = $this->container->get('security.context')->getUser();
 
-        $author = $this->container->get('whitewashing.blogbundle.accountservice')->findAuthorForUserAccount($currentUser);
+        $author = $this->container->get('whitewashing.blog.authorservice')->findAuthorForUserAccount($currentUser);
         
         $blog = $this->container->get('whitewashing.blog.blogservice')->getCurrentBlog();
         $post = new \Whitewashing\Blog\Post($author, $blog);
 
-        return $this->handleForm('BlogBundle:AdminPost:new.twig', $post, $em);
+        return $this->handleForm('BlogBundle:AdminPost:new.twig.html', $post, $em);
     }
 
     public function editAction()
@@ -65,7 +49,7 @@ class AdminPostController extends AbstractBlogController
         $em = $this->container->get('doctrine.orm.default_entity_manager');
         $post = $this->container->get('whitewashing.blog.postservice')->findPost($this->getRequest()->get('id'));
 
-        return $this->handleForm('BlogBundle:AdminPost:edit.twig', $post, $em);
+        return $this->handleForm('BlogBundle:AdminPost:edit.twig.html', $post, $em);
     }
 
     /**
@@ -107,9 +91,9 @@ class AdminPostController extends AbstractBlogController
             $em->remove($post);
             $em->flush();
 
-            return $this->render('BlogBundle:AdminPost:delete.twig', array('post' => $post));
+            return $this->render('BlogBundle:AdminPost:delete.twig.html', array('post' => $post));
         } else {
-            return $this->render('BlogBundle:AdminPost:confirmDelete.twig', array('post' => $post));
+            return $this->render('BlogBundle:AdminPost:confirmDelete.twig.html', array('post' => $post));
         }
     }
 

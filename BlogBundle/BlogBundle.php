@@ -37,9 +37,7 @@ class BlogBundle extends Bundle
      */
     public function boot()
     {
-        // Register Zend Autoloader
-        require_once "Zend/Loader/Autoloader.php";
-        \Zend_Loader_Autoloader::getInstance();
+
     }
 
     /**

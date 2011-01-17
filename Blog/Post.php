@@ -312,7 +312,7 @@ class Post implements Disqusable
      *
      * @param Zend_Feed_Writer $writer
      */
-    public function publishToFeed(\Zend_Feed_Writer_Feed $feed, UrlGenerator $generator)
+    public function publishToFeed(\Zend\Feed\Writer\Feed $feed, UrlGenerator $generator)
     {
         $entry = $feed->createEntry();
 
