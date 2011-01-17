@@ -2,8 +2,20 @@
 
 {% block content %}
 
+{% if posts %}
 {% for p in posts %}
     {% include 'BlogBundle:Blog:post.twig' with {'post': p} %}
 {% endfor %}
+
+{% else %}
+
+<p>There are no posts in this blog yet.</p>
+
+<p>
+    If you are the owner of this blog you can <a href="{{ path('_security_login') }}">login</a>
+    with your account and then begin to <a href="{{ path('blog_admin_dashboard') }}">create content</a>.
+</p>
+
+{% endif %}
 
 {% endblock %}

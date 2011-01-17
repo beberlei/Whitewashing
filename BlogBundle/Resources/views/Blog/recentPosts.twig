@@ -2,7 +2,7 @@
 {% for post in posts %}
     <li>
         <a href="{{ path('blog_show_post', {'id': post.id}) }}">
-           <img src="{% asset 'bundles/blog/themes/whitewashing-de/images/icons/website-32x32.png' %}" alt="" />
+           <img src="{{ asset("bundles/blog/themes/whitewashing-de/images/icons/website-32x32.png") }}" alt="" />
            {{post.created|date('F, d. Y')}}, Comments<br /><strong>{{post.headline}}</strong>
         </a>
     </li>

@@ -52,3 +52,7 @@ form.wwform fieldset fieldset label {
 a.sprite-link {
     text-decoration: none;
 }
+
+.markItUpHeader ul .markItUpSeparator {
+    background-color: #fff !important;
+}

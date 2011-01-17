@@ -17,6 +17,14 @@ blog_admin_dashboard:
   pattern: /blog/admin
   defaults: { _controller: BlogBundle:AdminPost:index }
 
+blog_admin_list_authors:
+  pattern: /blog/admin/list/authors
+  defaults: { _controller: BlogBundle:Author:list }
+
+blog_admin_new_author:
+  pattern: /blog/admin/new/author
+  defaults: { _controller: BlogBundle:Author:new }
+
 blog_show_tag:
   pattern: /blog/tag/:tagName
   defaults: { _controller: BlogBundle:Blog:tag }

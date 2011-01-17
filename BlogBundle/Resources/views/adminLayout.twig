@@ -4,24 +4,23 @@
 
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 
-        <link rel="stylesheet" href="{% asset 'bundles/blog/themes/whitewashing-de/blueprint/screen.css' %}" type="text/css" media="screen, projection" />
-        <link rel="stylesheet" href="{% asset 'bundles/blog/themes/whitewashing-de/blueprint/print.css' %}" type="text/css" media="print" />
-        <!--[if lt IE 8]><link rel="stylesheet" href="{% asset 'bundles/blog/themes/whitewashing-de/blueprint/ie.css' %}" type="text/css" media="screen, projection" /><![endif]-->
+        <link rel="stylesheet" href="{{ asset("bundles/blog/themes/whitewashing-de/blueprint/screen.css") }}" type="text/css" media="screen, projection" />
+        <link rel="stylesheet" href="{{ asset("bundles/blog/themes/whitewashing-de/blueprint/print.css") }}" type="text/css" media="print" />
+        <!--[if lt IE 8]><link rel="stylesheet" href="{{ asset(bundles/blog/themes/whitewashing-de/blueprint/ie.css) }}" type="text/css" media="screen, projection" /><![endif]-->
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js" type="text/javascript" language="javascript"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js" type="text/javascript" language="javascript"></script>
-        <script src="{% asset 'bundles/blog/themes/admin/markitup/jquery.markitup.js' %}" type="text/javascript" language="javascript"></script>
-        <script src="{% asset 'bundles/blog/themes/admin/markitup/sets/rest/set.js' %}" type="text/javascript" language="javascript"></script>
-        <script src="{% asset 'bundles/blog/themes/admin/tabby/jquery.tabby.js' %}" type="text/javascript" language="javascript"></script>
-        <script src="{% asset 'bundles/blog/themes/admin/wweditor.js' %}" type="text/javascript" language="javascript"></script>
+        <script src="{{ asset('bundles/blog/themes/admin/markitup/jquery.markitup.js') }}" type="text/javascript" language="javascript"></script>
+        <script src="{{ asset('bundles/blog/themes/admin/markitup/sets/rest/set.js') }}" type="text/javascript" language="javascript"></script>
+        <script src="{{ asset('bundles/blog/themes/admin/tabby/jquery.tabby.js') }}" type="text/javascript" language="javascript"></script>
+        <script src="{{ asset('bundles/blog/themes/admin/wweditor.js') }}" type="text/javascript" language="javascript"></script>
         
-        <link rel="stylesheet" type="text/css" href="{% asset 'bundles/blog/themes/admin/markitup/skins/simple/style.css' %}" />
-        <link rel="stylesheet" type="text/css" href="{% asset 'bundles/blog/themes/admin/markitup/sets/rest/style.css' %}" />
-        <link rel="stylesheet" type="text/css" href="{% asset 'bundles/blog/themes/admin/sprites/sprite.css' %}" />
-        <link rel="stylesheet" type="text/css" href="{% asset 'bundles/blog/themes/admin/css/Aristo/jquery-ui-1.8.5.custom.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('bundles/blog/themes/admin/markitup/skins/simple/style.css') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('bundles/blog/themes/admin/markitup/sets/rest/style.css') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('bundles/blog/themes/admin/sprites/sprite.css') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('bundles/blog/themes/admin/css/Aristo/jquery-ui-1.8.5.custom.css') }}" />
 
-        <!--<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/themes/black-tie/jquery-ui.css" />-->
-        <link rel="stylesheet" type="text/css" href="{% asset 'bundles/blog/themes/admin/css/admin.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('bundles/blog/themes/admin/css/admin.css') }}" />
 
         <script type="text/javascript" >
             <!--
@@ -30,7 +29,7 @@
                     "markitupSettings": {
                         "rst": restSettings
                     },
-                    "tagRoute": "{% path('blog_tags') %}"
+                    "tagRoute": "{{ path('blog_tags') }}"
                 });
             });
             -->
@@ -40,7 +39,16 @@
     
     <body>
         <div class="span-6 ww-menu-dialog">
-        {% include 'BlogBundle:AdminPost:adminNavMenu.twig' %}
+            <ul>
+                <li><a href="{{ path('blog') }}">Go to Blog</a></li>
+                <li><a href="{{ path( 'blog_admin_dashboard') }}">Dashboard</a></li>
+                <li><a href="{{ path( 'blog_admin_list_authors') }}">Authors</a></li>
+                <li><a href="{{ path( 'blog_post_admin') }}">Posts</a>
+                    <ul>
+                        <li><a href="{{ path( 'blog_post_new') }}">Write Post</a></li>
+                    </ul>
+                </li>
+            </ul>
         </div>
 
         <div class="span-18 last ww-main-dialog">

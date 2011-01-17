@@ -50,8 +50,9 @@ class AdminPostController extends AbstractBlogController
     public function newAction()
     {
         $em = $this->container->get('doctrine.orm.default_entity_manager');
-        $author = $this->container->get('security.context')->getUser();
-        $author = $em->merge($author); // a user is always detached, we need to merge it back in for this action.
+        $currentUser = $this->container->get('security.context')->getUser();
+
+        $author = $this->container->get('whitewashing.blogbundle.accountservice')->findAuthorForUserAccount($currentUser);
         
         $blog = $this->container->get('whitewashing.blog.blogservice')->getCurrentBlog();
         $post = new \Whitewashing\Blog\Post($author, $blog);
@@ -76,7 +77,7 @@ class AdminPostController extends AbstractBlogController
     private function handleForm($viewName, $post, $em)
     {
         $writePost = new \Whitewashing\Blog\Form\WritePost($post);
-        $form = $writePost->createForm($this->container->getValidatorService());
+        $form = $writePost->createForm($this->container->get('validator'));
 
         if ($this->getRequest()->getMethod() == 'POST') {
             $form->bind($this->getRequest()->get('writepost'));

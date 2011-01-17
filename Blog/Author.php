@@ -33,14 +33,15 @@ class Author
     /**
      * @var string
      */
-    private $email;
+    private $email = "";
 
     /**
+     * @param  string $name
      * @param  string $username
      * @param  string $email
      * @return User
      */
-    static public function create($name, $username, $email)
+    static public function create($name, $username, $email = null)
     {
         $u = new Author();
         $u->setName($name);
@@ -76,11 +77,11 @@ class Author
 
     public function setEmail($email)
     {
-        if (!\filter_var($email, \FILTER_VALIDATE_EMAIL)) {
+        if ($email !== null && !\filter_var($email, \FILTER_VALIDATE_EMAIL)) {
             throw BlogException::invalidUserEmailAddress($email);
         }
 
-        $this->email = $email;
+        $this->email = (string)$email;
     }
 
     public function __toString()
