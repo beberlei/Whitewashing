@@ -14,10 +14,9 @@
 namespace Whitewashing\Blog;
 
 use Whitewashing\DateTime\DateFactory;
-use Whitewashing\BlogBundle\Disqusable;
 use Doctrine\Common\Collections\ArrayCollection;
 
-class Post implements Disqusable
+class Post
 {
     const STATUS_DRAFT = 0;
     const STATUS_PUBLISHED = 1;
@@ -361,15 +360,5 @@ class Post implements Disqusable
         foreach ($state AS $k => $v) {
             $this->$k = $v;
         }
-    }
-
-    public function getDisqusId()
-    {
-        return $this->getId();
-    }
-
-    public function getDisqusUrl(\Symfony\Component\Routing\Router $router)
-    {
-        return $router->generate('blog_show_post', array('id' => $this->getId()), true);
     }
 }

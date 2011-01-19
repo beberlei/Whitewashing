@@ -24,7 +24,5 @@ abstract class AbstractBlogController extends Controller
     {
         return $this->container->get('request');
     }
-
-    
 }
 

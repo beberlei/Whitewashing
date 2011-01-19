@@ -3,13 +3,24 @@
 namespace Whitewashing\View\Twig;
 
 use Twig_Extension;
-use Twig_Filter_Method;
-use Whitewashing\BlogBundle\Disqusable;
+use Twig_Environment;
+use Twig_Function_Method;
 
 class DisqusExtension extends Twig_Extension
 {
+    /**
+     * @var \Symfony\Bundle\FrameworkBundle\Templating\EngineInterface
+     */
     private $engine;
+
+    /**
+     * @var \Symfony\Component\Routing\RouterInterface
+     */
     private $router;
+
+    /**
+     * @var string
+     */
     private $disqusShortname;
 
     public function __construct($router, $disqusShortname)
@@ -30,11 +41,11 @@ class DisqusExtension extends Twig_Extension
         $this->engine = $engine;
     }
 
-    public function getFilters()
+    public function getFunctions()
     {
         return array(
-            'disqus_comments' => new Twig_Filter_Method($this, 'comments', array('is_safe' => array('html'))),
-            'disqus_comment_count' => new Twig_Filter_Method($this, 'commentCount', array('is_safe' => array('html'))),
+            'disqus_comments' => new Twig_Function_Method($this, 'comments', array('is_safe' => array('html'))),
+            'disqus_comment_count' => new Twig_Function_Method($this, 'commentCount', array('is_safe' => array('html')))
         );
     }
 
@@ -44,24 +55,27 @@ class DisqusExtension extends Twig_Extension
     }
 
     /**
-     * @param Disqusable $object
+     * @param object $object
      * @return string
      */
-    public function comments(Disqusable $object)
+    public function comments($object, $route, $param = 'id')
     {
+        $method = 'get' . $param;
+        $id = $object->$method();
+
         return $this->engine->render('BlogBundle:Disqus:comments.twig.html', array(
             'disqus_shortname' => $this->disqusShortname,
-            'disqus_identifier' => $object->getDisqusId(),
-            'disqus_url' => $object->getDisqusUrl($this->router),
+            'disqus_identifier' => $id,
+            'disqus_url' => $this->router->generate($route, array($param => $id), true),
         ));
     }
 
     /**
-     * @param Disqusable $object
+     * @param object $object
      * @return string
      */
-    public function commentCount($object)
+    public function commentCount($object, $route, $param = 'id')
     {
-        
+        return 0;
     }
 }
