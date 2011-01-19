@@ -13,7 +13,7 @@
 
 namespace Whitewashing\BlogBundle\Request;
 
-use Symfony\Bundle\FrameworkBundle\Debug\EventDispatcher;
+use Symfony\Bundle\FrameworkBundle\EventDispatcher;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
