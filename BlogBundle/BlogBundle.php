@@ -20,6 +20,23 @@ use Symfony\Component\DependencyInjection\Loader\Loader;
 
 class BlogBundle extends Bundle
 {
+    /*
+    public function getName()
+    {
+        return 'BlogBundle';
+    }
+
+    public function getNamespace()
+    {
+        return __NAMESPACE__;
+    }
+
+    public function getPath()
+    {
+        return strtr(__DIR__, '\\', '/');
+    }
+     */
+
     /**
      * Customizes the Container instance.
      *
