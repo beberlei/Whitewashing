@@ -1,6 +1,6 @@
 <?php
 
-namespace Whitewashing\View\Twig;
+namespace Whitewashing\BlogBundle\View\Twig;
 
 use Twig_Extension;
 use Twig_Environment;
@@ -45,7 +45,7 @@ class DisqusExtension extends Twig_Extension
     {
         return array(
             'disqus_comments' => new Twig_Function_Method($this, 'comments', array('is_safe' => array('html'))),
-            'disqus_comment_count' => new Twig_Function_Method($this, 'commentCount', array('is_safe' => array('html')))
+            'disqus_head_comment_count' => new Twig_Function_Method($this, 'headCommentCount', array('is_safe' => array('html')))
         );
     }
 
@@ -74,8 +74,10 @@ class DisqusExtension extends Twig_Extension
      * @param object $object
      * @return string
      */
-    public function commentCount($object, $route, $param = 'id')
+    public function headCommentCount()
     {
-        return 0;
+        return $this->engine->render('BlogBundle:Disqus:count.twig.html', array(
+            'disqus_shortname' => $this->disqusShortname,
+        ));
     }
 }

@@ -7,6 +7,6 @@
 
     <div class="footer">
         {{ post.author.name }} on {{ post.created|date('F, d. Y') }},
-        <a href="{{ path('blog_show_post', {'id': post.id}) }}#comments">Comments</a>
+        <a href="{{ path('blog_show_post', {'id': post.id}) }}#disqus_thread" data-disqus-identifier="{{post.id}}">Comments and Reactions</a>
     </div>
 </div>
