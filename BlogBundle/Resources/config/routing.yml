@@ -19,7 +19,7 @@ blog_admin_new_author:
   defaults: { _controller: BlogBundle:Author:new }
 
 blog_show_tag:
-  pattern: /blog/tag/:tagName
+  pattern: /blog/tag/{tagName}
   defaults: { _controller: BlogBundle:Blog:tag }
 
 blog_feed:
@@ -27,11 +27,11 @@ blog_feed:
   defaults: { _controller: BlogBundle:Feed:index }
 
 blog_feed_tags:
-  pattern: /blog/tag/:tagName/feed
+  pattern: /blog/tag/{tagName}/feed
   defaults: { _controller: BlogBundle:Feed:tag }
 
 blog_feed_category:
-  pattern: /blog/category/:categoryShort/feed
+  pattern: /blog/category/{categoryShort}/feed
   defaults: { _controller: BlogBundle:Feed:category }
 
 blog_post_new:
@@ -39,11 +39,11 @@ blog_post_new:
   defaults: { _controller: BlogBundle:AdminPost:new }
 
 blog_post_edit:
-  pattern: /blog/admin/posts/:id/edit
+  pattern: /blog/admin/posts/{id}/edit
   defaults: { _controller: BlogBundle:AdminPost:edit }
 
 blog_post_delete:
-  pattern: /blog/admin/posts/:id/delete
+  pattern: /blog/admin/posts/{id}/delete
   defaults: { _controller: BlogBundle:AdminPost:delete }
 
 blog_post_admin:
@@ -59,7 +59,7 @@ blog_post_search:
   defaults: { _controller: BlogBundle:Search:query }
 
 blog_show_post:
-  pattern: /blog/:id
+  pattern: /blog/{id}
   defaults: { _controller: BlogBundle:Blog:view }
 
 blog_tags:
@@ -75,9 +75,9 @@ legacy_rss_articles:
   defaults: { _controller: BlogBundle:Feed:index }
 
 legacy_rss_tag:
-  pattern: /tag/rss/:tagName
+  pattern: /tag/rss/{tagName}
   defaults: { _controller: BlogBundle:Feed:tag }
 
 legacy_rss_category:
-  pattern: /category/rss/:categoryShort
+  pattern: /category/rss/{categoryShort}
   defaults: { _controller: BlogBundle:Feed:category }
