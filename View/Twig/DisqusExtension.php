@@ -49,7 +49,7 @@ class DisqusExtension extends Twig_Extension
      */
     public function comments(Disqusable $object)
     {
-        return $this->engine->render('BlogBundle:Disqus:comments.twig', array(
+        return $this->engine->render('BlogBundle:Disqus:comments.twig.html', array(
             'disqus_shortname' => $this->disqusShortname,
             'disqus_identifier' => $object->getDisqusId(),
             'disqus_url' => $object->getDisqusUrl($this->router),
