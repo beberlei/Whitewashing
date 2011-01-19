@@ -4,8 +4,36 @@ namespace Whitewashing\Tests;
 
 use DoctrineExtensions\PHPUnit\OrmTestCase;
 
-abstract class FunctionalTestCase extends OrmTestCase
+abstract class FunctionalTestCase extends \PHPUnit_Extensions_Database_TestCase
 {
+    /**
+     * @var EntityManager
+     */
+    private $em;
+
+    public function getConnection()
+    {
+        $this->em = $this->createEntityManager();
+        $conn = $this->em->getConnection();
+        $pdo = $conn->getWrappedConnection();
+
+        $schemaTool = new \Doctrine\ORM\Tools\SchemaTool($this->em);
+        $schemaTool->createSchema($this->em->getMetadataFactory()->getAllMetadata());
+
+        return $this->createDefaultDBConnection($pdo, $conn->getDatabase());
+    }
+
+    /**
+     * @return EntityManager
+     */
+    public function getEntityManager()
+    {
+        return $this->em;
+    }
+
+    /**
+     * @return Doctrine\ORM\EntityManager
+     */
     public function createEntityManager()
     {
         $cache = new \Doctrine\Common\Cache\ArrayCache();
@@ -25,15 +53,7 @@ abstract class FunctionalTestCase extends OrmTestCase
             'memory' => true,
         );
 
-        $em = \Doctrine\ORM\EntityManager::create($connectionOptions, $config);
-        $schemaTool = new \Doctrine\ORM\Tools\SchemaTool($em);
-
-        $cmf = $em->getMetadataFactory();
-        $classes = $cmf->getAllMetadata();
-
-        $schemaTool->createSchema($classes);
-
-        return $em;
+        return \Doctrine\ORM\EntityManager::create($connectionOptions, $config);
     }
 
     public function fakeUser()

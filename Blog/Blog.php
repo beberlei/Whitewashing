@@ -35,9 +35,11 @@ class Blog
      */
     private $categories;
 
-    public function __construct()
+    public function __construct($name, $defaultCategoryName = 'Unassigned')
     {
         $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->name = $name;
+        $this->createCategory($defaultCategoryName);
     }
 
     public function getId() {
@@ -86,5 +88,13 @@ class Blog
         }
 
         return $this->defaultCategory;
+    }
+
+    /**
+     * @return array
+     */
+    public function getCategories()
+    {
+        return $this->categories->toArray();
     }
 }

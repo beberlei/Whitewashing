@@ -47,5 +47,13 @@ class BlogRepositoryTest extends \Whitewashing\Tests\FunctionalTestCase
 
         $this->assertEquals('Foo', $blog->getName());
         $this->assertEquals('Unassigned', $blog->getDefaultCategory()->getName());
+
+        $em = $this->getEntityManager();
+        $em->flush();
+
+        $blog = $em->find(get_class($blog), $blog->getId());
+        
+        $this->assertEquals('Foo', $blog->getName());
+        $this->assertEquals('Unassigned', $blog->getDefaultCategory()->getName());
     }
 }

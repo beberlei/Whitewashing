@@ -77,8 +77,7 @@ class PostTest extends TestCase
      */
     private function createBlog()
     {
-        $blog = new Blog();
-        $blog->createCategory('Unassigned');
+        $blog = new Blog('Test-Blog', 'Unassigned');
 
         return $blog;
     }

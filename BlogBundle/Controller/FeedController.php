@@ -19,7 +19,7 @@ class FeedController extends AbstractBlogController
     public function indexAction()
     {
         $feedService = $this->container->get('whitewashing.blog.feedservice');
-        $feed = $feedService->createLatestFeed(null); // @todo the blog id
+        $feed = $feedService->createLatestFeed();
 
         return $this->renderFeed($feed);
     }
@@ -38,9 +38,7 @@ class FeedController extends AbstractBlogController
 
     private function renderFeed($feed)
     {
-        $output = $feed->export('atom');
-
-        $response = $this->createResponse($output, 200, array(
+        $response = $this->createResponse($feed, 200, array(
             'Content-Type' => 'application/atom+xml; charset=UTF-8'
         ));
         $response->setSharedMaxAge(3600);

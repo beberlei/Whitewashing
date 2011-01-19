@@ -14,12 +14,14 @@
 // relativize the include path to the correct level
 set_include_path( realpath(__DIR__ . "/../../") . PATH_SEPARATOR . get_include_path() );
 
+if (isset($GLOBALS['WHITEWASHING_SYMFONY_AUTOLOADFILE'])) {
+    require($GLOBALS['WHITEWASHING_SYMFONY_AUTOLOADFILE']);
+    return;
+}
+
 require_once "Doctrine/Common/ClassLoader.php";
 
 $loader = new \Doctrine\Common\ClassLoader("Doctrine");
-$loader->register();
-
-$loader = new \Doctrine\Common\ClassLoader('DoctrineExtensions');
 $loader->register();
 
 spl_autoload_register(function($class) {
@@ -31,3 +33,4 @@ spl_autoload_register(function($class) {
 
 require_once "ezc/Base/base.php";
 spl_autoload_register( array( 'ezcBase', 'autoload' ) );
+

@@ -46,23 +46,22 @@ class FeedService
     {
         $posts = $this->postRepository()->getCurrentPosts();
 
-        $feed = $this->generateFeed("Latest");
-        $this->attachPosts($feed, $posts);
+        $builder = $this->generateFeed("Latest");
+        $builder->addPosts($posts);
         
-        return $feed;
+        return $builder->createAtomFeed();
     }
 
     public function createCategoryFeed($categoryShort = null)
     {
         /* @var $category Whitewashing\Blog\Category */
         $category = $this->em->getRepository('Whitewashing\Blog\Category')->findOneBy(array('short' => $categoryShort));
-
         $posts = $this->postRepository()->getCategoryPosts($category->getId());
 
-        $feed = $this->generateFeed("Category: ". $category->getName());
-        $this->attachPosts($feed, $posts);
+        $builder = $this->generateFeed("Category: ". $category->getName());
+        $builder->addPosts($posts);
         
-        return $feed;
+        return $builder->createAtomFeed();
     }
 
     public function createTagFeed($tagSlug)
@@ -70,48 +69,25 @@ class FeedService
         $tag = $this->postRepository()->getTag($tagSlug);
         $posts = $this->postRepository()->getTaggedPosts($tag->getId());
 
-        $feed = $this->generateFeed("Tag: " . $tag->getName());
-        $this->attachPosts($feed, $posts);
+        $builder = $this->generateFeed("Tag: " . $tag->getName());
+        $builder->addPosts($posts);
 
-        return $feed;
+        return $builder->createAtomFeed();
     }
 
     /**
      * Generate the base feed
      *
-     * @param  int $blogId
-     * @return \Zend_Feed_Writer_Feed
+     * @param  string $titleSuffix
+     * @return FeedBuilder
      */
-    protected function generateFeed($suffix = "")
+    protected function generateFeed($titleSuffix = "")
     {
         $blog = $this->em->getRepository('Whitewashing\Blog\Blog')->getCurrentBlog();
 
-        $feed = new \Zend\Feed\Writer\Writer;
-        $feed->setTitle($blog->getName() . " - " . $suffix);
-        $feed->setLink($this->urlGenerator->generateMainUrl());
-        $feed->setFeedLink($this->urlGenerator->generateFeedUrl(), 'atom');
-        $feed->addAuthor(array(
-            'name'  => 'Benjamin Eberlei',
-            'email' => 'kontakt@beberlei.de',
-            'uri'   => 'http://www.whitewashing.de',
-        ));
+        $builder = new FeedBuilder($blog, $this->urlGenerator);
+        $builder->setTitleSuffix($titleSuffix);
 
-        return $feed;
-    }
-
-    /**
-     * @param \Zend_Feed_Writer_Feed $feed
-     * @param array $posts
-     */
-    protected function attachPosts($feed, $posts)
-    {
-        $maxDate = 0;
-        foreach ($posts AS $post) {
-            /* @var $post Post */
-            $maxDate = max($maxDate, $post->created()->format('U'));
-            $post->publishToFeed($feed, $this->urlGenerator);
-        }
-
-        $feed->setDateModified($maxDate);
+        return $builder;
     }
 }

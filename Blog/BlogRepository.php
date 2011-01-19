@@ -50,11 +50,8 @@ class BlogRepository extends EntityRepository
      */
     public function createBlog($name)
     {
-        $blog = new Blog();
-        $blog->setName($name);
-        $category = $blog->createCategory('Unassigned');
+        $blog = new Blog($name, 'Unassigned');
 
-        $this->_em->persist($category);
         $this->_em->persist($blog);
         $this->_em->flush();
 

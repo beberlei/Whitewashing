@@ -12,6 +12,9 @@
 
         <many-to-one target-entity="Whitewashing\Blog\Category" field="defaultCategory">
             <join-column name="default_category_id" referenced-column-name="id" />
+            <cascade>
+                <cascade-persist />
+            </cascade>
         </many-to-one>
     </entity>
 
