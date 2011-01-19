@@ -91,6 +91,6 @@ class FeedBuilder
         $entry->setDateModified($post->created()->format('U'));
         $entry->setDateCreated($post->created()->format('U'));
         $entry->setDescription($post->getHeadline());
-        $entry->setContent($post->getText());
+        $entry->setContent($post->getFormattedText());
     }
 }
