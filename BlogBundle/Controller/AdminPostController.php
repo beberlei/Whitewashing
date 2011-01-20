@@ -19,14 +19,14 @@ class AdminPostController extends AbstractBlogController
 {
     public function indexAction()
     {
-        return $this->render('BlogBundle:AdminPost:dashboard.twig.html', array(
+        return $this->render('WhitewashingBlogBundle:AdminPost:dashboard.twig.html', array(
             'user' => $this->container->get('security.context')->getUser()
         ));
     }
 
     public function manageAction()
     {
-        return $this->render('BlogBundle:AdminPost:manage.twig.html', array(
+        return $this->render('WhitewashingBlogBundle:AdminPost:manage.twig.html', array(
             'posts' => $this->container->get('whitewashing.blog.postservice')->getCurrentPosts()
         ));
     }
@@ -41,7 +41,7 @@ class AdminPostController extends AbstractBlogController
         $blog = $this->container->get('whitewashing.blog.blogservice')->getCurrentBlog();
         $post = new \Whitewashing\Blog\Post($author, $blog);
 
-        return $this->handleForm('BlogBundle:AdminPost:new.twig.html', $post, $em);
+        return $this->handleForm('WhitewashingBlogBundle:AdminPost:new.twig.html', $post, $em);
     }
 
     public function editAction()
@@ -49,7 +49,7 @@ class AdminPostController extends AbstractBlogController
         $em = $this->container->get('doctrine.orm.default_entity_manager');
         $post = $this->container->get('whitewashing.blog.postservice')->findPost($this->getRequest()->get('id'));
 
-        return $this->handleForm('BlogBundle:AdminPost:edit.twig.html', $post, $em);
+        return $this->handleForm('WhitewashingBlogBundle:AdminPost:edit.twig.html', $post, $em);
     }
 
     /**
@@ -91,9 +91,9 @@ class AdminPostController extends AbstractBlogController
             $em->remove($post);
             $em->flush();
 
-            return $this->render('BlogBundle:AdminPost:delete.twig.html', array('post' => $post));
+            return $this->render('WhitewashingBlogBundle:AdminPost:delete.twig.html', array('post' => $post));
         } else {
-            return $this->render('BlogBundle:AdminPost:confirmDelete.twig.html', array('post' => $post));
+            return $this->render('WhitewashingBlogBundle:AdminPost:confirmDelete.twig.html', array('post' => $post));
         }
     }
 

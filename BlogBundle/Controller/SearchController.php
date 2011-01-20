@@ -35,7 +35,7 @@ class SearchController extends AbstractBlogController
 
         $result = $session->find($query);
 
-        return $this->render('BlogBundle:Search:query.twig.html', array(
+        return $this->render('WhitewashingBlogBundle:Search:query.twig.html', array(
             'result' => $result,
             'term' => $term,
         ));

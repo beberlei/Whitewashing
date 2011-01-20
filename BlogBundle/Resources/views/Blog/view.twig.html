@@ -1,11 +1,11 @@
-{% extends 'BlogBundle::layout.twig.html' %}
+{% extends 'WhitewashingBlogBundle::layout.twig.html' %}
 
 {% block title %}
 {{post.headline}}
 {% endblock %}
 
 {% block content %}
-{% include 'BlogBundle:Blog:post.twig.html' with {'post': post} %}
+{% include 'WhitewashingBlogBundle:Blog:post.twig.html' with {'post': post} %}
 
 <div class="references">
     <div class="span-10">

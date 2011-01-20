@@ -1,4 +1,4 @@
-{% extends 'BlogBundle::adminLayout.twig.html' %}
+{% extends 'WhitewashingBlogBundle::adminLayout.twig.html' %}
 
 {% block content %}
     <form method="post" id="writepost" class="wwform"  action="{{ path('blog_post_edit', {'id': post.id}) }}">

@@ -63,7 +63,7 @@ class DisqusExtension extends Twig_Extension
         $method = 'get' . $param;
         $id = $object->$method();
 
-        return $this->engine->render('BlogBundle:Disqus:comments.twig.html', array(
+        return $this->engine->render('WhitewashingBlogBundle:Disqus:comments.twig.html', array(
             'disqus_shortname' => $this->disqusShortname,
             'disqus_identifier' => $id,
             'disqus_url' => $this->router->generate($route, array($param => $id), true),
@@ -76,7 +76,7 @@ class DisqusExtension extends Twig_Extension
      */
     public function headCommentCount()
     {
-        return $this->engine->render('BlogBundle:Disqus:count.twig.html', array(
+        return $this->engine->render('WhitewashingBlogBundle:Disqus:count.twig.html', array(
             'disqus_shortname' => $this->disqusShortname,
         ));
     }
