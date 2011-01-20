@@ -19,7 +19,7 @@ use Symfony\Component\Form\TextareaField;
 use Symfony\Component\Form\ChoiceField;
 use Symfony\Component\Form\FieldGroup;
 
-use Whitewashing\Blog\Form\WritePost;
+use Whitewashing\Blog\WritePostProcess;
 use Whitewashing\Blog\Post;
 
 class BlogFormBuilder
@@ -33,10 +33,10 @@ class BlogFormBuilder
 
     /**
      * Create a Form to write a post
-     * @param WritePost $writePost
+     * @param WritePostProcess $writePost
      * @return Form
      */
-    public function createWritePostForm(WritePost $writePost)
+    public function createWritePostForm(WritePostProcess $writePost)
     {
         $form = new Form('writepost', $writePost, $this->validator);
 

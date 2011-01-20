@@ -274,13 +274,6 @@ class Post
     }
 
     /**
-     * @param Blog $blog
-     */
-    private function setBlog(Blog $blog) {
-        $this->blog = $blog;
-    }
-
-    /**
      * Is Draft?
      * 
      * @return bool
