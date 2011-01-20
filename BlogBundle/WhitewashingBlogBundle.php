@@ -18,14 +18,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Whitewashing\BlogBundle\DependencyInjection\WhitewashingExtension;
 use Symfony\Component\DependencyInjection\Loader\Loader;
 
-class BlogBundle extends Bundle
+class WhitewashingBlogBundle extends Bundle
 {
-    /*
-    public function getName()
-    {
-        return 'BlogBundle';
-    }
-
     public function getNamespace()
     {
         return __NAMESPACE__;
@@ -35,7 +29,6 @@ class BlogBundle extends Bundle
     {
         return strtr(__DIR__, '\\', '/');
     }
-     */
 
     /**
      * Customizes the Container instance.

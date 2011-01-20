@@ -17,13 +17,9 @@ Add the following submodule to your symfony2 project:
 Because i am not very fond of the Bundle prefix requirement I have written the whole bundle in the `Whitewashing`
 main namespace. That means you have to make certain additional configurations to your application kernel.
 
-Add the following to the `AppKernel#registerBundleDirs()` method:
-
-    'Whitewashing'       => __DIR__.'/../src/Whitewashing',
-
 Register the bundle in your `AppKernel#registerBundles` method:
 
-    new Whitewashing\BlogBundle\BlogBundle(),
+    new Whitewashing\BlogBundle\WhitewashingBlogBundle(),
 
 Load the whitewashing extension in your app configuration (app/config/config.yml).
 
