@@ -13,19 +13,27 @@
 
 namespace Whitewashing\Blog\Form;
 
-use Symfony\Component\Form\Form;
-use Symfony\Component\Form\TextField;
-use Symfony\Component\Form\TextareaField;
-use Symfony\Component\Form\ChoiceField;
 use Doctrine\ORM\EntityManager;
 
 use Whitewashing\Blog\Post;
-use Symfony\Component\Form\FieldGroup;
+use Whitewashing\Blog\ITagRepository;
 
 class WritePost
 {
+    /**
+     * @var Post
+     */
     private $post;
+
+    /**
+     * @var string
+     */
     private $tags = "";
+
+    /**
+     * @var string
+     */
+    private $status = Post::STATUS_DRAFT;
 
     public function __construct(Post $post)
     {
@@ -43,6 +51,11 @@ class WritePost
         return $this->tags;
     }
 
+    public function getPostId()
+    {
+        return $this->post->getId();
+    }
+
     public function getPost()
     {
         return $this->post;
@@ -53,38 +66,24 @@ class WritePost
         $this->post = $post;
     }
 
-    public function createForm($validator)
+    public function setPublishStatus($status)
     {
-        $form = new Form('writepost', $this, $validator);
-
-        $group = new FieldGroup('post');
-        if (!$this->post->getId()) {
-            $group->add(new ChoiceField('inputFormat', array(
-                'choices' => array(
-                    'rst' => 'ReStructured Text',
-                    'html' => 'HTML',
-                ),
-            )));
-        }
-        $group->add(new TextField('headline'));
-        $group->add(new TextareaField('text', array()));
-        $group->add(new ChoiceField('published', array(
-            'choices' => array(
-                Post::STATUS_DRAFT => 'Draft',
-                Post::STATUS_PUBLISHED => 'Published',
-            )
-        )));
-
-        $form->add($group);
-        $form->add(new TextField('tags'));
-
-        return $form;
+        $this->status = $status;
     }
 
-    public function process(EntityManager $em)
+    public function getPublishStatus()
+    {
+        return $this->post->isPublished() ? Post::STATUS_PUBLISHED : Post::STATUS_DRAFT;
+    }
+
+    public function updatePost(ITagRepository $tagRepository)
     {
         $oldTags = $this->post->getTags();
         $newTagNames = array_map('trim', explode(",", $this->tags));
+
+        if ($this->getPublishStatus() == Post::STATUS_PUBLISHED) {
+            $this->post->setPublished();
+        }
 
         foreach ($oldTags AS $oldTag) {
             if (!in_array($oldTag->getName(), $newTagNames)) {
@@ -92,16 +91,11 @@ class WritePost
             }
         }
 
-        foreach ($newTagNames AS $tagName) {
-            $tag = $em->getRepository('Whitewashing\Blog\Post')->getOrCreateTag($tagName);
-            if (\array_search($tag, $oldTags) === false) {
-                $this->post->addTag($tag);
-            }
+        $newTags = $tagRepository->getTags($newTagNames);
+        foreach ($newTags AS $tag) {
+            $this->post->addTag($tag);
         }
 
-        if (!$em->contains($this->post)) {
-            $em->persist($this->post);
-        }
-        $em->flush();
+        return $this->post;
     }
 }

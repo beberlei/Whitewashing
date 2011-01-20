@@ -228,6 +228,10 @@ class Post
     }
 
     public function addTag(Tag $tag) {
+        if ($this->tags->contains($tag)) {
+            return;
+        }
+
         $this->tags[] = $tag;
     }
 

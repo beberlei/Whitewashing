@@ -7,6 +7,7 @@
         <parameter key="whitewashing.blog.feedservice.class">Whitewashing\Blog\FeedService</parameter>
         <parameter key="whitewashing.bundle.view.twig.htmldisqus.class">Whitewashing\BlogBundle\View\Twig\DisqusExtension</parameter>
         <parameter key="whitewashing.request.currentbloglistener.class">Whitewashing\BlogBundle\Request\CurrentBlogListener</parameter>
+        <parameter key="whitewashing.blog.bundle.formbuilder.class">Whitewashing\BlogBundle\Form\BlogFormBuilder</parameter>
         
         <parameter key="whitewashing.blog.default_blog_id">1</parameter>
         <parameter key="whitewashing.blog.host_url">http://localhost</parameter>
@@ -32,6 +33,9 @@
         </service>
         <service id="whitewashing.blog.authorservice" factory-service="doctrine.orm.default_entity_manager" factory-method="getRepository">
             <argument>Whitewashing\Blog\Author</argument>
+        </service>
+        <service id="whitewashing.blog.bundle.formbuilder" class="%whitewashing.blog.bundle.formbuilder.class%">
+            <argument id="validator" type="service" />
         </service>
 
         <service id="whitewashing.blog.urlgenerator" class="Whitewashing\Blog\UrlGenerator">

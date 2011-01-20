@@ -14,6 +14,7 @@
 namespace Whitewashing\BlogBundle\Controller;
 
 use Symfony\Component\Security\SecurityContext;
+use Whitewashing\Blog\Author;
 
 class AdminPostController extends AbstractBlogController
 {
@@ -34,8 +35,11 @@ class AdminPostController extends AbstractBlogController
     public function newAction()
     {
         $em = $this->container->get('doctrine.orm.default_entity_manager');
+        
         $currentUser = $this->container->get('security.context')->getUser();
-
+        if (!is_string($currentUser)) {
+            $currentUser = $currentUser->getUsername();
+        }
         $author = $this->container->get('whitewashing.blog.authorservice')->findAuthorForUserAccount($currentUser);
         
         $blog = $this->container->get('whitewashing.blog.blogservice')->getCurrentBlog();
@@ -60,14 +64,19 @@ class AdminPostController extends AbstractBlogController
      */
     private function handleForm($viewName, $post, $em)
     {
+        $builder = $this->container->get('whitewashing.blog.bundle.formbuilder');
+        
         $writePost = new \Whitewashing\Blog\Form\WritePost($post);
-        $form = $writePost->createForm($this->container->get('validator'));
+        $form = $builder->createWritePostForm($writePost);
 
         if ($this->getRequest()->getMethod() == 'POST') {
             $form->bind($this->getRequest()->get('writepost'));
 
             if ($form->isValid()) {
-                $writePost->process($em);
+                $post = $writePost->updatePost($em->getRepository('Whitewashing\Blog\Tag'));
+                $em->persist($post);
+                $em->flush();
+
                 if ($this->getRequest()->get('submit_thenshow')) {
                     return $this->redirect($this->generateUrl('blog_show_post', array('id' => $post->getId())));
                 } else {

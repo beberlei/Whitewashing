@@ -29,8 +29,8 @@ class AuthorRepository extends EntityRepository
         return $author;
     }
 
-    public function findAuthorForUserAccount(\Symfony\Component\Security\User\AccountInterface $user)
+    public function findAuthorForUserAccount($username)
     {
-        return $this->findOneBy(array('username' => $user->getUsername()));
+        return $this->findOneBy(array('username' => $username));
     }
 }
