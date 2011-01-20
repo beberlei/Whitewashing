@@ -15,6 +15,7 @@ namespace Whitewashing\BlogBundle\Controller;
 
 use Symfony\Component\Security\SecurityContext;
 use Whitewashing\Blog\Author;
+use Whitewashing\Blog\WritePostProcess;
 
 class AdminPostController extends AbstractBlogController
 {
@@ -66,7 +67,7 @@ class AdminPostController extends AbstractBlogController
     {
         $builder = $this->container->get('whitewashing.blog.bundle.formbuilder');
         
-        $writePost = new \Whitewashing\Blog\Form\WritePost($post);
+        $writePost = new WritePostProcess($post);
         $form = $builder->createWritePostForm($writePost);
 
         if ($this->getRequest()->getMethod() == 'POST') {

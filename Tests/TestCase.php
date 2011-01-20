@@ -14,6 +14,8 @@
 namespace Whitewashing\Tests;
 
 use Whitewashing\Blog\Author;
+use Whitewashing\Blog\Post;
+use Whitewashing\Blog\Blog;
 
 class TestCase extends \PHPUnit_Framework_TestCase
 {
@@ -37,6 +39,11 @@ class TestCase extends \PHPUnit_Framework_TestCase
         }
 
         return $this->getMock($class, $methodNames, array(), '', false);
+    }
+
+    public function createPost()
+    {
+        return new Post($this->fakeUser(), new Blog('Whitewashing.de'));
     }
 
     public function fakeUser()

@@ -11,14 +11,14 @@
  * to kontakt@beberlei.de so I can send you a copy immediately.
  */
 
-namespace Whitewashing\Blog\Form;
+namespace Whitewashing\Blog;
 
 use Doctrine\ORM\EntityManager;
 
 use Whitewashing\Blog\Post;
 use Whitewashing\Blog\ITagRepository;
 
-class WritePost
+class WritePostProcess
 {
     /**
      * @var Post
@@ -76,25 +76,29 @@ class WritePost
         return $this->post->isPublished() ? Post::STATUS_PUBLISHED : Post::STATUS_DRAFT;
     }
 
+    /**
+     * @return string[]
+     */
+    private function getParsedTags()
+    {
+        return array_filter(array_map('trim', explode(",", $this->tags)), 'strlen');
+    }
+
+    /**
+     * Synchronize the written post to the actual post object and return it.
+     * 
+     * @param ITagRepository $tagRepository
+     * @return Post
+     */
     public function updatePost(ITagRepository $tagRepository)
     {
-        $oldTags = $this->post->getTags();
-        $newTagNames = array_map('trim', explode(",", $this->tags));
-
-        if ($this->getPublishStatus() == Post::STATUS_PUBLISHED) {
+        if ($this->status == Post::STATUS_PUBLISHED) {
             $this->post->setPublished();
         }
 
-        foreach ($oldTags AS $oldTag) {
-            if (!in_array($oldTag->getName(), $newTagNames)) {
-                $this->post->removeTag($oldTag);
-            }
-        }
-
+        $newTagNames = $this->getParsedTags();
         $newTags = $tagRepository->getTags($newTagNames);
-        foreach ($newTags AS $tag) {
-            $this->post->addTag($tag);
-        }
+        $this->post->updateTags($newTags);
 
         return $this->post;
     }

@@ -125,26 +125,6 @@ class PostRepository extends \Doctrine\ORM\EntityRepository
         return $tag;
     }
 
-    /**
-     * Get existing or create a new tag
-     * 
-     * @param  string $name
-     * @return Tag
-     */
-    public function getOrCreateTag($name)
-    {
-        $slug = String::slugize($name);
-        $tag = $this->getEntityManager()
-            ->getRepository('Whitewashing\Blog\Tag')
-            ->findOneBy(array('slug' => $slug));
-
-        if (!$tag) {
-            $tag = new Tag($name);
-            $this->getEntityManager()->persist($tag);
-        }
-        return $tag;
-    }
-
     public function getTaggedPosts($tagId)
     {
         $blogId = $this->getEntityManager()->getRepository('Whitewashing\Blog\Blog')->getCurrentBlogId();

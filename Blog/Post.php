@@ -227,6 +227,18 @@ class Post
         return $this->categories;
     }
 
+    public function updateTags(array $newTags)
+    {
+        foreach ($this->tags AS $oldTag) {
+            if (!in_array($oldTag, $newTags)) {
+                $this->removeTag($oldTag);
+            }
+        }
+        foreach ($newTags AS $tag) {
+            $this->addTag($tag);
+        }
+    }
+
     public function addTag(Tag $tag) {
         if ($this->tags->contains($tag)) {
             return;
