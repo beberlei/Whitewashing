@@ -31,7 +31,7 @@ Add the mapping directory:
 
     doctrine.orm:
       mappings:
-        BlogBundle:
+        WhitewashingBlogBundle:
           dir: Resources/config/metadata
           type: xml
           prefix: Whitewashing\Blog\

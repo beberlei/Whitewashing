@@ -1,83 +1,83 @@
 homepage:
   pattern: /
-  defaults: { _controller: BlogBundle:Blog:index }
+  defaults: { _controller: WhitewashingBlogBundle:Blog:index }
 
 blog:
   pattern: /blog
-  defaults: { _controller: BlogBundle:Blog:index }
+  defaults: { _controller: WhitewashingBlogBundle:Blog:index }
 
 blog_admin_dashboard:
   pattern: /blog/admin
-  defaults: { _controller: BlogBundle:AdminPost:index }
+  defaults: { _controller: WhitewashingBlogBundle:AdminPost:index }
 
 blog_admin_list_authors:
   pattern: /blog/admin/list/authors
-  defaults: { _controller: BlogBundle:Author:list }
+  defaults: { _controller: WhitewashingBlogBundle:Author:list }
 
 blog_admin_new_author:
   pattern: /blog/admin/new/author
-  defaults: { _controller: BlogBundle:Author:new }
+  defaults: { _controller: WhitewashingBlogBundle:Author:new }
 
 blog_show_tag:
   pattern: /blog/tag/{tagName}
-  defaults: { _controller: BlogBundle:Blog:tag }
+  defaults: { _controller: WhitewashingBlogBundle:Blog:tag }
 
 blog_feed:
   pattern: /blog/feed
-  defaults: { _controller: BlogBundle:Feed:index }
+  defaults: { _controller: WhitewashingBlogBundle:Feed:index }
 
 blog_feed_tags:
   pattern: /blog/tag/{tagName}/feed
-  defaults: { _controller: BlogBundle:Feed:tag }
+  defaults: { _controller: WhitewashingBlogBundle:Feed:tag }
 
 blog_feed_category:
   pattern: /blog/category/{categoryShort}/feed
-  defaults: { _controller: BlogBundle:Feed:category }
+  defaults: { _controller: WhitewashingBlogBundle:Feed:category }
 
 blog_post_new:
   pattern: /blog/admin/posts/new
-  defaults: { _controller: BlogBundle:AdminPost:new }
+  defaults: { _controller: WhitewashingBlogBundle:AdminPost:new }
 
 blog_post_edit:
   pattern: /blog/admin/posts/{id}/edit
-  defaults: { _controller: BlogBundle:AdminPost:edit }
+  defaults: { _controller: WhitewashingBlogBundle:AdminPost:edit }
 
 blog_post_delete:
   pattern: /blog/admin/posts/{id}/delete
-  defaults: { _controller: BlogBundle:AdminPost:delete }
+  defaults: { _controller: WhitewashingBlogBundle:AdminPost:delete }
 
 blog_post_admin:
   pattern: /blog/admin/posts/manage
-  defaults: { _controller: BlogBundle:AdminPost:manage }
+  defaults: { _controller: WhitewashingBlogBundle:AdminPost:manage }
 
 blog_search_build:
   pattern: /blog/admin/search/build-index
-  defaults: { _controller: BlogBundle:AdminPost:buildIndex }
+  defaults: { _controller: WhitewashingBlogBundle:AdminPost:buildIndex }
 
 blog_post_search:
   pattern: /blog/search
-  defaults: { _controller: BlogBundle:Search:query }
+  defaults: { _controller: WhitewashingBlogBundle:Search:query }
 
 blog_show_post:
   pattern: /blog/{id}
-  defaults: { _controller: BlogBundle:Blog:view }
+  defaults: { _controller: WhitewashingBlogBundle:Blog:view }
 
 blog_tags:
   pattern: /blog/list/tags
-  defaults: { _controller: BlogBundle:Blog:listTags }
+  defaults: { _controller: WhitewashingBlogBundle:Blog:listTags }
 
 legacy_rss_all:
   pattern: /about/rss/all
-  defaults: { _controller: BlogBundle:Feed:index }
+  defaults: { _controller: WhitewashingBlogBundle:Feed:index }
 
 legacy_rss_articles:
   pattern: /about/rss/articles
-  defaults: { _controller: BlogBundle:Feed:index }
+  defaults: { _controller: WhitewashingBlogBundle:Feed:index }
 
 legacy_rss_tag:
   pattern: /tag/rss/{tagName}
-  defaults: { _controller: BlogBundle:Feed:tag }
+  defaults: { _controller: WhitewashingBlogBundle:Feed:tag }
 
 legacy_rss_category:
   pattern: /category/rss/{categoryShort}
-  defaults: { _controller: BlogBundle:Feed:category }
+  defaults: { _controller: WhitewashingBlogBundle:Feed:category }

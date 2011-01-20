@@ -79,7 +79,7 @@ class WritePostProcess
     /**
      * @return string[]
      */
-    private function getParsedTags()
+    private function getParsedTagNames()
     {
         return array_filter(array_map('trim', explode(",", $this->tags)), 'strlen');
     }
@@ -96,9 +96,7 @@ class WritePostProcess
             $this->post->setPublished();
         }
 
-        $newTagNames = $this->getParsedTags();
-        $newTags = $tagRepository->getTags($newTagNames);
-        $this->post->updateTags($newTags);
+        $this->post->updateTags($tagRepository->getTags($this->getParsedTagNames()));
 
         return $this->post;
     }

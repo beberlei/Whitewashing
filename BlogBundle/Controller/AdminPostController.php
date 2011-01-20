@@ -34,36 +34,32 @@ class AdminPostController extends AbstractBlogController
     }
 
     public function newAction()
-    {
-        $em = $this->container->get('doctrine.orm.default_entity_manager');
-        
+    {        
         $currentUser = $this->container->get('security.context')->getUser();
-        if (!is_string($currentUser)) {
+        if (!is_string($currentUser)) { // TODO: This allows anon users, should we?
             $currentUser = $currentUser->getUsername();
         }
         $author = $this->container->get('whitewashing.blog.authorservice')->findAuthorForUserAccount($currentUser);
-        
         $blog = $this->container->get('whitewashing.blog.blogservice')->getCurrentBlog();
+        
         $post = new \Whitewashing\Blog\Post($author, $blog);
 
-        return $this->handleForm('WhitewashingBlogBundle:AdminPost:new.twig.html', $post, $em);
+        return $this->handleForm('WhitewashingBlogBundle:AdminPost:new.twig.html', $post);
     }
 
-    public function editAction()
+    public function editAction($id)
     {
-        $em = $this->container->get('doctrine.orm.default_entity_manager');
-        $post = $this->container->get('whitewashing.blog.postservice')->findPost($this->getRequest()->get('id'));
+        $post = $this->container->get('whitewashing.blog.postservice')->findPost($id);
 
-        return $this->handleForm('WhitewashingBlogBundle:AdminPost:edit.twig.html', $post, $em);
+        return $this->handleForm('WhitewashingBlogBundle:AdminPost:edit.twig.html', $post);
     }
 
     /**
      * @param string $viewName
      * @param Post $post
-     * @param EntityManager $em
      * @return \Symfony\Component\HttpKernel\Response
      */
-    private function handleForm($viewName, $post, $em)
+    private function handleForm($viewName, $post)
     {
         $builder = $this->container->get('whitewashing.blog.bundle.formbuilder');
         
@@ -74,6 +70,7 @@ class AdminPostController extends AbstractBlogController
             $form->bind($this->getRequest()->get('writepost'));
 
             if ($form->isValid()) {
+                $em = $this->container->get('doctrine.orm.default_entity_manager');
                 $post = $writePost->updatePost($em->getRepository('Whitewashing\Blog\Tag'));
                 $em->persist($post);
                 $em->flush();
@@ -92,9 +89,9 @@ class AdminPostController extends AbstractBlogController
         ));
     }
 
-    public function deleteAction()
+    public function deleteAction($id)
     {
-        $post = $this->container->get('whitewashing.blog.postservice')->findPost($this->getRequest()->get('id'));
+        $post = $this->container->get('whitewashing.blog.postservice')->findPost($id);
 
         if ($this->getRequest()->getMethod() == 'POST') {
             $em = $this->container->get('doctrine.orm.default_entity_manager');
@@ -105,17 +102,5 @@ class AdminPostController extends AbstractBlogController
         } else {
             return $this->render('WhitewashingBlogBundle:AdminPost:confirmDelete.twig.html', array('post' => $post));
         }
-    }
-
-    public function buildIndexAction()
-    {
-        $session = $this->container->get('zeta.search.session');
-        $posts = $this->container->get('whitewashing.blog.postservice')->findAll();
-
-        foreach ($posts AS $post) {
-            $session->index( $post );
-        }
-
-        die();
     }
 }
