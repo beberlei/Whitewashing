@@ -15,24 +15,26 @@
     </parameters>
 
     <services>
-        <service id="whitewashing.blog.postservice" factory-service="doctrine.orm.default_entity_manager" factory-method="getRepository">
+        <service id="whitewashing.blog.postservice" factory-service="doctrine.orm.default_entity_manager" factory-method="getRepository"
+            class="Whitewashing\Blog\PostRepository">
             <argument>Whitewashing\Blog\Post</argument>
         </service>
-        <service id="whitewashing.blog.blogservice" factory-service="doctrine.orm.default_entity_manager" factory-method="getRepository">
+        <service id="whitewashing.blog.blogservice" factory-service="doctrine.orm.default_entity_manager" factory-method="getRepository"
+            class="Whitewashing\Blog\BlogRepository">
             <argument>Whitewashing\Blog\Blog</argument>
         </service>
-        <service id="whitewashing.blog.tagservice" factory-service="doctrine.orm.default_entity_manager" factory-method="getRepository">
+        <service id="whitewashing.blog.tagservice" factory-service="doctrine.orm.default_entity_manager" factory-method="getRepository"
+            class="Whitewashing\Blog\TagRepository">
             <argument>Whitewashing\Blog\Tag</argument>
         </service>
-        <service id="whitewashing.blog.authorservice" factory-service="doctrine.orm.default_entity_manager" factory-method="getRepository">
+        <service id="whitewashing.blog.authorservice" factory-service="doctrine.orm.default_entity_manager" factory-method="getRepository"
+            class="Whitewashing\Blog\AuthorRepository" 
+        >
             <argument>Whitewashing\Blog\Author</argument>
         </service>
         <service id="whitewashing.blog.feedservice" class="%whitewashing.blog.feedservice.class%">
             <argument type="service" id="doctrine.orm.default_entity_manager" />
             <argument type="service" id="whitewashing.blog.urlgenerator" />
-        </service>
-        <service id="whitewashing.blog.authorservice" factory-service="doctrine.orm.default_entity_manager" factory-method="getRepository">
-            <argument>Whitewashing\Blog\Author</argument>
         </service>
         <service id="whitewashing.blog.bundle.formbuilder" class="%whitewashing.blog.bundle.formbuilder.class%">
             <argument id="validator" type="service" />
@@ -47,13 +49,10 @@
             <tag name="twig.extension" />
             <argument type="service" id="router" />
             <argument>%whitewashing.blog.disqus_shortname%</argument>
-            <call method="setTemplatingEngine">
-                <argument type="service" id="templating" />
-            </call>
         </service>
 
-        <service id="whitewashing.request.currentbloglistener" class="%whitewashing.request.currentbloglistener.class%" public="false">
-            <tag name="kernel.listener" priority="-128" />
+        <service id="whitewashing.request.currentbloglistener" class="%whitewashing.request.currentbloglistener.class%">
+            <tag name="kernel.listener" priority="-128" event="core.request" method="handle" />
             <argument type="service" id="service_container" />
         </service>
     </services>

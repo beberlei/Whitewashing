@@ -2,7 +2,7 @@
 
 namespace Whitewashing\BlogBundle\Controller;
 
-class AuthorController extends Symfony\Bundle\FrameworkBundle\Controller\Controller
+class AuthorController extends \Symfony\Bundle\FrameworkBundle\Controller\Controller
 {
     public function listAction()
     {

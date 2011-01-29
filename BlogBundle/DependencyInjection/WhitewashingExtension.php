@@ -19,7 +19,14 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class WhitewashingExtension extends Extension
 {
-    public function blogLoad($config, ContainerBuilder $configuration)
+    public function blogLoad($configs, ContainerBuilder $configuration)
+    {
+        foreach ($configs AS $config) {
+            $this->doLoadBlog($config, $configuration);
+        }
+    }
+
+    public function doLoadBlog($config, ContainerBuilder $configuration)
     {
         $loader = new XmlFileLoader($configuration, __DIR__.'/../Resources/config');
         $loader->load('services.xml');

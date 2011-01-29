@@ -30,25 +30,6 @@ class CurrentBlogListener
     }
 
     /**
-     * Registers a core.security listener to enforce authorization rules.
-     *
-     * @param EventDispatcher $dispatcher An EventDispatcher instance
-     * @param integer         $priority   The priority
-     */
-    public function register(EventDispatcher $dispatcher, $priority = 0)
-    {
-        $dispatcher->connect('core.request', array($this, 'handle'), $priority);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function unregister(EventDispatcher $dispatcher)
-    {
-        
-    }
-
-    /**
      * Handles access authorization.
      *
      * @param Event $event An Event instance
