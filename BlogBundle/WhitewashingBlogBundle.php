@@ -27,33 +27,6 @@ class WhitewashingBlogBundle extends Bundle
 
     public function getPath()
     {
-        return strtr(__DIR__, '\\', '/');
-    }
-
-    /**
-     * Customizes the Container instance.
-     *
-     * @param  Symfony\Component\DependencyInjection\ContainerInterface $container A ContainerInterface instance
-     *
-     * @return  Symfony\Component\DependencyInjection\BuilderConfiguration A BuilderConfiguration instance
-     */
-    public function buildContainer(ContainerInterface $container)
-    {
-        Loader::registerExtension(new WhitewashingExtension());
-    }
-
-    /**
-     * Boots the Bundle.
-     */
-    public function boot()
-    {
-
-    }
-
-    /**
-     * Shutdowns the Bundle.
-     */
-    public function shutdown()
-    {
+        return __DIR__;
     }
 }
