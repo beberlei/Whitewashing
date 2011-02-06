@@ -32,6 +32,11 @@ Load the whitewashing extension in your app configuration (app/config/config.yml
       default_blog_id:   1
       host_url: http://www.whitewashing.de
 
+Configure doctrine.dbal and doctrine.orm if you haven't done so:
+
+    doctrine.dbal: ~
+    doctrine.orm: ~
+
 Add the mapping directory:
 
     doctrine.orm:
@@ -39,7 +44,7 @@ Add the mapping directory:
         WhitewashingBlogBundle:
           dir: Resources/config/metadata
           type: xml
-          prefix: Whitewashing\Blog\
+          prefix: Whitewashing\Blog
 
 If you already have a firewall and provider defined you only need to restrict the access
 to the admin area:
@@ -67,10 +72,19 @@ the admin area:
         access_control:
             - { path: /blog/admin.*, role: ROLE_USER }
 
+If you don't have an application besides this blog you can also use the security user shipped.
+The blog is independent from the FOS UserBundle though, you can integrate it with any security provider.
+
+    fos_user.config:
+        db_driver: orm
+        class:
+            model:
+                user: Whitewashing\BlogBundle\Security\User
+
 And the following information to your `routing.yml`:
 
     blog:
-        resource: Whitewashing/BlogBundle/Resources/config/routing.yml
+        resource: "@WhitewashingBlogBundle/Resources/config/routing.yml"
 
 You can then create all the required database tables by using the symfony console doctrine commands
 and access the Schema-Tool.

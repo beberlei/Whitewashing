@@ -1,0 +1,15 @@
+blog_legacy_rss_all:
+  pattern: /about/rss/all
+  defaults: { _controller: WhitewashingBlogBundle:Feed:index }
+
+blog_legacy_rss_articles:
+  pattern: /about/rss/articles
+  defaults: { _controller: WhitewashingBlogBundle:Feed:index }
+
+blog_legacy_rss_tag:
+  pattern: /tag/rss/{tagName}
+  defaults: { _controller: WhitewashingBlogBundle:Feed:tag }
+
+blog_legacy_rss_category:
+  pattern: /category/rss/{categoryShort}
+  defaults: { _controller: WhitewashingBlogBundle:Feed:category }
