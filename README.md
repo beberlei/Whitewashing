@@ -93,6 +93,12 @@ And the following information to your `routing.yml`:
 You can then create all the required database tables by using the symfony console doctrine commands
 and access the Schema-Tool.
 
+## Theming
+
+Whitewashing Blog Bundle defaults to using "::layout.html.twig" as layout. There is an example
+layout in Resources/views/layout_example.html.twig that shows all the current widgets and elements
+that you can use and render.
+
 ## TODOs
 
 * Rewrite Controllers to use Dependency Injection container
