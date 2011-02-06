@@ -4,8 +4,12 @@ Whitewashing is my blog and a playground for symfony2 application development.
 
 ## Required Bundles
 
-* FOS UserBundle
-* Zeta Bundle
+* DoctrineBundle (Symfony Core)
+* SecurityBundle (Symfony Core)
+
+## Optional Bundles
+
+* FOS UserBundle - Integrates well and an user entity is provided if you only want to use the blog bundle and don't have an application bundle.
 
 ## Configuration
 
