@@ -2,17 +2,19 @@
 
 Whitewashing is my blog and a playground for symfony2 application development.
 
-## Required Bundles
+## Installation
+
+### Required Bundles
 
 * DoctrineBundle (Symfony Core)
 * SecurityBundle (Symfony Core)
 * Zend Framework 1 (for Zend_Feed_Writer) - Can't use the ZF2 dependency of Symfony here, Feed doesnt work there.
 
-## Optional Bundles
+### Optional Bundles
 
 * FOS UserBundle - Integrates well and an user entity is provided if you only want to use the blog bundle and don't have an application bundle.
 
-## Configuration
+### Configuration
 
 Add the following submodule to your symfony2 project:
 
@@ -100,6 +102,13 @@ and access the Schema-Tool.
 You have to login into the backend now and add an author you can post with. An author is always
 attached to a single user account that is registered with your authentication provider. If you
 are using the FOS User bundle you can even pick from the list of available users via autocomplete.
+
+## Comments
+
+To enable commenting you have to register with Disqus and add the disqus shortname to your whitewashing configuration:
+
+    whitewshing.blog:
+        disqus_shortname: my_disqus_shortname
 
 ## Theming
 

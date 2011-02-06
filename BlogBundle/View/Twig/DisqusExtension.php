@@ -49,6 +49,10 @@ class DisqusExtension extends Twig_Extension
      */
     public function comments($object, $route, $param = 'id')
     {
+        if (!$this->disqusShortname) {
+            return '';
+        }
+
         $method = 'get' . $param;
         $id = $object->$method();
 
@@ -65,6 +69,10 @@ class DisqusExtension extends Twig_Extension
      */
     public function headCommentCount()
     {
+        if (!$this->disqusShortname) {
+            return '';
+        }
+
         return $this->container->get('templating')->render('WhitewashingBlogBundle:Disqus:count.html.twig', array(
             'disqus_shortname' => $this->disqusShortname,
         ));
