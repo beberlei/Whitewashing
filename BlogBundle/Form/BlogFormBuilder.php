@@ -68,9 +68,9 @@ class BlogFormBuilder
     {
         $form = new Form('author', array_merge($this->formContext->getOptions()));
 
-        $form->add(new TextField('name'));
         $form->add(new TextField('username'));
         $form->add(new TextField('email'));
+        $form->add(new TextField('name'));
 
         return $form;
     }

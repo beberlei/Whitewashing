@@ -97,6 +97,10 @@ And the following information to your `routing.yml`:
 You can then create all the required database tables by using the symfony console doctrine commands
 and access the Schema-Tool.
 
+You have to login into the backend now and add an author you can post with. An author is always
+attached to a single user account that is registered with your authentication provider. If you
+are using the FOS User bundle you can even pick from the list of available users via autocomplete.
+
 ## Theming
 
 Whitewashing Blog Bundle defaults to using "::layout.html.twig" as layout. There is an example
