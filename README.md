@@ -14,8 +14,13 @@ Add the following submodule to your symfony2 project:
     git submodule add git://github.com/beberlei/Whitewashing.git src/Whitewashing
     git submodule update --init
 
-Because i am not very fond of the Bundle prefix requirement I have written the whole bundle in the `Whitewashing`
-main namespace. That means you have to make certain additional configurations to your application kernel.
+Add Whitewashing to your app/autoload.php
+
+    $loader = new UniversalClassLoader();
+    $loader->registerNamespaces(array(
+        // ..
+        'Whitewashing'                   => $srcDir,
+    ));
 
 Register the bundle in your `AppKernel#registerBundles` method:
 
@@ -73,6 +78,5 @@ and access the Schema-Tool.
 ## TODOs
 
 * Rewrite Controllers to use Dependency Injection container
-* Pimp the backend
 * Add Blog/Article entity
 * Add functional tests for controllers
