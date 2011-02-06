@@ -1,10 +1,10 @@
-{% extends "::layout.twig.html" %}
+{% extends '::layout.html.twig' %}
 
 {% block content %}
 
 {% if posts %}
 {% for p in posts %}
-    {% include 'WhitewashingBlogBundle:Blog:post.twig.html' with {'post': p} %}
+    {% include 'WhitewashingBlogBundle:Blog:post.html.twig' with {'post': p} %}
 {% endfor %}
 
 {% else %}

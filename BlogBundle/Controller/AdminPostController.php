@@ -21,14 +21,14 @@ class AdminPostController extends AbstractBlogController
 {
     public function indexAction()
     {
-        return $this->render('WhitewashingBlogBundle:AdminPost:dashboard.twig.html', array(
+        return $this->render('WhitewashingBlogBundle:AdminPost:dashboard.html.twig', array(
             'user' => $this->container->get('security.context')->getUser()
         ));
     }
 
     public function manageAction()
     {
-        return $this->render('WhitewashingBlogBundle:AdminPost:manage.twig.html', array(
+        return $this->render('WhitewashingBlogBundle:AdminPost:manage.html.twig', array(
             'posts' => $this->container->get('whitewashing.blog.postservice')->getCurrentPosts()
         ));
     }
@@ -44,14 +44,14 @@ class AdminPostController extends AbstractBlogController
         
         $post = new \Whitewashing\Blog\Post($author, $blog);
 
-        return $this->handleForm('WhitewashingBlogBundle:AdminPost:new.twig.html', $post);
+        return $this->handleForm('WhitewashingBlogBundle:AdminPost:new.html.twig', $post);
     }
 
     public function editAction($id)
     {
         $post = $this->container->get('whitewashing.blog.postservice')->findPost($id);
 
-        return $this->handleForm('WhitewashingBlogBundle:AdminPost:edit.twig.html', $post);
+        return $this->handleForm('WhitewashingBlogBundle:AdminPost:edit.html.twig', $post);
     }
 
     /**
@@ -62,12 +62,13 @@ class AdminPostController extends AbstractBlogController
     private function handleForm($viewName, $post)
     {
         $builder = $this->container->get('whitewashing.blog.bundle.formbuilder');
-        
+
         $writePost = new WritePostProcess($post);
         $form = $builder->createWritePostForm($writePost);
 
         if ($this->getRequest()->getMethod() == 'POST') {
-            $form->bind($this->getRequest()->get('writepost'));
+            
+            $form->bind($this->getRequest()->get('writepost'), $writePost);
 
             if ($form->isValid()) {
                 $em = $this->container->get('doctrine.orm.default_entity_manager');
@@ -98,9 +99,9 @@ class AdminPostController extends AbstractBlogController
             $em->remove($post);
             $em->flush();
 
-            return $this->render('WhitewashingBlogBundle:AdminPost:delete.twig.html', array('post' => $post));
+            return $this->render('WhitewashingBlogBundle:AdminPost:delete.html.twig', array('post' => $post));
         } else {
-            return $this->render('WhitewashingBlogBundle:AdminPost:confirmDelete.twig.html', array('post' => $post));
+            return $this->render('WhitewashingBlogBundle:AdminPost:confirmDelete.html.twig', array('post' => $post));
         }
     }
 }

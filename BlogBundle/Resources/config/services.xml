@@ -37,7 +37,7 @@
             <argument type="service" id="whitewashing.blog.urlgenerator" />
         </service>
         <service id="whitewashing.blog.bundle.formbuilder" class="%whitewashing.blog.bundle.formbuilder.class%">
-            <argument id="validator" type="service" />
+            <argument id="form.context" type="service" />
         </service>
 
         <service id="whitewashing.blog.urlgenerator" class="Whitewashing\Blog\UrlGenerator">
@@ -48,6 +48,7 @@
         <service id="whitewashing.bundle.view.twig.htmldisqus" class="%whitewashing.bundle.view.twig.htmldisqus.class%">
             <tag name="twig.extension" />
             <argument type="service" id="router" />
+            <argument type="service" id="service_container" />
             <argument>%whitewashing.blog.disqus_shortname%</argument>
         </service>
 

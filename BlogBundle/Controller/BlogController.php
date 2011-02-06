@@ -33,7 +33,7 @@ class BlogController extends AbstractBlogController
         $response = $this->createResponse();
         $response->setSharedMaxAge(600);
 
-        return $this->render('WhitewashingBlogBundle:Blog:index.twig.html', array(
+        return $this->render('WhitewashingBlogBundle:Blog:index.html.twig', array(
             'posts' => $postRepository->getCurrentPosts(5)
         ), $response);
     }
@@ -47,7 +47,7 @@ class BlogController extends AbstractBlogController
         $response = $this->createResponse();
         $response->setSharedMaxAge(600);
 
-        return $this->render('WhitewashingBlogBundle:Blog:view.twig.html', array(
+        return $this->render('WhitewashingBlogBundle:Blog:view.html.twig', array(
             'post' => $post,
         ), $response);
     }
@@ -57,7 +57,7 @@ class BlogController extends AbstractBlogController
         $postRepository = $this->getPostRepository();
         $posts = $postRepository->getCurrentPosts($count);
 
-        return $this->render('WhitewashingBlogBundle:Blog:recentPosts.twig.html', array('posts' => $posts));
+        return $this->render('WhitewashingBlogBundle:Blog:recentPosts.html.twig', array('posts' => $posts));
     }
 
     public function cloudAction()
@@ -86,7 +86,7 @@ class BlogController extends AbstractBlogController
 
         usort($tags, array($this, 'sortTags'));
 
-        return $this->render('WhitewashingBlogBundle:Blog:cloud.twig.html', array('tags' => $tags));
+        return $this->render('WhitewashingBlogBundle:Blog:cloud.html.twig', array('tags' => $tags));
     }
 
     protected function sortTags($a, $b) {
@@ -103,7 +103,7 @@ class BlogController extends AbstractBlogController
         $response = $this->createResponse();
         $response->setSharedMaxAge(60 * 60 * 24);
 
-        return $this->render('WhitewashingBlogBundle:Blog:tag.twig.html', array(
+        return $this->render('WhitewashingBlogBundle:Blog:tag.html.twig', array(
             'tag' => $tag,
             'posts' => $postService->getTaggedPosts($tag->getId()),
         ), $response);

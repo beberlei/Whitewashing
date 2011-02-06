@@ -1,0 +1,32 @@
+<!-- All the javascript and stylesheet that whitewashing blog needs -->
+<link rel="stylesheet" href="{{ asset('bundles/blog/themes/whitewashing-de/blueprint/screen.css') }}" type="text/css" media="screen, projection" />
+<link rel="stylesheet" href="{{ asset('bundles/blog/themes/whitewashing-de/blueprint/print.css') }}" type="text/css" media="print" />
+<!--[if lt IE 8]><link rel="stylesheet" href="{{ asset('bundles/blog/themes/whitewashing-de/blueprint/ie.css') }}" type="text/css" media="screen, projection" /><![endif]-->
+
+<link rel="stylesheet" href="{{ asset('bundles/blog/themes/whitewashing-de/css/whitewashing.css') }}" type="text/css" media="screen, projection" />
+<link rel="stylesheet" href="{{ asset('bundles/blog/themes/whitewashing-de/css/markup.css') }}" type="text/css" media="screen, projection" />
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js" type="text/javascript" language="javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js" type="text/javascript" language="javascript"></script>
+<script src="{{ asset('bundles/blog/themes/admin/markitup/jquery.markitup.js') }}" type="text/javascript" language="javascript"></script>
+<script src="{{ asset('bundles/blog/themes/admin/markitup/sets/rest/set.js') }}" type="text/javascript" language="javascript"></script>
+<script src="{{ asset('bundles/blog/themes/admin/tabby/jquery.tabby.js') }}" type="text/javascript" language="javascript"></script>
+<script src="{{ asset('bundles/blog/themes/admin/wweditor.js') }}" type="text/javascript" language="javascript"></script>
+
+<link rel="stylesheet" type="text/css" href="{{ asset('bundles/blog/themes/admin/markitup/skins/simple/style.css') }}" />
+<link rel="stylesheet" type="text/css" href="{{ asset('bundles/blog/themes/admin/markitup/sets/rest/style.css') }}" />
+<link rel="stylesheet" type="text/css" href="{{ asset('bundles/blog/themes/admin/sprites/sprite.css') }}" />
+<link rel="stylesheet" type="text/css" href="{{ asset('bundles/blog/themes/admin/css/Aristo/jquery-ui-1.8.5.custom.css') }}" />
+
+<script type="text/javascript" >
+    <!--
+    $(document).ready(function() {
+        $("#writepost").wweditor({
+            "markitupSettings": {
+                "rst": restSettings
+            },
+            "tagRoute": "{{ path('blog_tags') }}"
+        });
+    });
+    -->
+</script>

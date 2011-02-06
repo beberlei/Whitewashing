@@ -24,23 +24,23 @@ use Whitewashing\Blog\Post;
 
 class BlogFormBuilder
 {
-    private $validator;
+    private $formContext;
 
-    public function __construct($validator)
+    public function __construct($formContext)
     {
-        $this->validator = $validator;
+        $this->formContext = $formContext;
     }
 
     /**
      * Create a Form to write a post
-     * @param WritePostProcess $writePost
+     * 
      * @return Form
      */
-    public function createWritePostForm(WritePostProcess $writePost)
+    public function createWritePostForm($writePost)
     {
-        $form = new Form('writepost', $writePost, $this->validator);
+        $form = new Form('writepost', array_merge($this->formContext->getOptions()));
 
-        $postGroup = new FieldGroup('post');
+        $postGroup = new Form('post');
         if (!$writePost->getPostId()) {
             $postGroup->add(new ChoiceField('inputFormat', array(
                 'choices' => array(

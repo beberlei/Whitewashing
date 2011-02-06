@@ -1,16 +1,8 @@
-{% extends 'WhitewashingBlogBundle::adminLayout.twig.html' %}
+{% extends '::layout.html.twig' %}
 
 {% block content %}
     <form id="writepost" class="wwform" method="post" action="{{ path('blog_post_new') }}">
-        
-
-        <fieldset>
-            <legend>Write New Post</legend>
-
             {{ form_field(writeForm) }}
-            
-        </fieldset>
-        
         <input type="submit" name="submit_thenedit" value="Save" />
         <input type="submit" name="submit_thenshow" value="Save and Show" />
     </form>

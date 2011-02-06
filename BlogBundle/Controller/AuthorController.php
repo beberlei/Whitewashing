@@ -8,7 +8,7 @@ class AuthorController extends \Symfony\Bundle\FrameworkBundle\Controller\Contro
     {
         $authors = $this->container->get('whitewashing.blog.authorservice')->findAll();
 
-        return $this->render('WhitewashingBlogBundle:Authort:list.twig.html', array(
+        return $this->render('WhitewashingBlogBundle:Authort:list.html.twig', array(
             'authors' => $authors,
         ));
     }

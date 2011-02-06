@@ -1,4 +1,4 @@
-{% extends 'WhitewashingBlogBundle::layout.twig.html' %}
+{% extends '::layout.html.twig' %}
 
 {% block title %}Posts by Tag :: {{tag.name}}{% endblock %}
 
@@ -12,7 +12,7 @@
 
 {% for post in posts %}
 
-{% include 'WhitewashingBlogBundle:Blog:post.twig.html' with {'post': post} %}
+{% include 'WhitewashingBlogBundle:Blog:post.html.twig' with {'post': post} %}
 {% endfor %}
 
 {% endblock %}

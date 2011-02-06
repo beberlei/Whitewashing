@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru">
+    <head>
+        <title>Whitewashing.de :: {% block title %}Blog{% endblock %}</title>
+
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+
+        {% include "WhitewashingBlogBundle:Elements:head.html.twig" %}
+    </head>
+
+    <body>
+        <div id="content">
+
+            {% block content%}{%endblock%}
+        </div>
+
+        <div id="menu">
+            <a href="{{ path('blog') }}">WhitewashingBundleBlog</a>
+
+            <h3>Topics</h3>
+
+            {% render "WhitewashingBlogBundle:Blog:cloud" %}
+
+
+            <h4>Recent Posts</h4>
+
+            {% render "WhitewashingBlogBundle:Blog:recent" with {'count': 5} %}
+            {% include "WhitewashingBlogBundle:Elements:quickadmin.html.twig" %}
+        </div>
+
+        {{ disqus_head_comment_count() }}
+    </body>
+
+</html>

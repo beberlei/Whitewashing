@@ -11,7 +11,7 @@ class DisqusExtension extends Twig_Extension
     /**
      * @var \Symfony\Bundle\FrameworkBundle\Templating\EngineInterface
      */
-    private $engine;
+    private $container;
 
     /**
      * @var \Symfony\Component\Routing\RouterInterface
@@ -23,24 +23,13 @@ class DisqusExtension extends Twig_Extension
      */
     private $disqusShortname;
 
-    public function __construct($router, $disqusShortname)
+    public function __construct($router, $container, $disqusShortname)
     {
         $this->router = $router;
+        $this->container = $container; // recursion o_O
         $this->disqusShortname = $disqusShortname;
     }
-
-    /**
-     * Set the templating engine
-     *
-     * We cant do it in the constructor, because that would create an infinite loop on construction from the DIC.
-     *
-     * @param <type> $engine
-     */
-    public function setTemplatingEngine($engine)
-    {
-        $this->engine = $engine;
-    }
-
+    
     public function getFunctions()
     {
         return array(
@@ -63,7 +52,7 @@ class DisqusExtension extends Twig_Extension
         $method = 'get' . $param;
         $id = $object->$method();
 
-        return $this->engine->render('WhitewashingBlogBundle:Disqus:comments.twig.html', array(
+        return $this->container->get('templating')->render('WhitewashingBlogBundle:Disqus:comments.html.twig', array(
             'disqus_shortname' => $this->disqusShortname,
             'disqus_identifier' => $id,
             'disqus_url' => $this->router->generate($route, array($param => $id), true),
@@ -76,7 +65,7 @@ class DisqusExtension extends Twig_Extension
      */
     public function headCommentCount()
     {
-        return $this->engine->render('WhitewashingBlogBundle:Disqus:count.twig.html', array(
+        return $this->container->get('templating')->render('WhitewashingBlogBundle:Disqus:count.html.twig', array(
             'disqus_shortname' => $this->disqusShortname,
         ));
     }
