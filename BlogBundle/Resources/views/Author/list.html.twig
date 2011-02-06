@@ -1,0 +1,27 @@
+{% extends "::layout.html.twig" %}
+
+{% block content %}
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Username</th>
+            <th>E-Mail</th>
+        </tr>
+    </thead>
+    <tbody>
+{% for author in authors %}
+        <tr>
+            <td>{{author.name}}</td>
+            <td>{{author.username}}</td>
+            <td>{{author.email}}</td>
+        </tr>
+{% endfor %}
+    </tbody>
+</table>
+
+<ul>
+    <li><a href="{{ path('blog_new_author') }}">Add author</a></li>
+</ul>
+
+{% endblock %}

@@ -59,7 +59,7 @@ class Author
         return $this->name;
     }
 
-    private function setName($name) {
+    public function setName($name) {
         $this->name = $name;
     }
 

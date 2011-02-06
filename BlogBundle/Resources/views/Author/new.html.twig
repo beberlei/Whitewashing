@@ -1,0 +1,55 @@
+{% extends '::layout.html.twig' %}
+
+{% block content %}
+<h2>Add new author</h2>
+
+<p>An authors is connected with a user-account of the system. Please pick an existing user and
+    add a name for displaying reasons.</p>
+
+<p>If the user is registered as admin in the system he can edit and delete posts of other authors. If he
+is only a user, he can only edit and delete his own posts. Please look at your Symfony UserManager documentation
+to learn how to set groups for users.</p>
+
+<form id="add_author" class="wwform" method="post" action="{{ path('blog_new_author') }}">
+        {{ form_field(newAuthorForm) }}
+    <input type="submit" name="submit_add_author" value="Add Author" />
+</form>
+
+
+<p><strong>Hints:</strong></p>
+
+    <ol>
+        <li>Users that are already marked as author are not listed here again.</li>
+        <li>If you are not using the <a href="https://github.com/FriendsOfSymfony/UserBundle">FriendsOfSymfony UserBundle</a>
+            you have to enter the username manually.</li>
+    </ol>
+
+<script language="javascript" type="text/javascript">
+<!--
+    $(document).ready(function() {
+        var authorForm = $("#add_author");
+        var authorUsername = authorForm.find("#author_username");
+        authorUsername.autocomplete({
+            minLength: 3,
+            source: "{{ path('blog_list_user') }}",
+            focus: function( event, ui ) {
+                authorUsername.val( ui.item.label );
+                return false;
+            },
+            select: function( event, ui ) {
+                authorUsername.val( ui.item.label );
+                $("#add_author").find("#author_email").val( ui.item.email );
+                return false;
+            }
+
+        }).data( "autocomplete" )._renderItem = function( ul, item ) {
+            return $( "<li></li>" )
+                    .data( "item.autocomplete", item )
+                    .append( "<a>" + item.label + " (" + item.email + ")</a>" )
+                    .appendTo( ul );
+        };
+    });
+-->
+</script>
+
+{% endblock %}

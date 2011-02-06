@@ -29,4 +29,9 @@ class BlogException extends \Exception
     {
         return new self("The given E-Mail address '".$email."' is not valid.");
     }
+
+    static public function unknownAuthor($username)
+    {
+        return new self("There is no author registered for the username '" . $username . "'.");
+    }
 }

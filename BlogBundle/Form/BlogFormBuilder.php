@@ -63,4 +63,15 @@ class BlogFormBuilder
 
         return $form;
     }
+
+    public function createNewAuthorForm()
+    {
+        $form = new Form('author', array_merge($this->formContext->getOptions()));
+
+        $form->add(new TextField('name'));
+        $form->add(new TextField('username'));
+        $form->add(new TextField('email'));
+
+        return $form;
+    }
 }

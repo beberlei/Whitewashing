@@ -31,6 +31,10 @@ class AuthorRepository extends EntityRepository
 
     public function findAuthorForUserAccount($username)
     {
-        return $this->findOneBy(array('username' => $username));
+        $author = $this->findOneBy(array('username' => $username));
+        if (!$author) {
+            throw BlogException::unknownAuthor($username);
+        }
+        return $author;
     }
 }

@@ -6,13 +6,17 @@ blog_admin_dashboard:
   pattern: /blog/admin
   defaults: { _controller: WhitewashingBlogBundle:AdminPost:index }
 
-blog_admin_list_authors:
+blog_list_authors:
   pattern: /blog/admin/list/authors
   defaults: { _controller: WhitewashingBlogBundle:Author:list }
 
-blog_admin_new_author:
+blog_new_author:
   pattern: /blog/admin/new/author
   defaults: { _controller: WhitewashingBlogBundle:Author:new }
+
+blog_list_user:
+  pattern: /blog/admin/list/users
+  defaults: { _controller: WhitewashingBlogBundle:Author:user }
 
 blog_show_tag:
   pattern: /blog/tag/{tagName}
@@ -53,3 +57,4 @@ blog_show_post:
 blog_tags:
   pattern: /blog/list/tags
   defaults: { _controller: WhitewashingBlogBundle:Blog:listTags }
+
