@@ -6,6 +6,7 @@ Whitewashing is my blog and a playground for symfony2 application development.
 
 * DoctrineBundle (Symfony Core)
 * SecurityBundle (Symfony Core)
+* Zend Framework 1 (for Zend_Feed_Writer) - Can't use the ZF2 dependency of Symfony here, Feed doesnt work there.
 
 ## Optional Bundles
 
@@ -18,13 +19,16 @@ Add the following submodule to your symfony2 project:
     git submodule add git://github.com/beberlei/Whitewashing.git src/Whitewashing
     git submodule update --init
 
-Add Whitewashing to your app/autoload.php
+Add Whitewashing and ZF1 to your app/autoload.php
 
     $loader = new UniversalClassLoader();
     $loader->registerNamespaces(array(
         // ..
         'Whitewashing'                   => $srcDir,
     ));
+
+    require_once 'Zend/Loader/Autoloader.php';
+    Zend_Loader_Autoloader::getInstance();
 
 Register the bundle in your `AppKernel#registerBundles` method:
 
