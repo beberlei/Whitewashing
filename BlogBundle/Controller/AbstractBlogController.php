@@ -18,9 +18,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 abstract class AbstractBlogController extends Controller
 {
-    public function createResponse()
+    public function createResponse($content = '', $status = 200, array $headers = array())
     {
-        return new Response;
+        return new Response($content, $status, $headers);
     }
     
     /**

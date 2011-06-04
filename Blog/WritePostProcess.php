@@ -35,6 +35,9 @@ class WritePostProcess
      */
     private $status = Post::STATUS_DRAFT;
 
+    /**
+     * @param Post $post
+     */
     public function __construct(Post $post)
     {
         $this->post = $post;
