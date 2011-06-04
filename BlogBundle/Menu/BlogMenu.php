@@ -32,16 +32,26 @@ class BlogMenu extends Menu
         parent::__construct();
 
         $this->setCurrentUri($request->getRequestUri());
-
+        
+        $this->addToplevel($router, $context);
+    }
+    
+    protected function addToplevel($router, $context)
+    {
         $this->addChild('Home', $router->generate('blog'));
         $this->addChild('RSS', $router->generate('blog_feed'));
         
         /* @var $token Null|TokenInterface */
         if ($context->isGranted("ROLE_ADMIN")) {
             $admin = $this->addChild('Admin', $router->generate('blog_admin_dashboard'));
-            $admin->addChild('Authors', $router->generate('blog_list_authors'));
-            $admin->addChild('Posts', $router->generate('blog_post_admin'));
-            $admin->addChild('Create Post', $router->generate('blog_post_new'));
+            $this->addAdminLevel($admin, $router, $context);
         }
+    }
+        
+    protected function addAdminLevel($admin, $router, $context)
+    {
+        $admin->addChild('Authors', $router->generate('blog_list_authors'));
+        $admin->addChild('Posts', $router->generate('blog_post_admin'));
+        $admin->addChild('Create Post', $router->generate('blog_post_new'));
     }
 }
