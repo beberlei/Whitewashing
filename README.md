@@ -2,6 +2,8 @@
 
 Whitewashing is my blog and a playground for symfony2 application development.
 
+Notice: This bundle was last tested with Symfony Beta 3 and is not guaranteed to work with any other release.
+
 ## Installation
 
 ### Required Bundles
