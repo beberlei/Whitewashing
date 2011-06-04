@@ -22,27 +22,25 @@ class WhitewashingBlogExtension extends Extension
 {
     /**
      * @param array $configs
-     * @param ContainerBuilder $configuration
+     * @param ContainerBuilder $builder
      */
-    public function load(array $configs, ContainerBuilder $configuration)
+    public function load(array $configs, ContainerBuilder $builder)
     {
-        foreach ($configs AS $config) {
-            $this->doLoadBlog($config, $configuration);
-        }
-    }
-
-    public function doLoadBlog($config, ContainerBuilder $configuration)
-    {
-        $loader = new XmlFileLoader($configuration, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader = new XmlFileLoader($builder, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
-
+        
         $params = array('default_blog_id', 'host_url', 'disqus_shortname');
-        foreach ($params AS $param) {
-            if (isset($config[$param])) {
-                $configuration->setParameter('whitewashing.blog.'. $param, $config[$param]);
+        foreach ($configs AS $config) {
+            foreach ($params AS $param) {
+                if (isset($config[$param])) {
+                    $builder->setParameter('whitewashing.blog.'. $param, $config[$param]);
+                }
             }
         }
         
-        return $configuration;
+        if (in_array('KnplabsMenuBundle', array_keys($builder->getParameter('kernel.bundles')))) {
+            $loader = new XmlFileLoader($builder, new FileLocator(__DIR__.'/../Resources/config'));
+            $loader->load('knplabs_menu.xml');
+        }
     }
 }
