@@ -16,6 +16,7 @@ namespace Whitewashing\BlogBundle\Request;
 use Symfony\Bundle\FrameworkBundle\EventDispatcher;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
+use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
 class CurrentBlogListener
 {
@@ -34,13 +35,13 @@ class CurrentBlogListener
      *
      * @param Event $event An Event instance
      */
-    public function handle(Event $event)
+    public function handle(GetResponseEvent $event)
     {
-        if (HttpKernelInterface::MASTER_REQUEST !== $event->get('request_type')) {
+        if (HttpKernelInterface::MASTER_REQUEST !== $event->getRequestType()) {
             return;
         }
 
-        $request = $event->get('request');
+        $request = $event->getRequest();
 
         if (strpos($request->attributes->get('_controller'), 'Whitewashing\BlogBundle\Controller') === 0) {
             $blogId = $this->container->getParameter('whitewashing.blog.default_blog_id');

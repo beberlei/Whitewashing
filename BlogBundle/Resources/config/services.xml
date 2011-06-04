@@ -1,8 +1,9 @@
 <?xml version="1.0" ?>
-<container xmlns="http://www.symfony-project.org/schema/dic/services"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
 
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+        
     <parameters>
         <parameter key="whitewashing.blog.feedservice.class">Whitewashing\Blog\FeedService</parameter>
         <parameter key="whitewashing.bundle.view.twig.htmldisqus.class">Whitewashing\BlogBundle\View\Twig\DisqusExtension</parameter>
@@ -35,9 +36,6 @@
         <service id="whitewashing.blog.feedservice" class="%whitewashing.blog.feedservice.class%">
             <argument type="service" id="doctrine.orm.default_entity_manager" />
             <argument type="service" id="whitewashing.blog.urlgenerator" />
-        </service>
-        <service id="whitewashing.blog.bundle.formbuilder" class="%whitewashing.blog.bundle.formbuilder.class%">
-            <argument id="form.context" type="service" />
         </service>
 
         <service id="whitewashing.blog.urlgenerator" class="Whitewashing\Blog\UrlGenerator">

@@ -13,13 +13,14 @@
 
 namespace Whitewashing\BlogBundle\DependencyInjection;
 
-use Symfony\Component\DependencyInjection\Extension\Extension;
-use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Symfony\Component\Config\FileLocator;
 
-class WhitewashingExtension extends Extension
+class WhitewashingBlogExtension extends Extension
 {
-    public function blogLoad($configs, ContainerBuilder $configuration)
+    public function load(array $configs, ContainerBuilder $configuration)
     {
         foreach ($configs AS $config) {
             $this->doLoadBlog($config, $configuration);
@@ -28,7 +29,7 @@ class WhitewashingExtension extends Extension
 
     public function doLoadBlog($config, ContainerBuilder $configuration)
     {
-        $loader = new XmlFileLoader($configuration, __DIR__.'/../Resources/config');
+        $loader = new XmlFileLoader($configuration, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
 
         $params = array('default_blog_id', 'host_url', 'disqus_shortname');
@@ -39,20 +40,5 @@ class WhitewashingExtension extends Extension
         }
         
         return $configuration;
-    }
-
-    public function getAlias()
-    {
-        return 'whitewashing';
-    }
-
-    public function getNamespace()
-    {
-        return 'http://www.whitewashing.de/schema/blog.xsd';
-    }
-
-    public function getXsdValidationBasePath()
-    {
-        return false;
     }
 }

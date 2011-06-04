@@ -14,9 +14,15 @@
 namespace Whitewashing\BlogBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 abstract class AbstractBlogController extends Controller
 {
+    public function createResponse()
+    {
+        return new Response;
+    }
+    
     /**
      * @return \Symfony\Component\HttpKernel\Request
      */
