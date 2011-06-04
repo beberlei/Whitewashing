@@ -12,6 +12,7 @@
             <tag name="menu" alias="whitewashing_blogmenu" />
             <argument type="service" id="request" />
             <argument type="service" id="router" />
+            <argument type="service" id="security.context" />
         </service>
     </services>
 </container>

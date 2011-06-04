@@ -33,7 +33,7 @@ class AdminPostController extends AbstractBlogController
     public function manageAction()
     {
         return $this->render('WhitewashingBlogBundle:AdminPost:manage.html.twig', array(
-            'posts' => $this->container->get('whitewashing.blog.postservice')->getCurrentPosts()
+            'posts' => $this->container->get('whitewashing.blog.postservice')->findAll()
         ));
     }
 
