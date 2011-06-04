@@ -34,11 +34,11 @@ abstract class FunctionalTestCase extends \PHPUnit_Extensions_Database_TestCase
     /**
      * @return Doctrine\ORM\EntityManager
      */
-    public function createEntityManager()
+    private function createEntityManager()
     {
         $cache = new \Doctrine\Common\Cache\ArrayCache();
 
-        $xmlDriver = new \Doctrine\ORM\Mapping\Driver\XmlDriver(__DIR__ . "/../BlogBundle/Resources/config/metadata");
+        $xmlDriver = new \Doctrine\ORM\Mapping\Driver\XmlDriver(__DIR__ . "/../BlogBundle/Resources/config/doctrine");
 
         $config = new \Doctrine\ORM\Configuration();
         $config->setAutoGenerateProxyClasses(true);

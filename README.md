@@ -38,23 +38,18 @@ Register the bundle in your `AppKernel#registerBundles` method:
 
 Load the whitewashing extension in your app configuration (app/config/config.yml).
 
-    whitewashing.blog:
+    whitewashing_blog:
       default_blog_id:   1
       host_url: http://www.whitewashing.de
 
-Configure doctrine.dbal and doctrine.orm if you haven't done so:
+Configure doctrine by adding the mapping directory:
 
-    doctrine.dbal: ~
-    doctrine.orm: ~
-
-Add the mapping directory:
-
-    doctrine.orm:
-      mappings:
-        WhitewashingBlogBundle:
-          dir: Resources/config/metadata
-          type: xml
-          prefix: Whitewashing\Blog
+    doctrine:
+      orm:
+        mappings:
+          WhitewashingBlogBundle:
+            type: xml
+            prefix: Whitewashing\Blog
 
 If you already have a firewall and provider defined you only need to restrict the access
 to the admin area:
@@ -89,7 +84,7 @@ The blog is independent from the FOS UserBundle though, you can integrate it wit
         db_driver: orm
         class:
             model:
-                user: Whitewashing\BlogBundle\Security\User
+                user: Whitewashing\Blog\User
 
 And the following information to your `routing.yml`:
 

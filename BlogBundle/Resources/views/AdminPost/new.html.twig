@@ -2,7 +2,7 @@
 
 {% block content %}
     <form id="writepost" class="wwform" method="post" action="{{ path('blog_post_new') }}">
-            {{ form_field(writeForm) }}
+            {{ form_widget(writeForm) }}
         <input type="submit" name="submit_thenedit" value="Save" />
         <input type="submit" name="submit_thenshow" value="Save and Show" />
     </form>

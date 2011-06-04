@@ -20,6 +20,10 @@ use Symfony\Component\Config\FileLocator;
 
 class WhitewashingBlogExtension extends Extension
 {
+    /**
+     * @param array $configs
+     * @param ContainerBuilder $configuration
+     */
     public function load(array $configs, ContainerBuilder $configuration)
     {
         foreach ($configs AS $config) {

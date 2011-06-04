@@ -2,7 +2,9 @@
 
 namespace Whitewashing\BlogBundle\Controller;
 
-class AuthorController extends \Symfony\Bundle\FrameworkBundle\Controller\Controller
+use Whitewashing\BlogBundle\Form\AuthorType;
+
+class AuthorController extends AbstractBlogController
 {
     public function listAction()
     {
@@ -47,11 +49,12 @@ class AuthorController extends \Symfony\Bundle\FrameworkBundle\Controller\Contro
     public function newAction()
     {
         $request = $this->container->get('request');
-        $newAuthorForm = $this->container->get('whitewashing.blog.bundle.formbuilder')->createNewAuthorForm();
+        
+        $author = new \Whitewashing\Blog\Author();
+        $newAuthorForm = $this->container->get('form.factory')->create(new AuthorType(), $author);
 
         if ($request->getMethod() == 'POST') {
-            $author = new \Whitewashing\Blog\Author();
-            $newAuthorForm->bind($request, $author);
+            $newAuthorForm->bindRequest($request);
 
             if ($newAuthorForm->isValid()) {
                 $em = $this->container->get('doctrine.orm.default_entity_manager');
@@ -63,7 +66,7 @@ class AuthorController extends \Symfony\Bundle\FrameworkBundle\Controller\Contro
         }
 
         return $this->render('WhitewashingBlogBundle:Author:new.html.twig', array(
-            'newAuthorForm' => $newAuthorForm
+            'newAuthorForm' => $newAuthorForm->createView()
         ));
     }
 }

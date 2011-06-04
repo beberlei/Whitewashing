@@ -19,6 +19,13 @@ use Whitewashing\Blog\FeedBuilder;
 
 class FeedBuilderTest extends \PHPUnit_Framework_TestCase
 {
+    public function setUp()
+    {
+        if (!class_exists('Zend_Feed_Writer')) {
+            $this->markTestSkipped("Zend_Feed is required for this test to run.");
+        }
+    }
+    
     public function testCreateFeed()
     {
         $blog = new Blog('Whitewashing.de');

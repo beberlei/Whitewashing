@@ -16,13 +16,17 @@ namespace Whitewashing\BlogBundle\Controller;
 use Symfony\Component\Security\SecurityContext;
 use Whitewashing\Blog\Author;
 use Whitewashing\Blog\WritePostProcess;
+use Whitewashing\BlogBundle\Form\PostType;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Whitewashing\BlogBundle\Form\WritePostType;
 
 class AdminPostController extends AbstractBlogController
 {
     public function indexAction()
     {
         return $this->render('WhitewashingBlogBundle:AdminPost:dashboard.html.twig', array(
-            'user' => $this->container->get('security.context')->getUser()
+            'user' => $this->container->get('security.context')->getToken()
         ));
     }
 
@@ -35,23 +39,29 @@ class AdminPostController extends AbstractBlogController
 
     public function newAction()
     {        
-        $currentUser = $this->container->get('security.context')->getUser();
-        if (!is_string($currentUser)) { // TODO: This allows anon users, should we?
-            $currentUser = $currentUser->getUsername();
+        $securityToken = $this->container->get('security.context')->getToken();
+        $author = null;
+        if ($securityToken->getUser() instanceof UserInterface) {
+            $username = $securityToken->getUser()->getUsername();
+            $author = $this->container->get('whitewashing.blog.authorservice')->findAuthorForUserAccount($username);
         }
-        $author = $this->container->get('whitewashing.blog.authorservice')->findAuthorForUserAccount($currentUser);
+        
+        if (!$author) {
+            throw new AccessDeniedException;
+        }
+        
         $blog = $this->container->get('whitewashing.blog.blogservice')->getCurrentBlog();
         
         $post = new \Whitewashing\Blog\Post($author, $blog);
 
-        return $this->handleForm('WhitewashingBlogBundle:AdminPost:new.html.twig', $post);
+        return $this->handleForm('WhitewashingBlogBundle:AdminPost:new.html.twig', $post, true);
     }
 
     public function editAction($id)
     {
         $post = $this->container->get('whitewashing.blog.postservice')->findPost($id);
 
-        return $this->handleForm('WhitewashingBlogBundle:AdminPost:edit.html.twig', $post);
+        return $this->handleForm('WhitewashingBlogBundle:AdminPost:edit.html.twig', $post, false);
     }
 
     /**
@@ -59,16 +69,16 @@ class AdminPostController extends AbstractBlogController
      * @param Post $post
      * @return \Symfony\Component\HttpKernel\Response
      */
-    private function handleForm($viewName, $post)
+    private function handleForm($viewName, $post, $allowChangeFormat)
     {
-        $builder = $this->container->get('whitewashing.blog.bundle.formbuilder');
+        $factory = $this->container->get('form.factory');
 
         $writePost = new WritePostProcess($post);
-        $form = $builder->createWritePostForm($writePost);
+        $form = $factory->create(new WritePostType($allowChangeFormat), $writePost, array('allow_change_format' => $allowChangeFormat));
 
         if ($this->getRequest()->getMethod() == 'POST') {
             
-            $form->bind($this->getRequest()->get('writepost'), $writePost);
+            $form->bindRequest($this->getRequest());
 
             if ($form->isValid()) {
                 $em = $this->container->get('doctrine.orm.default_entity_manager');
@@ -85,7 +95,7 @@ class AdminPostController extends AbstractBlogController
         }
 
         return $this->render($viewName, array(
-            'writeForm' => $form,
+            'writeForm' => $form->createView(),
             'post' => $post,
         ));
     }

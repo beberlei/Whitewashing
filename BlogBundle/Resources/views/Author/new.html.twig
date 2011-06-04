@@ -11,7 +11,7 @@ is only a user, he can only edit and delete his own posts. Please look at your S
 to learn how to set groups for users.</p>
 
 <form id="add_author" class="wwform" method="post" action="{{ path('blog_new_author') }}">
-        {{ form_field(newAuthorForm) }}
+        {{ form_widget(newAuthorForm) }}
     <input type="submit" name="submit_add_author" value="Add Author" />
 </form>
 
