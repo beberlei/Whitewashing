@@ -84,7 +84,7 @@ class AdminPostController extends AbstractBlogController
                 $em = $this->container->get('doctrine.orm.default_entity_manager');
                 $post = $writePost->updatePost($em->getRepository('Whitewashing\Blog\Tag'));
                 $em->persist($post);
-                $em->flush();
+                #$em->flush();
 
                 if ($this->getRequest()->get('submit_thenshow')) {
                     return $this->redirect($this->generateUrl('blog_show_post', array('id' => $post->getId())));

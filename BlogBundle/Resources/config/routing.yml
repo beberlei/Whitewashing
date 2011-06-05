@@ -40,7 +40,7 @@ blog_post_new:
 
 blog_post_edit:
   pattern: /blog/admin/posts/{id}/edit
-  defaults: { _controller: WhitewashingBlogBundle:AdminPost:edit }
+  defaults: { _controller: WhitewashingBlogBundle:AdminPost:edit, _tx: "orm.default" }
 
 blog_post_delete:
   pattern: /blog/admin/posts/{id}/delete
@@ -50,11 +50,22 @@ blog_post_admin:
   pattern: /blog/admin/posts/manage
   defaults: { _controller: WhitewashingBlogBundle:AdminPost:manage }
 
-blog_show_post:
-  pattern: /blog/{id}
-  defaults: { _controller: WhitewashingBlogBundle:Blog:view }
+blog_feed_category:
+  pattern: /blog/categories/{slug}/feed
+  defaults: { _controller: WhitewashingBlogBundle:Feed:category }  
+
+blog_category_list:
+  pattern: /blog/categories/{slug}
+  defaults: { _controller: WhitewashingBlogBundle:Category:list }
+
+blog_categories:
+  pattern: /blog/categories
+  defaults: { _controller: WhitewashingBlogBundle:Category:index }
 
 blog_tags:
   pattern: /blog/list/tags
   defaults: { _controller: WhitewashingBlogBundle:Blog:listTags }
 
+blog_show_post:
+  pattern: /blog/{id}
+  defaults: { _controller: WhitewashingBlogBundle:Blog:view }

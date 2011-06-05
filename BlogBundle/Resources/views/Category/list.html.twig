@@ -1,0 +1,18 @@
+{% extends '::layout.html.twig' %}
+
+{% block title %}Posts by Category :: {{category.name}}{% endblock %}
+
+{% block content %}
+<h1>Posts by Category "{{category.name}}"</h1>
+
+<p><a href="{{ path('blog_feed_category', {'slug': category.short}) }}">
+    <img src="{{ asset("bundles/whitewashingblog/themes/whitewashing-de/images/icons/feed-16x16.png") }}" alt="RSS" />
+    Subscribe to posts of this category</a>
+</p>
+
+{% for post in posts %}
+
+{% include 'WhitewashingBlogBundle:Blog:post.html.twig' with {'post': post} %}
+{% endfor %}
+
+{% endblock %}

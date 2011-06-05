@@ -42,14 +42,19 @@ class PostRepository extends \Doctrine\ORM\EntityRepository
      * @param  int $categoryId
      * @return array
      */
-    public function getCategoryPosts($categoryId)
+    public function getCategoryPosts($categoryId, $num = 10, $page = 1)
     {
-        $dql = 'SELECT p FROM Whitewashing\Blog\Post p JOIN p.category c '.
-               'WHERE c.id = ?1 AND p.published = 1 ORDER BY p.created DESC';
+        $blogId = $this->getEntityManager()->getRepository('Whitewashing\Blog\Blog')->getCurrentBlogId();
+        
+        $dql = 'SELECT p FROM Whitewashing\Blog\Post p ' .
+               'JOIN p.blog b JOIN p.categories c '.
+               'WHERE b.id = ?1 AND c.id = ?2 AND p.published = 1 ORDER BY p.created DESC';
 
         return $this->getEntityManager()->createQuery($dql)
-             ->setParameter(1, $categoryId)
-             ->setMaxResults(10)
+             ->setParameter(1, $blogId)
+             ->setParameter(2, $categoryId)
+             ->setFirstResult( ($page - 1) * $num )
+             ->setMaxResults($num)
              ->getResult();
     }
 

@@ -1,0 +1,11 @@
+{% extends "::layout.html.twig" %}
+
+{% block content %}
+<h2>Categories</h2>
+
+<ul>
+{% for category in categories %}
+    <li><a href="{{ path('blog_category_list', {'slug': category.short}) }}">{{ category.name }}</li>
+{% endfor %}
+</ul>
+{% endblock %}

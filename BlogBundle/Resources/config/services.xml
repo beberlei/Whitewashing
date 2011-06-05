@@ -16,6 +16,11 @@
     </parameters>
 
     <services>
+        <service id="whitewashing.blog.categoryservice" factory-service="doctrine.orm.default_entity_manager" factory-method="getRepository"
+            class="Whitewashing\Blog\CategoryRepository">
+            <argument>Whitewashing\Blog\Category</argument>
+        </service>
+        
         <service id="whitewashing.blog.postservice" factory-service="doctrine.orm.default_entity_manager" factory-method="getRepository"
             class="Whitewashing\Blog\PostRepository">
             <argument>Whitewashing\Blog\Post</argument>

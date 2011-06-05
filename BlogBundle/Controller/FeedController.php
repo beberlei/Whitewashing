@@ -24,9 +24,12 @@ class FeedController extends AbstractBlogController
         return $this->renderFeed($feed);
     }
 
-    public function categoryAction()
+    public function categoryAction($slug)
     {
-
+        $feedService = $this->container->get('whitewashing.blog.feedservice');
+        $feed = $feedService->createCategoryFeed($slug);
+        
+        return $this->renderFeed($feed);
     }
 
     public function tagAction($tagName)

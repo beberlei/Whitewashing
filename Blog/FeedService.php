@@ -52,10 +52,14 @@ class FeedService
         return $builder->createAtomFeed();
     }
 
-    public function createCategoryFeed($categoryShort = null)
+    public function createCategoryFeed($slug = null)
     {
         /* @var $category Whitewashing\Blog\Category */
-        $category = $this->em->getRepository('Whitewashing\Blog\Category')->findOneBy(array('short' => $categoryShort));
+        $category = $this->em->getRepository('Whitewashing\Blog\Category')->findOneBy(array('short' => $slug));
+        if (!$category) {
+            throw new \RuntimeException("No category found with given slug");
+        }
+        
         $posts = $this->postRepository()->getCategoryPosts($category->getId());
 
         $builder = $this->generateFeed("Category: ". $category->getName());
@@ -67,6 +71,10 @@ class FeedService
     public function createTagFeed($tagSlug)
     {
         $tag = $this->postRepository()->getTag($tagSlug);
+        if (!$tag) {
+            throw new \RuntimeException("No tag found with given slug");
+        }
+        
         $posts = $this->postRepository()->getTaggedPosts($tag->getId());
 
         $builder = $this->generateFeed("Tag: " . $tag->getName());

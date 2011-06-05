@@ -6,11 +6,27 @@ Notice: This bundle was last tested with Symfony Beta 3 and is not guaranteed to
 
 ## Installation
 
+### Required Third-Party Libraries
+
+* Zeta Components (Specifically ezcDocument for ReStructured Text to HTML Conversion)
+* Zend Framework 1.9 - 1.11 (or Zend_Feed_Writer)
+* GeShi (For Code  highlighting)
+
+Recommended practice: Install first two via PEAR (pear.ezcomponents.org and pear.zfcampus.org) and the
+last download the last. Include all three in the autoload.php:
+
+    require_once "ezc/Base/base.php";
+    spl_autoload_register(array("ezcBase", "autoload"));
+
+    require_once __DIR__.'/../vendor/geshi/geshi.php';
+
+    require_once "Zend/Loader/Autoloader.php";
+    Zend_Loader_Autoloader::getInstance();
+
 ### Required Bundles
 
 * DoctrineBundle (Symfony Core)
 * SecurityBundle (Symfony Core)
-* Zend Framework 1 (for Zend_Feed_Writer) - Can't use the ZF2 dependency of Symfony here, Feed doesnt work there.
 
 ### Optional Bundles
 
@@ -42,7 +58,6 @@ Load the whitewashing extension in your app configuration (app/config/config.yml
 
     whitewashing_blog:
       default_blog_id:   1
-      host_url: http://www.whitewashing.de
 
 Configure doctrine by adding the mapping directory:
 
@@ -86,7 +101,7 @@ The blog is independent from the FOS UserBundle though, you can integrate it wit
         db_driver: orm
         class:
             model:
-                user: Whitewashing\Blog\User
+                user: Whitewashing\BlogBundle/Security/User
 
 And the following information to your `routing.yml`:
 
