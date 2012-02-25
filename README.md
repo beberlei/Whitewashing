@@ -1,3 +1,5 @@
+This bundle is out of date and unmaintained.
+
 # Whitewashing Blog
 
 Whitewashing is my blog and a playground for symfony2 application development.
